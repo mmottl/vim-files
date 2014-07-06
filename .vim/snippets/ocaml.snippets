@@ -1,0 +1,80 @@
+# let
+snippet let
+	let ${1:x} = ${2:v} in
+	${3:e}
+# let rec
+snippet lr
+	let rec ${1:f} =
+	  ${2:expr}
+# if-then-else
+snippet if
+	if ${1:(* condition *)} then
+	  ${2:(* A *)}
+	else
+	  ${3:(* B *)}
+# if-then
+snippet If
+	if ${1:(* condition *)} then
+	  ${2:(* A *)}
+# while
+snippet while
+	while ${1:(* condition *)} do
+	  ${2:(* A *)}
+	done
+# for
+snippet for
+	for ${1:i} = ${2:1} to ${3:10} do
+	  ${4:(* BODY *)}
+	done
+# module
+snippet mod
+	module ${1:(* Name *)} = struct
+	  ${2:(* BODY *)}
+	end  (* $1 *)
+# module : signature
+snippet Mod
+	module ${1:(* Name *)} : ${2:(* SIG *)} = struct
+	  ${3:(* BODY *)}
+	end  (* $1 *)
+# sig
+snippet sig
+	sig
+	  ${2:(* BODY *)}
+	end
+# sigf
+snippet sigf
+	functor (${1:Arg} : ${2:ARG}) -> ${3:(* BODY *)}
+# functor
+snippet func
+	module ${1:M} (${2:Arg} : ${3:ARG}) = struct
+	  ${4:(* BODY *)}
+	end  (* $1 *)
+# functor : signature
+snippet Func
+	module ${1:M} (${2:Arg} : ${3:ARG}) : ${4:SIG} = struct
+	  ${5:(* BODY *)}
+	end  (* $1 *)
+# module type
+snippet mot
+	module type ${1:(* Name *)} = sig
+	  ${2:(* BODY *)}
+	end  (* $1 *)
+# match
+snippet match
+	match ${1:(* e1 *)} with
+	| ${2:p} -> ${3:e2}
+# class
+snippet class
+	class ${1:name} = object
+	  ${2:methods}
+	end
+# object
+snippet obj
+	object
+	  ${2:methods}
+	end
+# begin-end
+snippet beg
+	begin
+	  ${1:block}
+	end
