@@ -93,7 +93,9 @@ set wildmode=list:longest,full
 " Use UTF-8
 set encoding=utf-8
 set termencoding=utf-8
-set fileencoding=utf-8
+if &modifiable
+  set fileencoding=utf-8
+endif
 
 " Backspacing + deleting and wrapping of lines
 set backspace=start,eol,indent whichwrap=b,s,l,h,<,>,[,]
@@ -235,6 +237,11 @@ nnoremap <leader>w :w<CR>
 " ocp-indent - handled in "after/indent" now
 " let opamprefix=system("opam config var prefix | tr -d '\n'")
 " execute "autocmd FileType ocaml source ".opamprefix."/share/typerex/ocp-indent/ocp-indent.vim"
+
+" Add merlin support
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+execute "set rtp+=" . g:opamshare . "/merlin/vimbufsync"
 
 if filereadable(expand('~/.vimrc_local'))
   source ~/.vimrc_local
