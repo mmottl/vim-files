@@ -198,7 +198,7 @@ let g:syntastic_ocaml_use_ocamlbuild = 1
 let g:syntastic_ocaml_checkers = ['merlin']
 
 " Currently disabled
-let g:pathogen_disabled = ['syntastic', 'ocamlmerlin']
+" let g:pathogen_disabled = ['syntastic', 'ocamlmerlin']
 set ofu=syntaxcomplete#Complete
 
 " Load Pathogen
@@ -235,13 +235,14 @@ nnoremap <leader>h :nohlsearch<CR>
 nnoremap <leader>w :w<CR>
 
 " ocp-indent - handled in "after/indent" now
-" let opamprefix=system("opam config var prefix | tr -d '\n'")
-" execute "autocmd FileType ocaml source ".opamprefix."/share/typerex/ocp-indent/ocp-indent.vim"
+let opamprefix=system("opam config var prefix | tr -d '\n'")
+execute ":source ".opamprefix."/share/vim/syntax/ocp-indent.vim"
 
 " Add merlin support
 let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
 execute "set rtp+=" . g:opamshare . "/merlin/vim"
 execute "set rtp+=" . g:opamshare . "/merlin/vimbufsync"
+nnoremap <leader>l :Locate<CR>
 
 if filereadable(expand('~/.vimrc_local'))
   source ~/.vimrc_local
