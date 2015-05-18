@@ -10,8 +10,12 @@ set autoindent
 " Automatically write buffer before special actions
 set autowrite
 
-" Color column
-"set colorcolumn=80
+" Add a linemarker at 80
+augroup BgHighlight
+  autocmd!
+  autocmd WinEnter * set colorcolumn=80
+  autocmd WinLeave * set colorcolumn=0
+augroup END
 
 " Tabs are evil
 set expandtab
@@ -41,7 +45,7 @@ set laststatus=2
 set linebreak
 
 " Set statusline
-set statusline=%F%m%r%h%w\ %y\ [pos=%l,%v]\ [len=%L\ (%p%%)]
+set statusline=%F%m%r%h%w\ %y\ [pos=%l,%c%V]\ [len=%L\ (%p%%)]
 
 " Don't display macro steps
 set lazyredraw
@@ -198,7 +202,7 @@ let g:syntastic_ocaml_use_ocamlbuild = 1
 let g:syntastic_ocaml_checkers = ['merlin']
 
 " Currently disabled
-" let g:pathogen_disabled = ['syntastic', 'ocamlmerlin']
+let g:pathogen_disabled = ['syntastic', 'ocamlmerlin']
 set ofu=syntaxcomplete#Complete
 
 " Load Pathogen
@@ -233,10 +237,6 @@ nnoremap <leader>h :nohlsearch<CR>
 
 " Save quickly
 nnoremap <leader>w :w<CR>
-
-" ocp-indent - handled in "after/indent" now
-let opamprefix=system("opam config var prefix | tr -d '\n'")
-execute ":source ".opamprefix."/share/vim/syntax/ocp-indent.vim"
 
 " Add merlin support
 let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
