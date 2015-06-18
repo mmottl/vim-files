@@ -5,9 +5,9 @@
 "               Karl-Heinz Sylla  <Karl-Heinz.Sylla@gmd.de>
 "               Issac Trotts      <ijtrotts@ucdavis.edu>
 " URL:          http://www.ocaml.info/vim/syntax/ocaml.vim
-" Last Change:  2015 Jan 21 - Bug fix for comments following included modules (MM)
+" Last Change:  2015 Jun 17 - Added new "nonrec" keyword (MM)
+"               2015 Jan 21 - Bug fix for comments following included modules (MM)
 "               2014 Oct 09 - added generative functors and quoted strings (MM)
-"               2012 May 12 - Added Dominique Pellé's spell checking patch (MM)
 
 " A minor patch was applied to the official version so that object/end
 " can be distinguished from begin/end, which is used for indentation,
@@ -157,7 +157,7 @@ syn keyword  ocamlKeyword  exception external fun
 
 syn keyword  ocamlKeyword  in inherit initializer
 syn keyword  ocamlKeyword  land lazy let match
-syn keyword  ocamlKeyword  method mutable new of
+syn keyword  ocamlKeyword  method mutable new nonrec of
 syn keyword  ocamlKeyword  parser private raise rec
 syn keyword  ocamlKeyword  try type
 syn keyword  ocamlKeyword  virtual when while with
