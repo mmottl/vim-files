@@ -4,9 +4,9 @@
 " Maintainers:  Markus Mottl            <markus.mottl@gmail.com>
 "               Fabrizio Zeno Cornelli  <zeno@filibusta.crema.unimi.it>
 " URL:          http://www.ocaml.info/vim/syntax/sml.vim
-" Last Change:  2006 Oct 23 - Fixed character highlighting bug (MM)
+" Last Change:  2015 Aug 31 - Fixed opening of modules (Ramana Kumar)
+"               2006 Oct 23 - Fixed character highlighting bug (MM)
 "               2002 Jun 02 - Fixed small typo  (MM)
-"               2001 Nov 20 - Fixed small highlighting bug with modules (MM)
 
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded
@@ -85,7 +85,7 @@ syn region   smlSig matchgroup=smlModule start="\<sig\>" matchgroup=smlModule en
 syn region   smlModSpec matchgroup=smlKeyword start="\<structure\>" matchgroup=smlModule end="\<\u\(\w\|'\)*\>" contained contains=@smlAllErrs,smlComment skipwhite skipempty nextgroup=smlModTRWith,smlMPRestr
 
 " "open"
-syn region   smlNone matchgroup=smlKeyword start="\<open\>" matchgroup=smlModule end="\<\u\(\w\|'\)*\(\.\u\(\w\|'\)*\)*\>" contains=@smlAllErrs,smlComment
+syn region   smlNone matchgroup=smlKeyword start="\<open\>" matchgroup=smlModule end="\<\w\(\w\|'\)*\(\.\w\(\w\|'\)*\)*\>" contains=@smlAllErrs,smlComment
 
 " "structure" - somewhat complicated stuff ;-)
 syn region   smlModule matchgroup=smlKeyword start="\<\(structure\|functor\)\>" matchgroup=smlModule end="\<\u\(\w\|'\)*\>" contains=@smlAllErrs,smlComment skipwhite skipempty nextgroup=smlPreDef
