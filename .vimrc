@@ -216,6 +216,7 @@ let g:snips_author = 'Markus Mottl'
 
 " MRU-functionality
 nnoremap <leader>m :MRU<CR>
+let MRU_Max_Entries = 1000
 
 " FuF-functionality
 nnoremap <leader>ff :FufFile<CR>
