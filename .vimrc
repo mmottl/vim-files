@@ -239,6 +239,10 @@ nnoremap <leader>h :nohlsearch<CR>
 " Save quickly
 nnoremap <leader>w :w<CR>
 
+" Choosewin functionality
+nmap  -  <Plug>(choosewin)
+let g:choosewin_overlay_enable = 1
+
 " ## added by OPAM user-setup for vim / base ## 9a3a300d80f2faeb258825d3e0c1947c ## you can edit, but keep this line
 let s:opam_share_dir = system("opam config var share")
 let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
