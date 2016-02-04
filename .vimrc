@@ -13,8 +13,8 @@ set autowrite
 " Add a linemarker at 80
 augroup BgHighlight
   autocmd!
-  autocmd WinEnter * set colorcolumn=80
-  autocmd WinLeave * set colorcolumn=0
+  autocmd BufWinEnter,WinEnter * set colorcolumn=80
+  autocmd BufWinLeave,WinLeave * set colorcolumn=0
 augroup END
 
 " Tabs are evil
