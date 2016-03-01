@@ -5,9 +5,9 @@
 "               Karl-Heinz Sylla  <Karl-Heinz.Sylla@gmd.de>
 "               Issac Trotts      <ijtrotts@ucdavis.edu>
 " URL:          http://www.ocaml.info/vim/syntax/ocaml.vim
-" Last Change:  2015 Jun 17 - Added new "nonrec" keyword (MM)
+" Last Change:  2016 Mar 01 - Support for quoted strings (Glen Mével)
+"               2015 Jun 17 - Added new "nonrec" keyword (MM)
 "               2015 Jan 21 - Bug fix for comments following included modules (MM)
-"               2014 Oct 09 - added generative functors and quoted strings (MM)
 
 " A minor patch was applied to the official version so that object/end
 " can be distinguished from begin/end, which is used for indentation,
@@ -150,6 +150,9 @@ syn region   ocamlStruct matchgroup=ocamlModule start="\<\(module\s\+\)\=struct\
 " "module type"
 syn region   ocamlKeyword start="\<module\>\s*\<type\>\(\s*\<of\>\)\=" matchgroup=ocamlModule end="\<\w\(\w\|'\)*\>" contains=ocamlComment skipwhite skipempty nextgroup=ocamlMTDef
 syn match    ocamlMTDef "=\s*\w\(\w\|'\)*\>"hs=s+1,me=s+1 skipwhite skipempty nextgroup=ocamlFullMod
+
+" Quoted strings
+syn region ocamlString matchgroup=ocamlQuotedStringDelim start="{\z\([a-z_]*\)|" end="|\z1}" contains=@Spell
 
 syn keyword  ocamlKeyword  and as assert class
 syn keyword  ocamlKeyword  constraint else
@@ -317,6 +320,7 @@ if version >= 508 || !exists("did_ocaml_syntax_inits")
   HiLink ocamlNumber	   Number
   HiLink ocamlFloat	   Float
   HiLink ocamlString	   String
+  HiLink ocamlQuotedStringDelim Identifier
 
   HiLink ocamlLabel	   Identifier
 
