@@ -5,7 +5,7 @@
 "               Karl-Heinz Sylla  <Karl-Heinz.Sylla@gmd.de>
 "               Issac Trotts      <ijtrotts@ucdavis.edu>
 " URL:          http://www.ocaml.info/vim/syntax/ocaml.vim
-" Last Change:  2016 Mar 01 - Support for quoted strings (Glen Mével)
+" Last Change:  2016 Mar 11 - Improved support for quoted strings (Glen Mével)
 "               2015 Jun 17 - Added new "nonrec" keyword (MM)
 "               2015 Jan 21 - Bug fix for comments following included modules (MM)
 
@@ -197,7 +197,6 @@ syn match    ocamlCharacter    "'\\x\x\x'"
 syn match    ocamlCharErr      "'\\\d\d'\|'\\\d'"
 syn match    ocamlCharErr      "'\\[^\'ntbr]'"
 syn region   ocamlString       start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=@Spell
-syn match    ocamlString       "{\(\w*\)|\(.\|\n\)\{-}|\1}" contains=@Spell
 
 syn match    ocamlFunDef       "->"
 syn match    ocamlRefAssign    ":="
