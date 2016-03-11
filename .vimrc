@@ -243,7 +243,7 @@ nnoremap <leader>w :w<CR>
 nmap  -  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 
-" ## added by OPAM user-setup for vim / base ## 9a3a300d80f2faeb258825d3e0c1947c ## you can edit, but keep this line
+" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
 let s:opam_share_dir = system("opam config var share")
 let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
 
@@ -267,7 +267,7 @@ let s:opam_configuration['merlin'] = function('OpamConfMerlin')
 
 let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
 let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-let s:opam_available_tools = systemlist(join(s:opam_check_cmdline, ' '))
+let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
 for tool in s:opam_packages
   " Respect package order (merlin should be after ocp-index)
   if count(s:opam_available_tools, tool) > 0
