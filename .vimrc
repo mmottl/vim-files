@@ -243,6 +243,19 @@ nnoremap <leader>w :w<CR>
 nmap  -  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 
+" Change cursor shape in Tmux
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
+if filereadable(expand('~/.vimrc_local'))
+  source ~/.vimrc_local
+endif
+
 " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
 let s:opam_share_dir = system("opam config var share")
 let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
@@ -275,9 +288,8 @@ for tool in s:opam_packages
   endif
 endfor
 " ## end of OPAM user-setup addition for vim / base ## keep this line
-" ## added by OPAM user-setup for vim / ocp-indent ## e0475008ba118d73abb1e026e269617a ## you can edit, but keep this line
-" ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line
-
-if filereadable(expand('~/.vimrc_local'))
-  source ~/.vimrc_local
+" ## added by OPAM user-setup for vim / ocp-indent ## db5962fa86d88e4b85e3ff38f8e7bb48 ## you can edit, but keep this line
+if count(s:opam_available_tools,"ocp-indent") == 0
+  source "/Users/mmottl/.opam/4.03.0/share/vim/syntax/ocp-indent.vim"
 endif
+" ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line
