@@ -144,8 +144,8 @@ colorscheme markus
 nnoremap Q gqip
 
 " Function key settings - 'make'-shortcuts
-map <F5> :cp<CR>
-map <F6> :cn<CR>
+map <F5> :lnext<CR>
+map <F6> :lprev<CR>
 
 " Have <F2> toggle paste
 set pastetoggle=<F2>
@@ -197,12 +197,18 @@ autocmd FileType sh set iskeyword=~,@,48-57,_,192-255,-
 let g:netrw_home=$HOME
 
 " Syntastic
-" let g:syntastic_ocaml_use_ocamlc = 1
-let g:syntastic_ocaml_use_ocamlbuild = 1
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_ocaml_checkers = ['merlin']
 
-" Currently disabled
-let g:pathogen_disabled = ['syntastic', 'ocamlmerlin']
+" Merlin
+nmap <LocalLeader>*  <Plug>(MerlinSearchOccurrencesForward)
+nmap <LocalLeader>#  <Plug>(MerlinSearchOccurrencesBackward)
+nmap <LocalLeader>r  <Plug>(MerlinRename)
+nmap <LocalLeader>R  <Plug>(MerlinRenameAppend)
+
+"" Currently disabled
+" let g:pathogen_disabled = ['syntastic', 'ocamlmerlin']
+"
 set ofu=syntaxcomplete#Complete
 
 " Load Pathogen
