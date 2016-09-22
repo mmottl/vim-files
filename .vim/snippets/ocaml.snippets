@@ -36,6 +36,11 @@ snippet Mod
 	module ${1:(* Name *)} : ${2:(* SIG *)} = struct
 	  ${3:(* BODY *)}
 	end  (* $1 *)
+# module in a signature
+snippet mods
+	module ${1:(* Name *)} : sig
+	  ${2:(* BODY *)}
+	end  (* $1 *)
 # sig
 snippet sig
 	sig
@@ -55,6 +60,10 @@ snippet Func
 	  ${5:(* BODY *)}
 	end  (* $1 *)
 # module type
+snippet mt
+	module type ${1:(* Name *)} = ${2:rhs}
+
+# module type X = sig ... end
 snippet mot
 	module type ${1:(* Name *)} = sig
 	  ${2:(* BODY *)}
