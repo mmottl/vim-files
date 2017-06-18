@@ -165,7 +165,8 @@ nnoremap <leader>U yyp<c-v>$r=
 
 " OCaml stuff
 let no_ocaml_comments = 1
-set makeprg=ocamlbuild\ ${BUILDFLAGS}\ -use-ocamlfind\ all.otarget
+set makeprg=make
+" set makeprg=ocamlbuild\ ${BUILDFLAGS}\ -use-ocamlfind\ all.otarget
 "set makeprg=omake\ -j\ 8
 
 " Remove GUI-nonsense
@@ -294,7 +295,7 @@ for tool in s:opam_packages
   endif
 endfor
 " ## end of OPAM user-setup addition for vim / base ## keep this line
-" ## added by OPAM user-setup for vim / ocp-indent ## db5962fa86d88e4b85e3ff38f8e7bb48 ## you can edit, but keep this line
+" ## added by OPAM user-setup for vim / ocp-indent ## 8475e24c0ca1afb4e5a2069146ec51f7 ## you can edit, but keep this line
 if count(s:opam_available_tools,"ocp-indent") == 0
   source "/Users/mmottl/.opam/4.04.1/share/vim/syntax/ocp-indent.vim"
 endif
