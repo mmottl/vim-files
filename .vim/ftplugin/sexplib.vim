@@ -9,8 +9,6 @@ if exists("b:did_ftplugin")
 endif
 let b:did_ftplugin=1
 
-setl lisp
-
 " Comment string
 setl commentstring=;\ %s
 setl comments=:;
