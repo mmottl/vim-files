@@ -200,16 +200,9 @@ let g:netrw_home=$HOME
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_ocaml_checkers = ['merlin']
+" Currently disabled
+let g:pathogen_disabled = ['syntastic', 'ocamlmerlin']
 
-" Merlin
-nmap <LocalLeader>*  <Plug>(MerlinSearchOccurrencesForward)
-nmap <LocalLeader>#  <Plug>(MerlinSearchOccurrencesBackward)
-nmap <LocalLeader>r  <Plug>(MerlinRename)
-nmap <LocalLeader>R  <Plug>(MerlinRenameAppend)
-
-"" Currently disabled
-" let g:pathogen_disabled = ['syntastic', 'ocamlmerlin']
-"
 set ofu=syntaxcomplete#Complete
 
 " Load Pathogen
@@ -250,13 +243,43 @@ nnoremap <leader>w :w<CR>
 nmap  -  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 
+"
+function FT_ocaml()
+	" Merlin
+	nmap <LocalLeader>*  <Plug>(MerlinSearchOccurrencesForward)
+	nmap <LocalLeader>#  <Plug>(MerlinSearchOccurrencesBackward)
+	nmap <LocalLeader>d :MerlinDocument<CR>
+	nmap <LocalLeader>gd :MerlinILocate<CR>
+	nmap <LocalLeader>m :MerlinDestruct<CR>
+	nmap <LocalLeader>o :MerlinOutline<CR>
+	nmap <LocalLeader>r  <Plug>(MerlinRename)
+	nmap <LocalLeader>R  <Plug>(MerlinRenameAppend)
+	nmap <LocalLeader>T :MerlinYankLatestType<CR>
+
+	" Load topkg in Merlin when editing pkg/pkg.ml
+	if expand("%:p") =~# "pkg\/pkg\.ml$"
+		call merlin#Use("topkg")
+	endif
+
+	call SuperTabSetDefaultCompletionType("<c-x><c-o>")
+endfunction
+
+au FileType ocaml call FT_ocaml()
+
+" Rainbow
+let g:rainbow_active = 0
+au FileType sexplib :RainbowToggle
+
+" ALE
+let g:ale_lint_on_text_changed = 'never'
+
 " Change cursor shape in Tmux
 if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 else
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
 if filereadable(expand('~/.vimrc_local'))
