@@ -272,6 +272,12 @@ au FileType sexplib :RainbowToggle
 
 " ALE
 let g:ale_lint_on_text_changed = 'never'
+highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=234
+highlight ALEWarningSign cterm=bold ctermfg=11 ctermbg=234
+highlight ALEError cterm=NONE ctermfg=0 ctermbg=1
+highlight ALEWarning cterm=NONE ctermfg=0 ctermbg=11
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
 
 " Change cursor shape in Tmux
 if exists('$TMUX')
