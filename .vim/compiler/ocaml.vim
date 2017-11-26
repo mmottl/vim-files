@@ -39,10 +39,14 @@ CompilerSet errorformat =
       \%Wocamlyacc:\ w\ -\ %m,
       \%-Zmake%.%#,
       \%C%m,
-      \%D%*\\a[%*\\d]:\ Entering\ directory\ [`']%f',
-      \%X%*\\a[%*\\d]:\ Leaving\ directory\ [`']%f',
-      \%D%*\\a:\ Entering\ directory\ [`']%f',
-      \%X%*\\a:\ Leaving\ directory\ [`']%f',
+      \%D%*\\a[%*\\d]:\ Entering\ directory\ `%f',
+      \%X%*\\a[%*\\d]:\ Leaving\ directory\ `%f',
+      \%D%*\\a:\ Entering\ directory\ `%f',
+      \%X%*\\a:\ Leaving\ directory\ `%f',
+      \%D%*\\a[%*\\d]:\ Entering\ directory\ '%f',
+      \%X%*\\a[%*\\d]:\ Leaving\ directory\ '%f',
+      \%D%*\\a:\ Entering\ directory\ '%f',
+      \%X%*\\a:\ Leaving\ directory\ '%f',
       \%DMaking\ %*\\a\ in\ %f
 
 let &cpo = s:cpo_save
