@@ -3,6 +3,7 @@
 " Maintainer:  Markus Mottl <markus.mottl@gmail.com>
 " URL:         http://www.ocaml.info/vim/compiler/ocaml.vim
 " Last Change:
+"              2017 Nov 26 - Improved error format (Markus Mottl)
 "              2013 Aug 27 - Added a new OCaml error format (Markus Mottl)
 "              2013 Jun 30 - Initial version (Marc Weber)
 "
@@ -38,10 +39,10 @@ CompilerSet errorformat =
       \%Wocamlyacc:\ w\ -\ %m,
       \%-Zmake%.%#,
       \%C%m,
-      \%D%*\\a[%*\\d]:\ Entering\ directory\ `%f',
-      \%X%*\\a[%*\\d]:\ Leaving\ directory\ `%f',
-      \%D%*\\a:\ Entering\ directory\ `%f',
-      \%X%*\\a:\ Leaving\ directory\ `%f',
+      \%D%*\\a[%*\\d]:\ Entering\ directory\ [`']%f',
+      \%X%*\\a[%*\\d]:\ Leaving\ directory\ [`']%f',
+      \%D%*\\a:\ Entering\ directory\ [`']%f',
+      \%X%*\\a:\ Leaving\ directory\ [`']%f',
       \%DMaking\ %*\\a\ in\ %f
 
 let &cpo = s:cpo_save
