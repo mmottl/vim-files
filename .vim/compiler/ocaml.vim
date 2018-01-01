@@ -47,6 +47,8 @@ CompilerSet errorformat =
       \%X%*\\a[%*\\d]:\ Leaving\ directory\ '%f',
       \%D%*\\a:\ Entering\ directory\ '%f',
       \%X%*\\a:\ Leaving\ directory\ '%f',
+      \%DEntering\ directory\ '%f',
+      \%XLeaving\ directory\ '%f',
       \%DMaking\ %*\\a\ in\ %f
 
 let &cpo = s:cpo_save
