@@ -56,6 +56,12 @@ set nostartofline
 " Want mouse support
 set mouse=a
 
+" Turn on persistent undo
+set undofile
+set undodir=~/.vim-undodir
+set undolevels=1000
+set undoreload=10000
+
 " Maintain some more context around the cursor
 set scrolloff=3
 set sidescrolloff=3
