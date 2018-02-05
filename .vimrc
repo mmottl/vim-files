@@ -284,6 +284,8 @@ highlight ALEError cterm=NONE ctermfg=0 ctermbg=1
 highlight ALEWarning cterm=NONE ctermfg=0 ctermbg=11
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Change cursor shape in Tmux
 if exists('$TMUX')
