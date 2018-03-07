@@ -5,9 +5,9 @@
 "               Karl-Heinz Sylla  <Karl-Heinz.Sylla@gmd.de>
 "               Issac Trotts      <ijtrotts@ucdavis.edu>
 " URL:          http://www.ocaml.info/vim/syntax/ocaml.vim
-" Last Change:  2017 Apr 11 - Improved matching of negative numbers (MM)
+" Last Change:  2018 Mar 07 - Improved support for PPX (Risto Stevcev)
+"               2017 Apr 11 - Improved matching of negative numbers (MM)
 "               2016 Mar 11 - Improved support for quoted strings (Glen Mével)
-"               2015 Jun 17 - Added new "nonrec" keyword (MM)
 
 " A minor patch was applied to the official version so that object/end
 " can be distinguished from begin/end, which is used for indentation,
@@ -197,6 +197,7 @@ syn match    ocamlCharacter    "'\\x\x\x'"
 syn match    ocamlCharErr      "'\\\d\d'\|'\\\d'"
 syn match    ocamlCharErr      "'\\[^\'ntbr]'"
 syn region   ocamlString       start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=@Spell
+syn region   ocamlPpx          start=+\[@+ end=+\]+ contains=@Spell
 
 syn match    ocamlFunDef       "->"
 syn match    ocamlRefAssign    ":="
