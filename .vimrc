@@ -56,6 +56,9 @@ set nostartofline
 " Want mouse support
 set mouse=a
 
+" Make clipboard work on Macs
+set clipboard=unnamed
+
 " Turn on persistent undo
 set undofile
 set undodir=~/.vim-undodir
