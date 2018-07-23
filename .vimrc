@@ -284,7 +284,7 @@ let g:ale_lint_on_text_changed = 'never'
 highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=234
 highlight ALEWarningSign cterm=bold ctermfg=11 ctermbg=234
 highlight ALEError cterm=NONE ctermfg=0 ctermbg=1
-highlight ALEWarning cterm=NONE ctermfg=0 ctermbg=11
+highlight ALEWarning cterm=NONE ctermfg=0 ctermbg=13
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
