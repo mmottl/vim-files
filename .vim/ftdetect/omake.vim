@@ -1,1 +1,1 @@
-au! BufRead,BufNewFile OMakefile,OMakeroot,*.om,OMakeroot.in set ft=omake noexpandtab
+au! BufRead,BufNewFile OMakefile,OMakeroot,*.om,OMakeroot.in set ft=omake

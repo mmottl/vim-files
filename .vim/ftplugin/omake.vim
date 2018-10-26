@@ -17,8 +17,8 @@ setlocal com=sO:#\ -,mO:#\ \ ,b:#
 " Set 'commentstring' to put the marker after a #.
 setlocal commentstring=#\ %s
 
-" always use spaces and not tabs
-setlocal expandtab
+" Make sure a hard tab is used, required for most OMake programs
+setlocal noexpandtab softtabstop=0
 
 " Including files.
 let &l:include = '^\s*include'
