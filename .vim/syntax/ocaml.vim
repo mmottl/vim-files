@@ -222,11 +222,11 @@ else
   syn match    ocamlOperator   "<-"
 endif
 
-syn match    ocamlNumber        "-\=\<\d\(_\|\d\)*[l|L|n]\?\>"
-syn match    ocamlNumber        "-\=\<0[x|X]\(\x\|_\)\+[l|L|n]\?\>"
-syn match    ocamlNumber        "-\=\<0[o|O]\(\o\|_\)\+[l|L|n]\?\>"
-syn match    ocamlNumber        "-\=\<0[b|B]\([01]\|_\)\+[l|L|n]\?\>"
-syn match    ocamlFloat         "-\=\<\d\(_\|\d\)*\.\?\(_\|\d\)*\([eE][-+]\=\d\(_\|\d\)*\)\=\>"
+syn match    ocamlNumber        "\<-\=\d\(_\|\d\)*[l|L|n]\?\>"
+syn match    ocamlNumber        "\<-\=0[x|X]\(\x\|_\)\+[l|L|n]\?\>"
+syn match    ocamlNumber        "\<-\=0[o|O]\(\o\|_\)\+[l|L|n]\?\>"
+syn match    ocamlNumber        "\<-\=0[b|B]\([01]\|_\)\+[l|L|n]\?\>"
+syn match    ocamlFloat         "\<-\=\d\(_\|\d\)*\.\?\(_\|\d\)*\([eE][-+]\=\d\(_\|\d\)*\)\=\>"
 
 " Labels
 syn match    ocamlLabel        "\~\(\l\|_\)\(\w\|'\)*"lc=1

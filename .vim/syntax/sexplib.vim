@@ -30,11 +30,11 @@ syn match    sexplibComment ";.*" contains=sexplibTodo
 " Atoms
 syn match    sexplibUnquotedAtom /\([^;()" \t#|]\|#[^;()" \t|]\||[^;()" \t#]\)[^;()" \t]*/
 syn region   sexplibQuotedAtom    start=+"+ skip=+\\\\\|\\"+ end=+"+
-syn match    sexplibNumber        "-\=\<\d\(_\|\d\)*[l|L|n]\?\>"
-syn match    sexplibNumber        "-\=\<0[x|X]\(\x\|_\)\+[l|L|n]\?\>"
-syn match    sexplibNumber        "-\=\<0[o|O]\(\o\|_\)\+[l|L|n]\?\>"
-syn match    sexplibNumber        "-\=\<0[b|B]\([01]\|_\)\+[l|L|n]\?\>"
-syn match    sexplibFloat         "-\=\<\d\(_\|\d\)*\.\?\(_\|\d\)*\([eE][-+]\=\d\(_\|\d\)*\)\=\>"
+syn match    sexplibNumber        "\<-\=\d\(_\|\d\)*[l|L|n]\?\>"
+syn match    sexplibNumber        "\<-\=0[x|X]\(\x\|_\)\+[l|L|n]\?\>"
+syn match    sexplibNumber        "\<-\=0[o|O]\(\o\|_\)\+[l|L|n]\?\>"
+syn match    sexplibNumber        "\<-\=0[b|B]\([01]\|_\)\+[l|L|n]\?\>"
+syn match    sexplibFloat         "\<-\=\d\(_\|\d\)*\.\?\(_\|\d\)*\([eE][-+]\=\d\(_\|\d\)*\)\=\>"
 
 " Lists
 syn region   sexplibEncl transparent matchgroup=sexplibEncl start="(" matchgroup=sexplibEncl end=")" contains=ALLBUT,sexplibParenErr
