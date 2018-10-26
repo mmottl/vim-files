@@ -5,7 +5,9 @@
 "               Karl-Heinz Sylla  <Karl-Heinz.Sylla@gmd.de>
 "               Issac Trotts      <ijtrotts@ucdavis.edu>
 " URL:          http://www.ocaml.info/vim/syntax/ocaml.vim
-" Last Change:  2018 Mar 07 - Improved support for PPX (Risto Stevcev)
+" Last Change:
+"               2018 Apr 22 - Improved support for PPX (Andrey Popp)
+"               2018 Mar 07 - Improved support for PPX (Risto Stevcev)
 "               2017 Apr 11 - Improved matching of negative numbers (MM)
 "               2016 Mar 11 - Improved support for quoted strings (Glen Mével)
 
@@ -20,6 +22,9 @@ if version < 600
 elseif exists("b:current_syntax") && b:current_syntax == "ocaml"
   finish
 endif
+
+" ' can be used in OCaml identifiers
+setlocal iskeyword+='
 
 " OCaml is case sensitive.
 syn case match
@@ -106,6 +111,10 @@ endif
 " "if"
 syn region   ocamlNone matchgroup=ocamlKeyword start="\<if\>" matchgroup=ocamlKeyword end="\<then\>" contains=ALLBUT,@ocamlContained,ocamlThenErr
 
+"" PPX nodes
+
+syn match ocamlPpxIdentifier /\(\[@\{1,3\}\)\@<=\w\+\(\.\w\+\)*/
+syn region ocamlPpx matchgroup=ocamlPpxEncl start="\[@\{1,3\}" contains=TOP end="\]"
 
 "" Modules
 
@@ -197,7 +206,6 @@ syn match    ocamlCharacter    "'\\x\x\x'"
 syn match    ocamlCharErr      "'\\\d\d'\|'\\\d'"
 syn match    ocamlCharErr      "'\\[^\'ntbr]'"
 syn region   ocamlString       start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=@Spell
-syn region   ocamlPpx          start=+\[@+ end=+\]+ contains=@Spell
 
 syn match    ocamlFunDef       "->"
 syn match    ocamlRefAssign    ":="
@@ -329,6 +337,8 @@ if version >= 508 || !exists("did_ocaml_syntax_inits")
   HiLink ocamlTodo	   Todo
 
   HiLink ocamlEncl	   Keyword
+
+  HiLink ocamlPpxEncl       ocamlEncl
 
   delcommand HiLink
 endif
