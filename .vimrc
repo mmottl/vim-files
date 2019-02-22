@@ -24,7 +24,7 @@ set expandtab
 set formatoptions=tn1
 
 " My default format program
-set formatprg=fmt\ -w\ 80\ -s
+set formatprg=fmt\ -w\ 80\ -u
 
 " Only hide invisible buffers (keeps their editing state)
 set hidden
@@ -335,3 +335,8 @@ for tool in s:opam_packages
   endif
 endfor
 " ## end of OPAM user-setup addition for vim / base ## keep this line
+" ## added by OPAM user-setup for vim / ocp-indent ## f78c31c4d8fca3594257be5a7d57ac80 ## you can edit, but keep this line
+if count(s:opam_available_tools,"ocp-indent") == 0
+  source "/Users/mmottl/.opam/4.07.1/share/ocp-indent/vim/indent/ocaml.vim"
+endif
+" ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line
