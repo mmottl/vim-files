@@ -6,10 +6,11 @@
 "               Issac Trotts      <ijtrotts@ucdavis.edu>
 " URL:          http://www.ocaml.info/vim/syntax/ocaml.vim
 " Last Change:
+"               2018 Nov 08 - Improved highlighting of operators (Maëlan)
 "               2018 Apr 22 - Improved support for PPX (Andrey Popp)
+"               2018 Mar 16 - Remove raise, lnot and not from keywords (Étienne Millon, "copy")
 "               2018 Mar 07 - Improved support for PPX (Risto Stevcev)
 "               2017 Apr 11 - Improved matching of negative numbers (MM)
-"               2016 Mar 11 - Improved support for quoted strings (Glen Mével)
 
 " A minor patch was applied to the official version so that object/end
 " can be distinguished from begin/end, which is used for indentation,
@@ -36,7 +37,7 @@ syn match    ocamlMethod       "#"
 syn match    ocamlComment   "^#!.*" contains=@Spell
 
 " Scripting directives
-syn match    ocamlScript "^#\<\(quit\|labels\|warnings\|directory\|cd\|load\|use\|install_printer\|remove_printer\|require\|thread\|trace\|untrace\|untrace_all\|print_depth\|print_length\|camlp4o\)\>"
+syn match    ocamlScript "^#\<\(quit\|labels\|warnings\|warn_error\|directory\|remove_directory\|cd\|load\|load_rec\|use\|mod_use\|install_printer\|remove_printer\|require\|list\|ppx\|principal\|predicates\|rectypes\|thread\|trace\|untrace\|untrace_all\|print_depth\|print_length\|camlp4o\|camlp4r\|topfind_log\|topfind_verbose\)\>"
 
 " lowercase identifier - the standard way to match
 syn match    ocamlLCIdentifier /\<\(\l\|_\)\(\w\|'\)*\>/
@@ -119,7 +120,7 @@ syn region ocamlPpx matchgroup=ocamlPpxEncl start="\[@\{1,3\}" contains=TOP end=
 "" Modules
 
 " "sig"
-syn region   ocamlSig matchgroup=ocamlModule start="\<sig\>" matchgroup=ocamlModule end="\<end\>" contains=ALLBUT,@ocamlContained,ocamlEndErr,ocamlModule
+syn region   ocamlSig matchgroup=ocamlSigEncl start="\<sig\>" matchgroup=ocamlSigEncl end="\<end\>" contains=ALLBUT,@ocamlContained,ocamlEndErr,ocamlModule
 syn region   ocamlModSpec matchgroup=ocamlKeyword start="\<module\>" matchgroup=ocamlModule end="\<\u\(\w\|'\)*\>" contained contains=@ocamlAllErrs,ocamlComment skipwhite skipempty nextgroup=ocamlModTRWith,ocamlMPRestr
 
 " "open"
@@ -131,12 +132,12 @@ syn match    ocamlKeyword "\<include\>" skipwhite skipempty nextgroup=ocamlModPa
 " "module" - somewhat complicated stuff ;-)
 syn region   ocamlModule matchgroup=ocamlKeyword start="\<module\>" matchgroup=ocamlModule end="\<\u\(\w\|'\)*\>" contains=@ocamlAllErrs,ocamlComment skipwhite skipempty nextgroup=ocamlPreDef
 syn region   ocamlPreDef start="."me=e-1 matchgroup=ocamlKeyword end="\l\|=\|)"me=e-1 contained contains=@ocamlAllErrs,ocamlComment,ocamlModParam,ocamlGenMod,ocamlModTypeRestr,ocamlModTRWith nextgroup=ocamlModPreRHS
-syn region   ocamlModParam start="([^*]" end=")" contained contains=ocamlGenMod,ocamlModParam1,ocamlVal
+syn region   ocamlModParam start="([^*]" end=")" contained contains=ocamlGenMod,ocamlModParam1,ocamlSig,ocamlVal
 syn match    ocamlModParam1 "\<\u\(\w\|'\)*\>" contained skipwhite skipempty
 syn match    ocamlGenMod "()" contained skipwhite skipempty
 
 syn region   ocamlMPRestr start=":" end="."me=e-1 contained contains=@ocamlComment skipwhite skipempty nextgroup=ocamlMPRestr1,ocamlMPRestr2,ocamlMPRestr3
-syn region   ocamlMPRestr1 matchgroup=ocamlModule start="\ssig\s\=" matchgroup=ocamlModule end="\<end\>" contained contains=ALLBUT,@ocamlContained,ocamlEndErr,ocamlModule
+syn region   ocamlMPRestr1 matchgroup=ocamlSigEncl start="\ssig\s\=" matchgroup=ocamlSigEncl end="\<end\>" contained contains=ALLBUT,@ocamlContained,ocamlEndErr,ocamlModule
 syn region   ocamlMPRestr2 start="\sfunctor\(\s\|(\)\="me=e-1 matchgroup=ocamlKeyword end="->" contained contains=@ocamlAllErrs,ocamlComment,ocamlModParam,ocamlGenMod skipwhite skipempty nextgroup=ocamlFuncWith,ocamlMPRestr2
 syn match    ocamlMPRestr3 "\w\(\w\|'\)*\( *\. *\w\(\w\|'\)*\)*" contained
 syn match    ocamlModPreRHS "=" contained skipwhite skipempty nextgroup=ocamlModParam,ocamlFullMod
@@ -146,7 +147,7 @@ syn region   ocamlModRHS start="." end=". *\w\|([^*]"me=e-2 contained contains=o
 syn match    ocamlFullMod "\<\u\(\w\|'\)*\( *\. *\u\(\w\|'\)*\)*" contained skipwhite skipempty nextgroup=ocamlFuncWith
 
 syn region   ocamlFuncWith start="([^*)]"me=e-1 end=")" contained contains=ocamlComment,ocamlWith,ocamlFuncStruct skipwhite skipempty nextgroup=ocamlFuncWith
-syn region   ocamlFuncStruct matchgroup=ocamlModule start="[^a-zA-Z]struct\>"hs=s+1 matchgroup=ocamlModule end="\<end\>" contains=ALLBUT,@ocamlContained,ocamlEndErr
+syn region   ocamlFuncStruct matchgroup=ocamlStructEncl start="[^a-zA-Z]struct\>"hs=s+1 matchgroup=ocamlStructEncl end="\<end\>" contains=ALLBUT,@ocamlContained,ocamlEndErr
 
 syn match    ocamlModTypeRestr "\<\w\(\w\|'\)*\( *\. *\w\(\w\|'\)*\)*\>" contained
 syn region   ocamlModTRWith start=":\s*("hs=s+1 end=")" contained contains=@ocamlAENoParen,ocamlWith
@@ -154,7 +155,7 @@ syn match    ocamlWith "\<\(\u\(\w\|'\)* *\. *\)*\w\(\w\|'\)*\>" contained skipw
 syn region   ocamlWithRest start="[^)]" end=")"me=e-1 contained contains=ALLBUT,@ocamlContained
 
 " "struct"
-syn region   ocamlStruct matchgroup=ocamlModule start="\<\(module\s\+\)\=struct\>" matchgroup=ocamlModule end="\<end\>" contains=ALLBUT,@ocamlContained,ocamlEndErr
+syn region   ocamlStruct matchgroup=ocamlStructEncl start="\<\(module\s\+\)\=struct\>" matchgroup=ocamlStructEncl end="\<end\>" contains=ALLBUT,@ocamlContained,ocamlEndErr
 
 " "module type"
 syn region   ocamlKeyword start="\<module\>\s*\<type\>\(\s*\<of\>\)\=" matchgroup=ocamlModule end="\<\w\(\w\|'\)*\>" contains=ocamlComment skipwhite skipempty nextgroup=ocamlMTDef
@@ -168,9 +169,9 @@ syn keyword  ocamlKeyword  constraint else
 syn keyword  ocamlKeyword  exception external fun
 
 syn keyword  ocamlKeyword  in inherit initializer
-syn keyword  ocamlKeyword  land lazy let match
+syn keyword  ocamlKeyword  lazy let match
 syn keyword  ocamlKeyword  method mutable new nonrec of
-syn keyword  ocamlKeyword  parser private raise rec
+syn keyword  ocamlKeyword  parser private rec
 syn keyword  ocamlKeyword  try type
 syn keyword  ocamlKeyword  virtual when while with
 
@@ -180,14 +181,11 @@ if exists("ocaml_revised")
 else
   syn keyword  ocamlKeyword  function
   syn keyword  ocamlBoolean  true false
-  syn match    ocamlKeyChar  "!"
 endif
 
 syn keyword  ocamlType     array bool char exn float format format4
 syn keyword  ocamlType     int int32 int64 lazy_t list nativeint option
 syn keyword  ocamlType     string unit
-
-syn keyword  ocamlOperator asr lnot lor lsl lsr lxor mod not
 
 syn match    ocamlConstructor  "(\s*)"
 syn match    ocamlConstructor  "\[\s*\]"
@@ -207,27 +205,49 @@ syn match    ocamlCharErr      "'\\\d\d'\|'\\\d'"
 syn match    ocamlCharErr      "'\\[^\'ntbr]'"
 syn region   ocamlString       start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=@Spell
 
-syn match    ocamlFunDef       "->"
-syn match    ocamlRefAssign    ":="
 syn match    ocamlTopStop      ";;"
-syn match    ocamlOperator     "\^"
-syn match    ocamlOperator     "::"
 
-syn match    ocamlOperator     "&&"
-syn match    ocamlOperator     "<"
-syn match    ocamlOperator     ">"
 syn match    ocamlAnyVar       "\<_\>"
 syn match    ocamlKeyChar      "|[^\]]"me=e-1
 syn match    ocamlKeyChar      ";"
 syn match    ocamlKeyChar      "\~"
 syn match    ocamlKeyChar      "?"
-syn match    ocamlKeyChar      "\*"
-syn match    ocamlKeyChar      "="
 
+"" Operators
+
+" The grammar of operators is found there:
+"     https://caml.inria.fr/pub/docs/manual-ocaml/names.html#operator-name
+"     https://caml.inria.fr/pub/docs/manual-ocaml/extn.html#s:ext-ops
+"     https://caml.inria.fr/pub/docs/manual-ocaml/extn.html#s:index-operators
+" =, *, < and > are both operator names and keywords, we let the user choose how
+" to display them (has to be declared before regular infix operators):
+syn match    ocamlEqual        "="
+syn match    ocamlStar         "*"
+syn match    ocamlAngle        "<"
+syn match    ocamlAngle        ">"
+" Custom indexing operators:
+syn match    ocamlIndexingOp   "\.[~?!:|&$%=>@^/*+-][~?!.:|&$%<=>@^*/+-]*\(()\|\[]\|{}\)\(<-\)\?"
+" Extension operators (has to be declared before regular infix operators):
+syn match    ocamlExtensionOp          "#[#~?!.:|&$%<=>@^*/+-]\+"
+" Infix and prefix operators:
+syn match    ocamlPrefixOp              "![~?!.:|&$%<=>@^*/+-]*"
+syn match    ocamlPrefixOp           "[~?][~?!.:|&$%<=>@^*/+-]\+"
+syn match    ocamlInfixOp      "[&$%@^/+-][~?!.:|&$%<=>@^*/+-]*"
+syn match    ocamlInfixOp         "[|<=>*][~?!.:|&$%<=>@^*/+-]\+"
+syn match    ocamlInfixOp               "#[~?!.:|&$%<=>@^*/+-]\+#\@!"
+syn match    ocamlInfixOp              "!=[~?!.:|&$%<=>@^*/+-]\@!"
+syn keyword  ocamlInfixOpKeyword      asr land lor lsl lsr lxor mod or
+" := is technically an infix operator, but we may want to show it as a keyword
+" (somewhat analogously to = for let‐bindings and <- for assignations):
+syn match    ocamlRefAssign    ":="
+" :: is technically not an operator, but we may want to show it as such:
+syn match    ocamlCons         "::"
+" -> and <- are keywords, not operators (but can appear in longer operators):
+syn match    ocamlArrow        "->[~?!.:|&$%<=>@^*/+-]\@!"
 if exists("ocaml_revised")
-  syn match    ocamlErr        "<-"
+  syn match    ocamlErr        "<-[~?!.:|&$%<=>@^*/+-]\@!"
 else
-  syn match    ocamlOperator   "<-"
+  syn match    ocamlKeyChar    "<-[~?!.:|&$%<=>@^*/+-]\@!"
 endif
 
 syn match    ocamlNumber        "-\=\<\d\(_\|\d\)*[l|L|n]\?\>"
@@ -239,7 +259,7 @@ syn match    ocamlFloat         "-\=\<\d\(_\|\d\)*\.\?\(_\|\d\)*\([eE][-+]\=\d\(
 " Labels
 syn match    ocamlLabel        "\~\(\l\|_\)\(\w\|'\)*"lc=1
 syn match    ocamlLabel        "?\(\l\|_\)\(\w\|'\)*"lc=1
-syn region   ocamlLabel transparent matchgroup=ocamlLabel start="?(\(\l\|_\)\(\w\|'\)*"lc=2 end=")"me=e-1 contains=ALLBUT,@ocamlContained,ocamlParenErr
+syn region   ocamlLabel transparent matchgroup=ocamlLabel start="[~?](\(\l\|_\)\(\w\|'\)*"lc=2 end=")"me=e-1 contains=ALLBUT,@ocamlContained,ocamlParenErr
 
 
 " Synchronization
@@ -306,6 +326,8 @@ if version >= 508 || !exists("did_ocaml_syntax_inits")
   HiLink ocamlModTypeRestr Include
   HiLink ocamlWith	   Include
   HiLink ocamlMTDef	   Include
+  HiLink ocamlSigEncl	   ocamlModule
+  HiLink ocamlStructEncl   ocamlModule
 
   HiLink ocamlScript	   Include
 
@@ -316,12 +338,28 @@ if version >= 508 || !exists("did_ocaml_syntax_inits")
   HiLink ocamlMPRestr2	   Keyword
   HiLink ocamlKeyword	   Keyword
   HiLink ocamlMethod	   Include
-  HiLink ocamlFunDef	   Keyword
-  HiLink ocamlRefAssign    Keyword
+  HiLink ocamlArrow	   Keyword
   HiLink ocamlKeyChar	   Keyword
   HiLink ocamlAnyVar	   Keyword
   HiLink ocamlTopStop	   Keyword
-  HiLink ocamlOperator	   Keyword
+
+  HiLink ocamlRefAssign    ocamlKeyChar
+  HiLink ocamlEqual        ocamlKeyChar
+  HiLink ocamlStar         ocamlInfixOp
+  HiLink ocamlAngle        ocamlInfixOp
+  HiLink ocamlCons         ocamlInfixOp
+
+  HiLink ocamlPrefixOp       ocamlOperator
+  HiLink ocamlInfixOp        ocamlOperator
+  HiLink ocamlExtensionOp    ocamlOperator
+  HiLink ocamlIndexingOp     ocamlOperator
+
+  if exists("ocaml_highlight_operators")
+    HiLink ocamlInfixOpKeyword ocamlOperator
+    HiLink ocamlOperator       Operator
+  else
+    HiLink ocamlInfixOpKeyword Keyword
+  endif
 
   HiLink ocamlBoolean	   Boolean
   HiLink ocamlCharacter    Character
