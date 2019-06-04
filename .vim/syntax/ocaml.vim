@@ -9,18 +9,17 @@
 "               2018 Nov 08 - Improved highlighting of operators (Maëlan)
 "               2018 Apr 22 - Improved support for PPX (Andrey Popp)
 "               2018 Mar 16 - Remove raise, lnot and not from keywords (Étienne Millon, "copy")
-"               2018 Mar 07 - Improved support for PPX (Risto Stevcev)
 "               2017 Apr 11 - Improved matching of negative numbers (MM)
+"               2016 Mar 11 - Improved support for quoted strings (Glen Mével)
+"               2015 Aug 13 - Allow apostrophes in identifiers (Jonathan Chan, Einar Lielmanis)
+"               2015 Jun 17 - Added new "nonrec" keyword (MM)
 
 " A minor patch was applied to the official version so that object/end
 " can be distinguished from begin/end, which is used for indentation,
 " and folding. (David Baelde)
 
-" For version 5.x: Clear all syntax items
-" For version 6.x: Quit when a syntax file was already loaded
-if version < 600
-  syntax clear
-elseif exists("b:current_syntax") && b:current_syntax == "ocaml"
+" quit when a syntax file was already loaded
+if exists("b:current_syntax") && b:current_syntax == "ocaml"
   finish
 endif
 
@@ -185,7 +184,7 @@ endif
 
 syn keyword  ocamlType     array bool char exn float format format4
 syn keyword  ocamlType     int int32 int64 lazy_t list nativeint option
-syn keyword  ocamlType     string unit
+syn keyword  ocamlType     bytes string unit
 
 syn match    ocamlConstructor  "(\s*)"
 syn match    ocamlConstructor  "\[\s*\]"
@@ -284,102 +283,87 @@ syn sync match ocamlSigSync     grouphere  ocamlSig     "\<sig\>"
 syn sync match ocamlSigSync     groupthere ocamlSig     "\<end\>"
 
 " Define the default highlighting.
-" For version 5.7 and earlier: only when not done already
-" For version 5.8 and later: only when an item doesn't have highlighting yet
-if version >= 508 || !exists("did_ocaml_syntax_inits")
-  if version < 508
-    let did_ocaml_syntax_inits = 1
-    command -nargs=+ HiLink hi link <args>
-  else
-    command -nargs=+ HiLink hi def link <args>
-  endif
+" Only when an item doesn't have highlighting yet
 
-  HiLink ocamlBraceErr	   Error
-  HiLink ocamlBrackErr	   Error
-  HiLink ocamlParenErr	   Error
-  HiLink ocamlArrErr	   Error
+hi def link ocamlBraceErr	   Error
+hi def link ocamlBrackErr	   Error
+hi def link ocamlParenErr	   Error
+hi def link ocamlArrErr	   Error
 
-  HiLink ocamlCommentErr   Error
+hi def link ocamlCommentErr   Error
 
-  HiLink ocamlCountErr	   Error
-  HiLink ocamlDoErr	   Error
-  HiLink ocamlDoneErr	   Error
-  HiLink ocamlEndErr	   Error
-  HiLink ocamlThenErr	   Error
+hi def link ocamlCountErr	   Error
+hi def link ocamlDoErr	   Error
+hi def link ocamlDoneErr	   Error
+hi def link ocamlEndErr	   Error
+hi def link ocamlThenErr	   Error
 
-  HiLink ocamlCharErr	   Error
+hi def link ocamlCharErr	   Error
 
-  HiLink ocamlErr	   Error
+hi def link ocamlErr	   Error
 
-  HiLink ocamlComment	   Comment
+hi def link ocamlComment	   Comment
 
-  HiLink ocamlModPath	   Include
-  HiLink ocamlObject	   Include
-  HiLink ocamlModule	   Include
-  HiLink ocamlModParam1    Include
-  HiLink ocamlGenMod       Include
-  HiLink ocamlModType	   Include
-  HiLink ocamlMPRestr3	   Include
-  HiLink ocamlFullMod	   Include
-  HiLink ocamlFuncWith	   Include
-  HiLink ocamlModParam     Include
-  HiLink ocamlModTypeRestr Include
-  HiLink ocamlWith	   Include
-  HiLink ocamlMTDef	   Include
-  HiLink ocamlSigEncl	   ocamlModule
-  HiLink ocamlStructEncl   ocamlModule
+hi def link ocamlModPath	   Include
+hi def link ocamlObject	   Include
+hi def link ocamlModule	   Include
+hi def link ocamlModParam1    Include
+hi def link ocamlModType	   Include
+hi def link ocamlMPRestr3	   Include
+hi def link ocamlFullMod	   Include
+hi def link ocamlModTypeRestr Include
+hi def link ocamlWith	   Include
+hi def link ocamlMTDef	   Include
+hi def link ocamlSigEncl    ocamlModule
+hi def link ocamlStructEncl ocamlModule
 
-  HiLink ocamlScript	   Include
+hi def link ocamlScript	   Include
 
-  HiLink ocamlConstructor  Constant
+hi def link ocamlConstructor  Constant
 
-  HiLink ocamlVal          Keyword
-  HiLink ocamlModPreRHS    Keyword
-  HiLink ocamlMPRestr2	   Keyword
-  HiLink ocamlKeyword	   Keyword
-  HiLink ocamlMethod	   Include
-  HiLink ocamlArrow	   Keyword
-  HiLink ocamlKeyChar	   Keyword
-  HiLink ocamlAnyVar	   Keyword
-  HiLink ocamlTopStop	   Keyword
+hi def link ocamlVal          Keyword
+hi def link ocamlModPreRHS    Keyword
+hi def link ocamlMPRestr2	   Keyword
+hi def link ocamlKeyword	   Keyword
+hi def link ocamlMethod	   Include
+hi def link ocamlKeyChar	   Keyword
+hi def link ocamlAnyVar	   Keyword
+hi def link ocamlTopStop	   Keyword
 
-  HiLink ocamlRefAssign    ocamlKeyChar
-  HiLink ocamlEqual        ocamlKeyChar
-  HiLink ocamlStar         ocamlInfixOp
-  HiLink ocamlAngle        ocamlInfixOp
-  HiLink ocamlCons         ocamlInfixOp
+hi def link ocamlRefAssign  ocamlKeyChar
+hi def link ocamlEqual	    ocamlKeyChar
+hi def link ocamlStar	    ocamlInfixOp
+hi def link ocamlAngle	    ocamlInfixOp
+hi def link ocamlCons	    ocamlInfixOp
 
-  HiLink ocamlPrefixOp       ocamlOperator
-  HiLink ocamlInfixOp        ocamlOperator
-  HiLink ocamlExtensionOp    ocamlOperator
-  HiLink ocamlIndexingOp     ocamlOperator
+hi def link ocamlPrefixOp	ocamlOperator
+hi def link ocamlInfixOp	ocamlOperator
+hi def link ocamlExtensionOp	ocamlOperator
+hi def link ocamlIndexingOp	ocamlOperator
 
-  if exists("ocaml_highlight_operators")
-    HiLink ocamlInfixOpKeyword ocamlOperator
-    HiLink ocamlOperator       Operator
-  else
-    HiLink ocamlInfixOpKeyword Keyword
-  endif
-
-  HiLink ocamlBoolean	   Boolean
-  HiLink ocamlCharacter    Character
-  HiLink ocamlNumber	   Number
-  HiLink ocamlFloat	   Float
-  HiLink ocamlString	   String
-  HiLink ocamlQuotedStringDelim Identifier
-
-  HiLink ocamlLabel	   Identifier
-
-  HiLink ocamlType	   Type
-
-  HiLink ocamlTodo	   Todo
-
-  HiLink ocamlEncl	   Keyword
-
-  HiLink ocamlPpxEncl       ocamlEncl
-
-  delcommand HiLink
+if exists("ocaml_highlight_operators")
+    hi def link ocamlInfixOpKeyword ocamlOperator
+    hi def link ocamlOperator	    Operator
+else
+    hi def link ocamlInfixOpKeyword Keyword
 endif
+
+hi def link ocamlBoolean	   Boolean
+hi def link ocamlCharacter    Character
+hi def link ocamlNumber	   Number
+hi def link ocamlFloat	   Float
+hi def link ocamlString	   String
+hi def link ocamlQuotedStringDelim  Identifier
+
+hi def link ocamlLabel	   Identifier
+
+hi def link ocamlType	   Type
+
+hi def link ocamlTodo	   Todo
+
+hi def link ocamlEncl	   Keyword
+
+hi def link ocamlPpxEncl    ocamlEncl
 
 let b:current_syntax = "ocaml"
 
