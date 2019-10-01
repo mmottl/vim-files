@@ -4,15 +4,18 @@
 " Maintainers:  Markus Mottl            <markus.mottl@gmail.com>
 "               Fabrizio Zeno Cornelli  <zeno@filibusta.crema.unimi.it>
 " URL:          http://www.ocaml.info/vim/syntax/sml.vim
-" Last Change:  2015 Aug 31 - Fixed opening of modules (Ramana Kumar)
+" Last Change:  2019 Oct 01 - Only spell check strings & comments (Chuanwei Foo)
+"               2015 Aug 31 - Fixed opening of modules (Ramana Kumar)
 "               2006 Oct 23 - Fixed character highlighting bug (MM)
-"               2002 Jun 02 - Fixed small typo  (MM)
 
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded
 if version < 600
   syntax clear
 elseif exists("b:current_syntax")
+" Disable spell checking of syntax.
+syn spell notoplevel
+
   finish
 endif
 
@@ -55,7 +58,7 @@ syn region   smlEncl transparent matchgroup=smlKeyword start="#\[" matchgroup=sm
 
 
 " Comments
-syn region   smlComment start="(\*" end="\*)" contains=smlComment,smlTodo
+syn region   smlComment start="(\*" end="\*)" contains=smlComment,smlTodo,@Spell
 syn keyword  smlTodo contained TODO FIXME XXX
 
 
@@ -139,7 +142,7 @@ syn match    smlModPath      "\u\(\w\|'\)*\."he=e-1
 
 syn match    smlCharacter    +#"\\""\|#"."\|#"\\\d\d\d"+
 syn match    smlCharErr      +#"\\\d\d"\|#"\\\d"+
-syn region   smlString       start=+"+ skip=+\\\\\|\\"+ end=+"+
+syn region   smlString       start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=@Spell
 
 syn match    smlFunDef       "=>"
 syn match    smlRefAssign    ":="
