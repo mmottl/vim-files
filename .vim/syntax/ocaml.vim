@@ -18,13 +18,16 @@
 " can be distinguished from begin/end, which is used for indentation,
 " and folding. (David Baelde)
 
-" quit when a syntax file was already loaded
+" Quit when a syntax file was already loaded
 if exists("b:current_syntax") && b:current_syntax == "ocaml"
   finish
 endif
 
 " ' can be used in OCaml identifiers
 setlocal iskeyword+='
+
+" ` is part of the name of polymorphic variants
+setlocal iskeyword+=`
 
 " OCaml is case sensitive.
 syn case match
@@ -283,7 +286,6 @@ syn sync match ocamlSigSync     grouphere  ocamlSig     "\<sig\>"
 syn sync match ocamlSigSync     groupthere ocamlSig     "\<end\>"
 
 " Define the default highlighting.
-" Only when an item doesn't have highlighting yet
 
 hi def link ocamlBraceErr	   Error
 hi def link ocamlBrackErr	   Error
@@ -308,14 +310,17 @@ hi def link ocamlModPath	   Include
 hi def link ocamlObject	   Include
 hi def link ocamlModule	   Include
 hi def link ocamlModParam1    Include
+hi def link ocamlGenMod       Include
 hi def link ocamlModType	   Include
 hi def link ocamlMPRestr3	   Include
 hi def link ocamlFullMod	   Include
+hi def link ocamlFuncWith	   Include
+hi def link ocamlModParam     Include
 hi def link ocamlModTypeRestr Include
 hi def link ocamlWith	   Include
 hi def link ocamlMTDef	   Include
-hi def link ocamlSigEncl    ocamlModule
-hi def link ocamlStructEncl ocamlModule
+hi def link ocamlSigEncl	   ocamlModule
+hi def link ocamlStructEncl	   ocamlModule
 
 hi def link ocamlScript	   Include
 
@@ -326,24 +331,25 @@ hi def link ocamlModPreRHS    Keyword
 hi def link ocamlMPRestr2	   Keyword
 hi def link ocamlKeyword	   Keyword
 hi def link ocamlMethod	   Include
+hi def link ocamlArrow	   Keyword
 hi def link ocamlKeyChar	   Keyword
 hi def link ocamlAnyVar	   Keyword
 hi def link ocamlTopStop	   Keyword
 
-hi def link ocamlRefAssign  ocamlKeyChar
-hi def link ocamlEqual	    ocamlKeyChar
-hi def link ocamlStar	    ocamlInfixOp
-hi def link ocamlAngle	    ocamlInfixOp
-hi def link ocamlCons	    ocamlInfixOp
+hi def link ocamlRefAssign    ocamlKeyChar
+hi def link ocamlEqual        ocamlKeyChar
+hi def link ocamlStar         ocamlInfixOp
+hi def link ocamlAngle        ocamlInfixOp
+hi def link ocamlCons         ocamlInfixOp
 
-hi def link ocamlPrefixOp	ocamlOperator
-hi def link ocamlInfixOp	ocamlOperator
-hi def link ocamlExtensionOp	ocamlOperator
-hi def link ocamlIndexingOp	ocamlOperator
+hi def link ocamlPrefixOp       ocamlOperator
+hi def link ocamlInfixOp        ocamlOperator
+hi def link ocamlExtensionOp    ocamlOperator
+hi def link ocamlIndexingOp     ocamlOperator
 
 if exists("ocaml_highlight_operators")
     hi def link ocamlInfixOpKeyword ocamlOperator
-    hi def link ocamlOperator	    Operator
+    hi def link ocamlOperator       Operator
 else
     hi def link ocamlInfixOpKeyword Keyword
 endif
@@ -353,7 +359,7 @@ hi def link ocamlCharacter    Character
 hi def link ocamlNumber	   Number
 hi def link ocamlFloat	   Float
 hi def link ocamlString	   String
-hi def link ocamlQuotedStringDelim  Identifier
+hi def link ocamlQuotedStringDelim Identifier
 
 hi def link ocamlLabel	   Identifier
 
@@ -363,7 +369,7 @@ hi def link ocamlTodo	   Todo
 
 hi def link ocamlEncl	   Keyword
 
-hi def link ocamlPpxEncl    ocamlEncl
+hi def link ocamlPpxEncl       ocamlEncl
 
 let b:current_syntax = "ocaml"
 
