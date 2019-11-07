@@ -16,6 +16,7 @@ hi Boolean    term=underline ctermfg=DarkRed guifg=Red
 hi Special    term=bold ctermfg=DarkMagenta guifg=Magenta
 hi Identifier term=bold ctermfg=White guifg=White
 hi Statement  term=bold ctermfg=Brown gui=NONE guifg=Yellow
+hi Operator   term=bold ctermfg=Brown gui=NONE guifg=Yellow
 hi PreProc    term=underline ctermfg=DarkMagenta guifg=Magenta
 hi Type       term=underline ctermfg=DarkGreen gui=NONE guifg=Green
 hi Ignore     ctermfg=white guifg=bg
