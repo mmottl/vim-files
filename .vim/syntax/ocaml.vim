@@ -126,7 +126,7 @@ syn region   ocamlSig matchgroup=ocamlSigEncl start="\<sig\>" matchgroup=ocamlSi
 syn region   ocamlModSpec matchgroup=ocamlKeyword start="\<module\>" matchgroup=ocamlModule end="\<\u\(\w\|'\)*\>" contained contains=@ocamlAllErrs,ocamlComment skipwhite skipempty nextgroup=ocamlModTRWith,ocamlMPRestr
 
 " "open"
-syn region   ocamlNone matchgroup=ocamlKeyword start="\<open\>" matchgroup=ocamlModule end="\<\u\(\w\|'\)*\( *\. *\u\(\w\|'\)*\)*\>" contains=@ocamlAllErrs,ocamlComment
+syn match   ocamlKeyword "\<open\>" skipwhite skipempty nextgroup=ocamlFullMod
 
 " "include"
 syn match    ocamlKeyword "\<include\>" skipwhite skipempty nextgroup=ocamlModParam,ocamlFullMod
@@ -228,7 +228,18 @@ syn match    ocamlStar         "*"
 syn match    ocamlAngle        "<"
 syn match    ocamlAngle        ">"
 " Custom indexing operators:
-syn match    ocamlIndexingOp   "\.[~?!:|&$%=>@^/*+-][~?!.:|&$%<=>@^*/+-]*\(()\|\[]\|{}\)\(<-\)\?"
+syn region   ocamlIndexing matchgroup=ocamlIndexingOp
+  \ start="\.[~?!:|&$%=>@^/*+-][~?!.:|&$%<=>@^*/+-]*\_s*("
+  \ end=")\(\_s*<-\)\?"
+  \ contains=ALLBUT,@ocamlContained,ocamlParenErr
+syn region   ocamlIndexing matchgroup=ocamlIndexingOp
+  \ start="\.[~?!:|&$%=>@^/*+-][~?!.:|&$%<=>@^*/+-]*\_s*\["
+  \ end="]\(\_s*<-\)\?"
+  \ contains=ALLBUT,@ocamlContained,ocamlBrackErr
+syn region   ocamlIndexing matchgroup=ocamlIndexingOp
+  \ start="\.[~?!:|&$%=>@^/*+-][~?!.:|&$%<=>@^*/+-]*\_s*{"
+  \ end="}\(\_s*<-\)\?"
+  \ contains=ALLBUT,@ocamlContained,ocamlBraceErr
 " Extension operators (has to be declared before regular infix operators):
 syn match    ocamlExtensionOp          "#[#~?!.:|&$%<=>@^*/+-]\+"
 " Infix and prefix operators:
