@@ -174,6 +174,7 @@ nnoremap <leader>U yyp<c-v>$r=
 
 " OCaml stuff
 let no_ocaml_comments = 1
+let ocaml_highlight_operators = 1
 set makeprg=make
 " set makeprg=ocamlbuild\ ${BUILDFLAGS}\ -use-ocamlfind\ all.otarget
 "set makeprg=omake\ -j\ 8
