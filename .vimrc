@@ -26,6 +26,9 @@ set formatoptions=tn1
 " My default format program
 set formatprg=fmt\ -w\ 80\ -u
 
+" My sentences are separated by two spaces
+set cpo+=J
+
 " Only hide invisible buffers (keeps their editing state)
 set hidden
 
