@@ -25,3 +25,6 @@
 [submodule ".vim/bundle/linediff"]
 	path = .vim/bundle/linediff
 	url = git://github.com/AndrewRadev/linediff.vim.git
+[submodule ".vim/bundle/lightline.vim"]
+	path = .vim/bundle/lightline.vim
+	url = https://github.com/itchyny/lightline.vim
