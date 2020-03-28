@@ -217,6 +217,9 @@ let g:syntastic_ocaml_checkers = ['merlin']
 " Currently disabled
 let g:pathogen_disabled = ['syntastic', 'ocamlmerlin']
 
+" ag
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
 set ofu=syntaxcomplete#Complete
 
 " Load Pathogen
