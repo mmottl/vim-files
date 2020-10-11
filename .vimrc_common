@@ -260,6 +260,9 @@ nnoremap <leader>w :w<CR>
 nmap  -  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 
+" VimTex
+let g:tex_flavor = "latex"
+
 "
 function FT_ocaml()
 	" Merlin
