@@ -2,7 +2,7 @@
 " Filenames:    *.dot
 " Maintainer:   Markus Mottl  <markus.mottl@gmail.com>
 " URL:          http://www.ocaml.info/vim/syntax/dot.vim
-" Last Change:  2021 Mar 24 - improved attr matching, two new keywords + escape string matching
+" Last Change:  2021 Mar 24 - better attr + escape string matching, new keywords (Farbod Salamat-Zadeh)
 "               2011 May 17 - improved identifier matching + two new keywords
 "               2001 May 04 - initial version
 
