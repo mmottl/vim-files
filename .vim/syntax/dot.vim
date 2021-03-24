@@ -1,4 +1,3 @@
-" Vim syntax file
 " Language:     Dot
 " Filenames:    *.dot
 " Maintainer:   Markus Mottl  <markus.mottl@gmail.com>
@@ -62,8 +61,8 @@ syn keyword  dotType _background area arrowhead arrowsize arrowtail bb bgcolor
       \ searchsize sep shape shapefile showboxes sides size skew smoothing
       \ sortv splines start style stylesheet tail_lp tailclip tailhref 
       \ taillabel tailport tailtarget tailtooltip tailURL target tooltip
-      \ truecolor URL vertices viewport voro_margin weight xdotversion xlabel
-      \ xlp z
+      \ truecolor URL vertices viewport voro_margin weight width xdotversion 
+      \ xlabel xlp z
 
 " Special chars
 syn match    dotKeyChar  "="
