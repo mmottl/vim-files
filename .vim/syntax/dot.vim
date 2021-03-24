@@ -3,7 +3,8 @@
 " Filenames:    *.dot
 " Maintainer:   Markus Mottl  <markus.mottl@gmail.com>
 " URL:          http://www.ocaml.info/vim/syntax/dot.vim
-" Last Change:  2011 May 17 - improved identifier matching + two new keywords
+" Last Change:  2021 Mar 24 - improved attr matching, two new keywords + escape string matching
+"               2011 May 17 - improved identifier matching + two new keywords
 "               2001 May 04 - initial version
 
 " For version 5.x: Clear all syntax items
@@ -31,6 +32,10 @@ syn keyword  dotTodo contained TODO FIXME XXX
 
 " Strings
 syn region   dotString    start=+"+ skip=+\\\\\|\\"+ end=+"+
+
+" Escape strings
+syn match    dotEscString /\v\\(N|G|E|T|H|L)/ containedin=dotString
+syn match    dotEscString /\v\\(n|l|r)/       containedin=dotString
 
 " General keywords
 syn keyword  dotKeyword graph digraph subgraph node edge strict
@@ -100,6 +105,7 @@ if version >= 508 || !exists("did_dot_syntax_inits")
   HiLink dotKeyChar	 Keyword
 
   HiLink dotString	 String
+  HiLink dotEscString	 Keyword
   HiLink dotIdentifier	 Identifier
 
   delcommand HiLink
