@@ -33,33 +33,32 @@ syn keyword  dotTodo contained TODO FIXME XXX
 syn region   dotString    start=+"+ skip=+\\\\\|\\"+ end=+"+
 
 " General keywords
-syn keyword  dotKeyword  digraph node edge subgraph
+syn keyword  dotKeyword graph digraph subgraph node edge strict
 
-" Graph attributes
-syn keyword  dotType center layers margin mclimit name nodesep nslimit
-syn keyword  dotType ordering page pagedir rank rankdir ranksep ratio
-syn keyword  dotType rotate size
-
-" Node attributes
-syn keyword  dotType distortion fillcolor fontcolor fontname fontsize
-syn keyword  dotType height layer orientation peripheries regular
-syn keyword  dotType shape shapefile sides skew width
-
-" Edge attributes
-syn keyword  dotType arrowhead arrowsize arrowtail constraint decorateP
-syn keyword  dotType dir headclip headlabel headport labelangle labeldistance
-syn keyword  dotType labelfontcolor labelfontname labelfontsize
-syn keyword  dotType minlen port_label_distance samehead sametail
-syn keyword  dotType tailclip taillabel tailport weight
-
-" Shared attributes (graphs, nodes, edges)
-syn keyword  dotType color
-
-" Shared attributes (graphs and edges)
-syn keyword  dotType bgcolor label URL
-
-" Shared attributes (nodes and edges)
-syn keyword  dotType fontcolor fontname fontsize layer style
+" Node, edge and graph attributes
+syn keyword  dotType _background area arrowhead arrowsize arrowtail bb bgcolor
+      \ center charset class clusterrank color colorscheme comment compound
+      \ concentrate constraint Damping decorate defaultdist dim dimen dir
+      \ diredgeconstraints distortion dpi edgehref edgetarget edgetooltip
+      \ edgeURL epsilon esep fillcolor fixedsize fontcolor fontname fontnames
+      \ fontpath fontsize forcelabels gradientangle group head_lp headclip
+      \ headhref headlabel headport headtarget headtooltip headURL height href
+      \ id image imagepath imagepos imagescale inputscale K label label_scheme
+      \ labelangle labeldistance labelfloat labelfontcolor labelfontname
+      \ labelfontsize labelhref labeljust labelloc labeltarget labeltooltip
+      \ labelURL landscape layer layerlistsep layers layerselect layersep 
+      \ layout len levels levelsgap lhead lheight lp ltail lwidth margin
+      \ maxiter mclimit mindist minlen mode model mosek newrank nodesep 
+      \ nojustify normalize notranslate nslimit nslimit1 ordering orientation
+      \ outputorder overlap overlap_scaling overlap_shrink pack packmode pad
+      \ page pagedir pencolor penwidth peripheries pin pos quadtree quantum
+      \ rank rankdir ranksep ratio rects regular remincross repulsiveforce
+      \ resolution root rotate rotation samehead sametail samplepoints scale
+      \ searchsize sep shape shapefile showboxes sides size skew smoothing
+      \ sortv splines start style stylesheet tail_lp tailclip tailhref 
+      \ taillabel tailport tailtarget tailtooltip tailURL target tooltip
+      \ truecolor URL vertices viewport voro_margin weight xdotversion xlabel
+      \ xlp z
 
 " Special chars
 syn match    dotKeyChar  "="
