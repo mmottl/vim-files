@@ -64,6 +64,7 @@ syn keyword  dotType _background area arrowhead arrowsize arrowtail bb bgcolor
 syn match    dotKeyChar  "="
 syn match    dotKeyChar  ";"
 syn match    dotKeyChar  "->"
+syn match    dotKeyChar  "--"
 
 " Identifier
 syn match    dotIdentifier /\<\w\+\(:\w\+\)\?\>/
