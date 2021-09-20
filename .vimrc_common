@@ -179,9 +179,7 @@ nnoremap <leader>U yyp<c-v>$r=
 let no_ocaml_comments = 1
 let no_ocaml_conceal = 1
 " let ocaml_highlight_operators = 1
-set makeprg=make
-" set makeprg=ocamlbuild\ ${BUILDFLAGS}\ -use-ocamlfind\ all.otarget
-"set makeprg=omake\ -j\ 8
+autocmd FileType ocaml set makeprg=dune\ build
 
 " Remove GUI-nonsense
 set guioptions-=T
