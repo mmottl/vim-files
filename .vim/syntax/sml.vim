@@ -3,7 +3,8 @@
 " Filenames:    *.sml *.sig
 " Maintainers:  Markus Mottl            <markus.mottl@gmail.com>
 "               Fabrizio Zeno Cornelli  <zeno@filibusta.crema.unimi.it>
-" Last Change:  2021 Oct 04 - Fixed spell checking bug (Chuan Wei Foo)
+" Last Change:  2021 Nov 20 - Improve number highlighting (Doug Kearns)
+"               2021 Oct 04 - Fixed spell checking bug (Chuan Wei Foo)
 "               2019 Oct 01 - Only spell check strings & comments (Chuan Wei Foo)
 
 " quit when a syntax file was already loaded
@@ -150,9 +151,14 @@ syn match    smlKeyChar      ";"
 syn match    smlKeyChar      "\*"
 syn match    smlKeyChar      "="
 
-syn match    smlNumber        "\<-\=\d\+\>"
-syn match    smlNumber        "\<-\=0[x|X]\x\+\>"
-syn match    smlReal          "\<-\=\d\+\.\d*\([eE][-+]\=\d\+\)\=[fl]\=\>"
+syn case     ignore
+syn match    smlInteger       "\~\=\<\d\+\>"
+syn match    smlInteger       "\~\=\<0x\x\+\>"
+syn match    smlWord          "\<0w\d\+\>"
+syn match    smlWord          "\<0wx\x\+\>"
+syn match    smlReal          "\~\=\<\d\+\.\d\+\>"
+syn match    smlReal          "\~\=\<\d\+\%(\.\d\+\)\=e\~\=\d\+\>"
+syn case     match
 
 " Synchronization
 syn sync minlines=20
@@ -205,8 +211,9 @@ hi def link smlOperator     Keyword
 
 hi def link smlBoolean      Boolean
 hi def link smlCharacter    Character
-hi def link smlNumber       Number
+hi def link smlInteger      Number
 hi def link smlReal         Float
+hi def link smlWord         Number
 hi def link smlString       String
 hi def link smlType         Type
 hi def link smlTodo         Todo
