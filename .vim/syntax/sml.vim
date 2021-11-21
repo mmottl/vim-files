@@ -54,7 +54,11 @@ syn region   smlEncl transparent matchgroup=smlKeyword start="#\[" matchgroup=sm
 
 
 " Comments
-syn region   smlComment start="(\*" end="\*)" contains=smlComment,smlTodo,@Spell
+if exists("sml_no_comment_fold")
+  syn region   smlComment start="(\*" end="\*)" contains=smlComment,smlTodo,@Spell
+else
+  syn region   smlComment start="(\*" end="\*)" contains=smlComment,smlTodo,@Spell fold
+endif
 syn keyword  smlTodo contained TODO FIXME XXX
 
 
