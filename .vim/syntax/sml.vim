@@ -4,6 +4,7 @@
 " Maintainers:  Markus Mottl            <markus.mottl@gmail.com>
 "               Fabrizio Zeno Cornelli  <zeno@filibusta.crema.unimi.it>
 " Last Change:  2021 Nov 20 - Improve number and string highlighting (Doug Kearns)
+"                           - Add support for Successor ML lexical extensions
 "               2021 Oct 04 - Fixed spell checking bug (Chuan Wei Foo)
 "               2019 Oct 01 - Only spell check strings & comments (Chuan Wei Foo)
 
@@ -58,6 +59,9 @@ if exists("sml_no_comment_fold")
   syn region   smlComment start="(\*" end="\*)" contains=smlComment,smlTodo,@Spell
 else
   syn region   smlComment start="(\*" end="\*)" contains=smlComment,smlTodo,@Spell fold
+endif
+if get(g:, "sml_successor_ml", 0)
+  syn match      smlComment "(\*).*"
 endif
 syn keyword  smlTodo contained TODO FIXME XXX
 
@@ -171,13 +175,25 @@ syn match    smlKeyChar      ";"
 syn match    smlKeyChar      "\*"
 syn match    smlKeyChar      "="
 
+" Numbers
 syn case     ignore
-syn match    smlInteger       "\~\=\<\d\+\>"
-syn match    smlInteger       "\~\=\<0x\x\+\>"
-syn match    smlWord          "\<0w\d\+\>"
-syn match    smlWord          "\<0wx\x\+\>"
-syn match    smlReal          "\~\=\<\d\+\.\d\+\>"
-syn match    smlReal          "\~\=\<\d\+\%(\.\d\+\)\=e\~\=\d\+\>"
+if get(g:, "sml_successor_ml", 0)
+  syn match    smlInteger       "\~\=\<\d\+\%(_\+\d\+\)*\>"
+  syn match    smlInteger       "\~\=\<0x\x\+\%(_\+\x\+\)*\>"
+  syn match    smlInteger       "\~\=\<0b[01]\+\%(_\+[01]\+\)*\>"
+  syn match    smlWord          "\<0w\d\+\%(_\+\d\+\)*\>"
+  syn match    smlWord          "\<0wx\x\+\%(_\+\x\+\)*\>"
+  syn match    smlWord          "\<0wb[01]\+\%(_\+[01]\+\)*\>"
+  syn match    smlReal          "\~\=\<\d\+\%(_\+\d\+\)*\.\d\+\%(_\+\d\+\)*\>"
+  syn match    smlReal          "\~\=\<\d\+\%(_\+\d\+\)*\%(\.\d\+\%(_\+\d\+\)*\)\=e\~\=\d\+\%(_\+\d\+\)*\>"
+else
+  syn match    smlInteger       "\~\=\<\d\+\>"
+  syn match    smlInteger       "\~\=\<0x\x\+\>"
+  syn match    smlWord          "\<0w\d\+\>"
+  syn match    smlWord          "\<0wx\x\+\>"
+  syn match    smlReal          "\~\=\<\d\+\.\d\+\>"
+  syn match    smlReal          "\~\=\<\d\+\%(\.\d\+\)\=e\~\=\d\+\>"
+endif
 syn case     match
 
 " Synchronization
