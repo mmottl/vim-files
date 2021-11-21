@@ -3,7 +3,7 @@
 " Filenames:    *.sml *.sig
 " Maintainers:  Markus Mottl            <markus.mottl@gmail.com>
 "               Fabrizio Zeno Cornelli  <zeno@filibusta.crema.unimi.it>
-" Last Change:  2021 Nov 20 - Improve number highlighting (Doug Kearns)
+" Last Change:  2021 Nov 20 - Improve number and string highlighting (Doug Kearns)
 "               2021 Oct 04 - Fixed spell checking bug (Chuan Wei Foo)
 "               2019 Oct 01 - Only spell check strings & comments (Chuan Wei Foo)
 
@@ -136,9 +136,25 @@ syn match    smlConstructor  "\u\(\w\|'\)*\>"
 " Module prefix
 syn match    smlModPath      "\u\(\w\|'\)*\."he=e-1
 
-syn match    smlCharacter    +#"\\""\|#"."\|#"\\\d\d\d"+
-syn match    smlCharErr      +#"\\\d\d"\|#"\\\d"+
-syn region   smlString       start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=@Spell
+" Strings and Characters
+syn match    smlEscapeErr    "\\."              contained
+syn match    smlEscape       "\\[abtnvfr"\\]"   contained
+syn match    smlEscapeErr    "\\^."             contained
+syn match    smlEscape       "\\^[@A-Z[\\\]^_]" contained
+syn match    smlEscapeErr    "\\\d\{1,2}"       contained
+syn match    smlEscape       "\\\d\{3}"         contained
+syn match    smlEscapeErr    "\\u\x\{0,3}"      contained
+syn match    smlEscape       "\\u\x\{4}"        contained
+syn match    smlEscape       "\\\_s\+\\"        contained
+syn cluster  smlEscape       contains=smlEscape,smlEscapeErr
+
+syn region   smlString       start=+"+ end=+"+ contains=@smlEscape,@Spell
+
+syn match    smlCharacter    +#"[^\\"]"+
+syn match    smlCharacter    +#"\\."+       contains=@smlEscape
+syn match    smlCharacter    +#"\\^."+      contains=@smlEscape
+syn match    smlCharacter    +#"\\\d\{3}"+  contains=@smlEscape
+syn match    smlCharacter    +#"\\u\x\{4}"+ contains=@smlEscape
 
 syn match    smlFunDef       "=>"
 syn match    smlRefAssign    ":="
@@ -183,7 +199,7 @@ hi def link smlCommentErr   Error
 hi def link smlEndErr       Error
 hi def link smlThenErr      Error
 
-hi def link smlCharErr      Error
+hi def link smlEscapeErr    Error
 
 hi def link smlComment      Comment
 
@@ -214,6 +230,7 @@ hi def link smlCharacter    Character
 hi def link smlInteger      Number
 hi def link smlReal         Float
 hi def link smlWord         Number
+hi def link smlEscape       Special
 hi def link smlString       String
 hi def link smlType         Type
 hi def link smlTodo         Todo
