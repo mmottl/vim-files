@@ -122,7 +122,7 @@ syn region   smlWithRest start="[^)]" end=")"me=e-1 contained contains=ALLBUT,@s
 syn region   smlKeyword start="\<signature\>" matchgroup=smlModule end="\<\w\(\w\|'\)*\>" contains=smlComment skipwhite skipempty nextgroup=smlMTDef
 syn match    smlMTDef "=\s*\w\(\w\|'\)*\>"hs=s+1,me=s
 
-syn keyword  smlKeyword  and andalso case
+syn keyword  smlKeyword  and andalso as case
 syn keyword  smlKeyword  datatype else eqtype
 syn keyword  smlKeyword  exception fn fun handle
 syn keyword  smlKeyword  in infix infixl infixr
