@@ -212,16 +212,11 @@ let g:netrw_home=$HOME
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_ocaml_checkers = ['merlin']
-" Currently disabled
-let g:pathogen_disabled = ['syntastic', 'ocamlmerlin']
 
 " ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 set ofu=syntaxcomplete#Complete
-
-" Load Pathogen
-call pathogen#infect()
 
 " Load matchit
 runtime! macros/matchit.vim
