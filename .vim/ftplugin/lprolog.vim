@@ -15,10 +15,12 @@ endif
 let b:did_ftplugin = 1
 
 " Error format
-setlocal efm=%+A./%f:%l.%c:\ %m formatprg=fmt\ -w75\ -p\\%
+setlocal efm=%+A./%f:%l.%c:\ %m
 
 " Formatting of comments
 setlocal formatprg=fmt\ -w75\ -p\\%
+
+let b:undo_ftplugin = "setlocal efm< fp<"
 
 " Add mappings, unless the user didn't want this.
 if !exists("no_plugin_maps") && !exists("no_lprolog_maps")
@@ -28,6 +30,11 @@ if !exists("no_plugin_maps") && !exists("no_lprolog_maps")
     vmap <buffer> <LocalLeader>c <Plug>BUncomOn
     nmap <buffer> <LocalLeader>C <Plug>LUncomOff
     vmap <buffer> <LocalLeader>C <Plug>BUncomOff
+    let b:undo_ftplugin ..=
+	  \ " | silent! execute 'nunmap <buffer> <LocalLeader>c'" ..
+	  \ " | silent! execute 'vunmap <buffer> <LocalLeader>c'" ..
+	  \ " | silent! execute 'nunmap <buffer> <LocalLeader>C'" ..
+	  \ " | silent! execute 'vunmap <buffer> <LocalLeader>C'"
   endif
 
   nnoremap <buffer> <Plug>LUncomOn mz0i/* <ESC>$A */<ESC>`z
