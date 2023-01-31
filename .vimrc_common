@@ -216,6 +216,9 @@ let g:syntastic_ocaml_checkers = ['merlin']
 " ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
+" ripgrep
+set grepprg=rg\ --smart-case\ --vimgrep
+
 set ofu=syntaxcomplete#Complete
 
 " Load matchit
