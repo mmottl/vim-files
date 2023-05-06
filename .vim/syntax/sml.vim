@@ -75,9 +75,6 @@ syn region   smlEnd matchgroup=smlKeyword start="\<local\>" matchgroup=smlKeywor
 " abstype
 syn region   smlNone matchgroup=smlKeyword start="\<abstype\>" matchgroup=smlKeyword end="\<end\>" contains=ALLBUT,@smlContained,smlEndErr
 
-" begin
-syn region   smlEnd matchgroup=smlKeyword start="\<begin\>" matchgroup=smlKeyword end="\<end\>" contains=ALLBUT,@smlContained,smlEndErr
-
 " if
 syn region   smlNone matchgroup=smlKeyword start="\<if\>" matchgroup=smlKeyword end="\<then\>" contains=ALLBUT,@smlContained,smlThenErr
 
@@ -200,7 +197,6 @@ syn case     match
 syn sync minlines=20
 syn sync maxlines=500
 
-syn sync match smlEndSync     grouphere  smlEnd     "\<begin\>"
 syn sync match smlEndSync     groupthere smlEnd     "\<end\>"
 syn sync match smlStructSync  grouphere  smlStruct  "\<struct\>"
 syn sync match smlStructSync  groupthere smlStruct  "\<end\>"
