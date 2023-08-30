@@ -67,3 +67,6 @@
 [submodule ".vim/bundle/vimtex"]
 	path = .vim/pack/mmottl/start/vimtex
 	url = https://github.com/lervag/vimtex
+[submodule ".vim/pack/mmottl/start/rust.vim"]
+	path = .vim/pack/mmottl/start/rust.vim
+	url = https://github.com/rust-lang/rust.vim
