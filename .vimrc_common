@@ -209,10 +209,6 @@ autocmd FileType sh set iskeyword=~,@,48-57,_,192-255,-
 " Set location for NetrW bookmarks and history
 let g:netrw_home=$HOME
 
-" Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_ocaml_checkers = ['merlin']
-
 " ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
@@ -318,7 +314,9 @@ au FileType ocaml call FT_ocaml()
 let g:rainbow_active = 0
 au FileType sexplib :RainbowToggle
 
+
 " ALE
+" let g:ale_verbose = 1
 let g:ale_lint_on_text_changed = 'never'
 highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=234
 highlight ALEWarningSign cterm=bold ctermfg=11 ctermbg=234
@@ -328,6 +326,25 @@ let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+let g:ale_show_balloons = 1
+
+" ALE Linters
+let g:ale_linters = {
+\   'ocaml': ['merlin'],
+\   'rust': ['analyzer'],
+\}
+
+" ALE Fixers
+let g:ale_fixers = {
+\   'ocaml': ['ocamlformat'],
+\   'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'],
+\}
+
+" As-you-type autocomplete
+set completeopt=menu,menuone,preview,noselect,noinsert
+let g:ale_completion_enabled = 1
+
+
 
 " Change cursor shape in Tmux
 if exists('$TMUX')
