@@ -333,6 +333,8 @@ endfunction
 
 au FileType rust call FT_rust()
 
+let g:rustfmt_autosave = 1
+
 
 " ALE
 
