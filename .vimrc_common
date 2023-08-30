@@ -106,9 +106,7 @@ set visualbell
 set wildmenu
 set wildmode=list:longest,full
 
-" Use UTF-8
-set encoding=utf-8
-set termencoding=utf-8
+" Use UTF-8 for files
 if &modifiable
   set fileencoding=utf-8
 endif
@@ -196,7 +194,10 @@ set completeopt=menu,longest
 set wildignore+=*.a,*.bak,*~,*.swp,*.o,*.info,*.aux,*.dvi,*.bbl,*.blg,*.brf,*.cb,*.ind,*.idx,*.ilg,*.inx,*.out,*.toc,*.cmi,*.cmo,*.cma,*.cmx,*.cmp,*.cmxa,*.cmxs,*.omc,*.annot,*.exe,*.native,*.byte,*.bc,*.sums,*.spit,*.spot,*.clib
 
 " Change directories automatically
-autocmd BufEnter * lcd %:p:h
+augroup LocalDirectoryChange
+  autocmd!
+  autocmd BufEnter * lcd %:p:h
+augroup END
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
@@ -287,7 +288,9 @@ let g:choosewin_overlay_enable = 1
 " VimTex
 let g:tex_flavor = "latex"
 
-"
+
+" OCaml
+
 function FT_ocaml()
 	" Merlin
 	nmap <LocalLeader>*  <Plug>(MerlinSearchOccurrencesForward)
@@ -310,12 +313,29 @@ endfunction
 
 au FileType ocaml call FT_ocaml()
 
-" Rainbow
-let g:rainbow_active = 0
-au FileType sexplib :RainbowToggle
+
+" Rust
+
+function FT_rust()
+  nnoremap <buffer> <LocalLeader>b :Cargo build<CR>
+  nnoremap <buffer> <LocalLeader>r :Cargo run<CR>
+  nnoremap <buffer> <LocalLeader>h :Cargo check<CR>
+  nnoremap <buffer> <LocalLeader>a :Cargo test<CR>
+  nnoremap <buffer> <LocalLeader>f :Cargo test -- <C-R>%:t:r<CR>
+  nnoremap <buffer> <LocalLeader>l :Cargo clippy<CR>
+  nnoremap <buffer> <LocalLeader>m :Cargo fmt<CR>
+  nnoremap <buffer> <LocalLeader>u :Cargo update<CR>
+  nnoremap <buffer> <LocalLeader>d :Cargo doc --open<CR>
+  nnoremap <buffer> <LocalLeader>s :Cargo search<SPACE>
+  nnoremap <buffer> <LocalLeader>n :Cargo new<SPACE>
+  nnoremap <buffer> <LocalLeader>c :Cargo clean<CR>
+endfunction
+
+au FileType rust call FT_rust()
 
 
 " ALE
+
 " let g:ale_verbose = 1
 let g:ale_lint_on_text_changed = 'never'
 highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=234
@@ -327,6 +347,9 @@ let g:ale_sign_warning = '⚠'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_show_balloons = 1
+
+" ALE bindings for Rust
+autocmd FileType rust nmap <buffer> <LocalLeader>t :ALEHover<CR>
 
 " ALE Linters
 let g:ale_linters = {
@@ -345,7 +368,6 @@ set completeopt=menu,menuone,preview,noselect,noinsert
 let g:ale_completion_enabled = 1
 
 
-
 " Change cursor shape in Tmux
 if exists('$TMUX')
 	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
@@ -354,3 +376,14 @@ else
 	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
+
+" Vim Test
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
+
+" Rainbow
+let g:rainbow_active = 0
+au FileType sexplib :RainbowToggle
