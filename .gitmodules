@@ -73,3 +73,6 @@
 [submodule ".vim/pack/mmottl/start/vim-test"]
 	path = .vim/pack/mmottl/start/vim-test
 	url = https://github.com/vim-test/vim-test
+[submodule ".vim/pack/mmottl/start/vim-gradle"]
+	path = .vim/pack/mmottl/start/vim-gradle
+	url = https://github.com/hdiniz/vim-gradle.git
