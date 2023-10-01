@@ -173,12 +173,6 @@ nnoremap <leader>u yyp<c-v>$r-
 " Underline the current line with = in normal mode
 nnoremap <leader>U yyp<c-v>$r=
 
-" OCaml stuff
-let no_ocaml_comments = 1
-let no_ocaml_conceal = 1
-" let ocaml_highlight_operators = 1
-autocmd FileType ocaml set makeprg=dune\ build
-
 " Remove GUI-nonsense
 set guioptions-=T
 set guioptions-=m
@@ -215,6 +209,8 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " ripgrep
 set grepprg=rg\ --smart-case\ --vimgrep
+set grepformat=%f:%l:%c:%m,%f:%l:%m
+autocmd QuickFixCmdPost *grep* cwindow
 
 set ofu=syntaxcomplete#Complete
 
@@ -291,6 +287,11 @@ let g:tex_flavor = "latex"
 
 " OCaml
 
+let no_ocaml_comments = 1
+let no_ocaml_conceal = 1
+" let ocaml_highlight_operators = 1
+autocmd FileType ocaml set makeprg=dune\ build
+
 function FT_ocaml()
 	" Merlin
 	nmap <LocalLeader>*  <Plug>(MerlinSearchOccurrencesForward)
@@ -334,6 +335,12 @@ endfunction
 au FileType rust call FT_rust()
 
 let g:rustfmt_autosave = 1
+
+
+" Java
+
+" Enable Gradle
+let g:gradle_vim_sync = 1
 
 
 " ALE
