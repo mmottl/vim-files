@@ -76,3 +76,6 @@
 [submodule ".vim/pack/mmottl/start/vim-gradle"]
 	path = .vim/pack/mmottl/start/vim-gradle
 	url = https://github.com/hdiniz/vim-gradle.git
+[submodule ".vim/pack/mmottl/start/ansible_vim"]
+	path = .vim/pack/mmottl/start/ansible_vim
+	url = https://github.com/pearofducks/ansible-vim
