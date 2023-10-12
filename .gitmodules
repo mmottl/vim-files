@@ -1,18 +1,18 @@
 [submodule ".vim/bundle/ack.vim"]
 	path = .vim/pack/mmottl/start/ack.vim
-	url = https://github.com/mileszs/ack.vim
+	url = git://github.com/mileszs/ack.vim
 [submodule ".vim/bundle/ale"]
 	path = .vim/pack/mmottl/start/ale
-	url = https://github.com/dense-analysis/ale
+	url = git://github.com/dense-analysis/ale
 [submodule ".vim/bundle/ctrlp.vim"]
 	path = .vim/pack/mmottl/start/ctrlp.vim
 	url = git://github.com/kien/ctrlp.vim.git
 [submodule ".vim/bundle/fzf"]
 	path = .vim/pack/mmottl/start/fzf
-	url = https://github.com/junegunn/fzf
+	url = git://github.com/junegunn/fzf
 [submodule ".vim/bundle/fzf.vim"]
 	path = .vim/pack/mmottl/start/fzf.vim
-	url = https://github.com/junegunn/fzf.vim
+	url = git://github.com/junegunn/fzf.vim
 [submodule ".vim/bundle/lightline.vim"]
 	path = .vim/bundle/lightline.vim
 	url = git://github.com/itchyny/lightline.vim.git
@@ -63,19 +63,25 @@
 	url = git://github.com/tpope/vim-surround.git
 [submodule ".vim/bundle/vimtex"]
 	path = .vim/pack/mmottl/start/vimtex
-	url = https://github.com/lervag/vimtex
+	url = git://github.com/lervag/vimtex
 [submodule ".vim/pack/mmottl/start/rust.vim"]
 	path = .vim/pack/mmottl/start/rust.vim
-	url = https://github.com/rust-lang/rust.vim
+	url = git://github.com/rust-lang/rust.vim
 [submodule ".vim/pack/mmottl/start/vim-cargo"]
 	path = .vim/pack/mmottl/start/vim-cargo
-	url = https://github.com/timonv/vim-cargo
+	url = git://github.com/timonv/vim-cargo
 [submodule ".vim/pack/mmottl/start/vim-test"]
 	path = .vim/pack/mmottl/start/vim-test
-	url = https://github.com/vim-test/vim-test
+	url = git://github.com/vim-test/vim-test
 [submodule ".vim/pack/mmottl/start/vim-gradle"]
 	path = .vim/pack/mmottl/start/vim-gradle
-	url = https://github.com/hdiniz/vim-gradle.git
+	url = git://github.com/hdiniz/vim-gradle.git
 [submodule ".vim/pack/mmottl/start/ansible_vim"]
 	path = .vim/pack/mmottl/start/ansible_vim
-	url = https://github.com/pearofducks/ansible-vim
+	url = git://github.com/pearofducks/ansible-vim
+[submodule ".vim/pack/mmottl/start/vim-ocaml"]
+	path = .vim/pack/mmottl/start/vim-ocaml
+	url = git://github.com/ocaml/vim-ocaml
+[submodule ".vim/pack/mmottl/start/vim-slime"]
+	path = .vim/pack/mmottl/start/vim-slime
+	url = git@github.com:jpalardy/vim-slime.git
