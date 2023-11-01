@@ -317,22 +317,22 @@ au FileType ocaml call FT_ocaml()
 
 " Rust
 
-function FT_rust()
-  nnoremap <buffer> <LocalLeader>b :Cargo build<CR>
-  nnoremap <buffer> <LocalLeader>r :Cargo run<CR>
-  nnoremap <buffer> <LocalLeader>h :Cargo check<CR>
-  nnoremap <buffer> <LocalLeader>a :Cargo test<CR>
-  nnoremap <buffer> <LocalLeader>f :Cargo test -- <C-R>%:t:r<CR>
-  nnoremap <buffer> <LocalLeader>l :Cargo clippy<CR>
-  nnoremap <buffer> <LocalLeader>m :Cargo fmt<CR>
-  nnoremap <buffer> <LocalLeader>u :Cargo update<CR>
-  nnoremap <buffer> <LocalLeader>d :Cargo doc --open<CR>
-  nnoremap <buffer> <LocalLeader>s :Cargo search<SPACE>
-  nnoremap <buffer> <LocalLeader>n :Cargo new<SPACE>
-  nnoremap <buffer> <LocalLeader>c :Cargo clean<CR>
-endfunction
-
-au FileType rust call FT_rust()
+" function FT_rust()
+"   nnoremap <buffer> <LocalLeader>b :Cargo build<CR>
+"   nnoremap <buffer> <LocalLeader>r :Cargo run<CR>
+"   nnoremap <buffer> <LocalLeader>h :Cargo check<CR>
+"   nnoremap <buffer> <LocalLeader>a :Cargo test<CR>
+"   nnoremap <buffer> <LocalLeader>f :Cargo test -- <C-R>%:t:r<CR>
+"   nnoremap <buffer> <LocalLeader>l :Cargo clippy<CR>
+"   nnoremap <buffer> <LocalLeader>m :Cargo fmt<CR>
+"   nnoremap <buffer> <LocalLeader>u :Cargo update<CR>
+"   nnoremap <buffer> <LocalLeader>d :Cargo doc --open<CR>
+"   nnoremap <buffer> <LocalLeader>s :Cargo search<SPACE>
+"   nnoremap <buffer> <LocalLeader>n :Cargo new<SPACE>
+"   nnoremap <buffer> <LocalLeader>c :Cargo clean<CR>
+" endfunction
+"
+" au FileType rust call FT_rust()
 
 let g:rustfmt_autosave = 1
 
@@ -382,6 +382,9 @@ let g:ale_fixers = {
 set completeopt=menu,menuone,preview,noselect,noinsert
 let g:ale_completion_enabled = 1
 
+" Slime
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
 
 " Change cursor shape in Tmux
 if exists('$TMUX')
@@ -402,6 +405,3 @@ nmap <silent> <leader>g :TestVisit<CR>
 " Rainbow
 let g:rainbow_active = 0
 au FileType sexplib :RainbowToggle
-
-" Turn off highlighting
-nnoremap <F10> :noh<CR>
