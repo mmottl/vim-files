@@ -82,6 +82,6 @@
 [submodule ".vim/pack/mmottl/start/vim-slime"]
 	path = .vim/pack/mmottl/start/vim-slime
 	url = git@github.com:jpalardy/vim-slime.git
-[submodule ".vim/pack/plugins/start/mru"]
-	path = .vim/pack/plugins/start/mru
+[submodule ".vim/pack/mmottl/start/mru"]
+	path = .vim/pack/mmottl/start/mru
 	url = git@github.com:yegappan/mru.git

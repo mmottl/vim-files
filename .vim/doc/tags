@@ -1,9 +1,0 @@
-:opam	opam.txt	/*:opam*
-g:ocaml_highlight_operators	ocaml.txt	/*g:ocaml_highlight_operators*
-g:opam_init_env	opam.txt	/*g:opam_init_env*
-g:opam_set_switch	opam.txt	/*g:opam_set_switch*
-ocaml-configuration	ocaml.txt	/*ocaml-configuration*
-ocaml.txt	ocaml.txt	/*ocaml.txt*
-opam-about	opam.txt	/*opam-about*
-opam-configuration	opam.txt	/*opam-configuration*
-opam.txt	opam.txt	/*opam.txt*
