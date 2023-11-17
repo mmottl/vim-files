@@ -31,9 +31,6 @@
 [submodule ".vim/bundle/tcomment_vim"]
 	path = .vim/pack/mmottl/start/tcomment_vim
 	url = git://github.com/tomtom/tcomment_vim.git
-[submodule ".vim/bundle/tplugin_vim"]
-	path = .vim/pack/mmottl/start/tplugin_vim
-	url = git://github.com/tomtom/tplugin_vim.git
 [submodule ".vim/bundle/vim-airline"]
 	path = .vim/pack/mmottl/start/vim-airline
 	url = git://github.com/vim-airline/vim-airline.git
