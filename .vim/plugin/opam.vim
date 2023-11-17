@@ -8,15 +8,35 @@ endif
 
 let g:loaded_opam = 1
 
+if !exists('g:opam_set_switch')
+  let g:opam_set_switch = 0
+endif
+
 " Utility {{{1
 
 function! opam#eval_env()
-  let opam_eval = system("opam config env")
+  let l:env_extra_args = ""
+  if g:opam_set_switch
+    " Unlet so 'opam env' uses the selected switch
+    unlet $OPAMSWITCH
+    " Will add OPAMSWITCH and OPAMROOT to the output
+    let l:env_extra_args = " --set-switch --set-root"
+  endif
+  let opam_eval = system("opam env --readonly" . l:env_extra_args)
+  if v:shell_error
+    return 0
+  endif
   let cmds = split(opam_eval, "\n")
   for cmd in cmds
     let var = split(split(cmd, ";")[0], "=")
     execute 'let $' . var[0] . " = " . var[1]
   endfor
+  if g:opam_set_switch
+    let g:opam_current_compiler = $OPAMSWITCH
+  else
+    let g:opam_current_compiler = opam#compiler_version()
+  endif
+  return 1
 endfunction
 
 function! opam#switch(ocaml_version)
@@ -24,7 +44,6 @@ function! opam#switch(ocaml_version)
   let success = empty(matchstr(res, 'ERROR'))
   if success
     call opam#eval_env()
-    let g:opam_current_compiler = opam#compiler_version()
   endif
   return success
 endfunction
@@ -48,33 +67,40 @@ endfunction
 " }}}1
 " :Opam {{{1
 
+function! opam#cmd_switch(version)
+  let success = opam#switch(a:version)
+  if success
+    echomsg "Using " . g:opam_current_compiler
+  else
+    echoerr "Switching to " . a:version . " failed"
+  endif
+endfunction
+
 function! s:Opam(bang,...) abort
-  if len(a:000) > 1 && a:1 ==# "switch"
-    let l:switch = 1
-    let l:version = a:2
-  else
-    let l:switch = 1
-    let l:version = a:1
-  end
-  if switch
-    let success = opam#switch(l:version)
-    if success
-      return 'echomsg "Using ' . g:opam_current_compiler . '"'
+  if len(a:000) > 1
+    if a:1 ==# "switch"
+      call opam#cmd_switch(a:2)
     else
-      return 'echoerr "Switching to ' . l:version . ' failed"'
+      echoerr "Only switching is supported for now"
+    end
+  elseif len(a:000) > 0
+    call opam#cmd_switch(a:1)
+  else
+    if opam#eval_env()
+      echomsg "Using " . g:opam_current_compiler
+    else
+      echomsg "Updating the environment failed."
     endif
-  else
-    return 'echoerr "Only switching is supported for now"'
-  else
+  end
 endfunction
 
 function! s:Complete(A,L,P)
-  let installed = split((system("opam switch -s -i 2> /dev/null")), "\n")
-  call map(installed, 'opam#chomp(v:val)')
-  return join(installed, "\n")
+  let switches = split((system("opam switch --short 2> /dev/null")), "\n")
+  call map(switches, 'opam#chomp(v:val)')
+  return join(switches, "\n")
 endfunction
 
-command! -bar -nargs=* -complete=custom,s:Complete Opam :execute s:Opam(<bang>0,<f-args>)
+command! -bar -nargs=* -complete=custom,s:Complete Opam :call s:Opam(<bang>0,<f-args>)
 
 " }}}1
 " Statusline {{{1
