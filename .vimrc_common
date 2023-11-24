@@ -21,7 +21,7 @@ augroup END
 set expandtab
 
 " Set formatting of text and comments
-set formatoptions=tn1
+set formatoptions=tn1cqrowa
 
 " My default format program
 set formatprg=fmt\ -w\ 80\ -u
@@ -153,7 +153,7 @@ colorscheme markus
 " Ex-mode is pretty dumb, remap Q to reformat the current paragraph
 nnoremap Q gqip
 
-" Function key settings - 'make'-shortcuts
+" Function key settings
 map <F5> :lnext<CR>
 map <F6> :lprev<CR>
 
@@ -204,9 +204,6 @@ autocmd FileType sh set iskeyword=~,@,48-57,_,192-255,-
 " Set location for NetrW bookmarks and history
 let g:netrw_home=$HOME
 
-" ag
-let g:ackprg = 'ag --nogroup --nocolor --column'
-
 " ripgrep
 set grepprg=rg\ --smart-case\ --vimgrep
 set grepformat=%f:%l:%c:%m,%f:%l:%m
@@ -249,9 +246,6 @@ let g:airline_symbols.linenr = ''
 " Load matchit
 runtime! macros/matchit.vim
 
-" SnipMate stuff
-let g:snips_author = 'Markus Mottl'
-
 " MRU-functionality
 nnoremap <leader>m :MRU<CR>
 let MRU_Max_Entries = 1000
@@ -266,7 +260,9 @@ nnoremap <leader>fj :FufJumpList<CR>
 nnoremap <leader>fc :FufChangeList<CR>
 
 " NERDTree
-nnoremap <leader>n :NERDTree<CR>
+nnoremap <leader>n :NERDTreeFocus<CR>
+let g:NERDTreeGitStatusUseNerdFonts = 1
+let g:NERDTreeGitStatusShowClean = 1
 
 " Make
 nnoremap <leader>M :make<CR>
@@ -339,17 +335,26 @@ let g:rustfmt_autosave = 1
 
 " Java
 
-" Enable Gradle
-let g:gradle_vim_sync = 1
+let g:ale_java_checkstyle_config = "$HOME/.checkstyle/checkstyle.xml"
+let g:ale_java_google_java_format_options = '--aosp --indentation 4'
 
-autocmd FileType java set shiftwidth=4
+augroup JavaSpecific
+  autocmd!
+  autocmd!
+  autocmd BufWinEnter,WinEnter * if &filetype == 'java' | setlocal colorcolumn=120 | endif
+  autocmd BufWinLeave,WinLeave * if &filetype == 'java' | setlocal colorcolumn=0 | endif
+  autocmd FileType java setlocal shiftwidth=4
+  autocmd FileType java setlocal tabstop=4
+  autocmd FileType java setlocal expandtab
+augroup END
 
 
 " ALE
 
-" let g:ale_verbose = 1
+let g:ale_verbose = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
 
 highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=234
 highlight ALEWarningSign cterm=bold ctermfg=11 ctermbg=234
@@ -374,17 +379,23 @@ let g:ale_linters = {
 
 " ALE Fixers
 let g:ale_fixers = {
-\   'ocaml': ['ocamlformat'],
+\   'ocaml': ['ocamlformat', 'trim_whitespace', 'remove_trailing_lines'],
 \   'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'],
+\   'java': ['google_java_format', 'trim_whitespace', 'remove_trailing_lines'],
 \}
 
 " As-you-type autocomplete
 set completeopt=menu,menuone,preview,noselect,noinsert
 let g:ale_completion_enabled = 1
 
+
 " Slime
+let g:slime_no_mappings = 1
 let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
+xmap <c-c><c-s> <Plug>SlimeRegionSend
+nmap <c-c><c-s> <Plug>SlimeParagraphSend
+nmap <c-c>v     <Plug>SlimeConfig
 
 " Change cursor shape in Tmux
 if exists('$TMUX')
@@ -395,12 +406,14 @@ else
 	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
+
 " Vim Test
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
+
 
 " Rainbow
 let g:rainbow_active = 0
