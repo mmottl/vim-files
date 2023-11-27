@@ -79,9 +79,12 @@
 [submodule ".vim/pack/mmottl/start/mru"]
 	path = .vim/pack/mmottl/start/mru
 	url = git@github.com:yegappan/mru.git
-[submodule ".vim/pack/mmottl/start/vim-devicons"]
-	path = .vim/pack/mmottl/start/vim-devicons
-	url = https://github.com/ryanoasis/vim-devicons
 [submodule ".vim/pack/mmottl/start/nerdtree-git-plugin"]
 	path = .vim/pack/mmottl/start/nerdtree-git-plugin
 	url = git@github.com:Xuyuanp/nerdtree-git-plugin.git
+[submodule ".vim/pack/mmottl/start/YouCompleteMe"]
+	path = .vim/pack/mmottl/start/YouCompleteMe
+	url = git@github.com:ycm-core/YouCompleteMe.git
+[submodule ".vim/pack/mmottl/start/auto-pairs"]
+	path = .vim/pack/mmottl/start/auto-pairs
+	url = git@github.com:jiangmiao/auto-pairs.git
