@@ -88,3 +88,12 @@
 [submodule ".vim/pack/mmottl/start/auto-pairs"]
 	path = .vim/pack/mmottl/start/auto-pairs
 	url = git@github.com:jiangmiao/auto-pairs.git
+[submodule ".vim/pack/mmottl/start/vim-devicons"]
+	path = .vim/pack/mmottl/start/vim-devicons
+	url = git@github.com:ryanoasis/vim-devicons
+[submodule ".vim/pack/mmottl/start/vim-unimpaired"]
+	path = .vim/pack/mmottl/start/vim-unimpaired
+	url = git@github.com:tpope/vim-unimpaired
+[submodule ".vim/pack/mmottl/start/vim-highlightedyank"]
+	path = .vim/pack/mmottl/start/vim-highlightedyank
+	url = git@github.com:machakann/vim-highlightedyank.git
