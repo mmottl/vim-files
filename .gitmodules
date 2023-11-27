@@ -19,18 +19,12 @@
 [submodule ".vim/bundle/rainbow"]
 	path = .vim/pack/mmottl/start/rainbow
 	url = git://github.com/luochen1990/rainbow.git
-[submodule ".vim/bundle/supertab"]
-	path = .vim/pack/mmottl/start/supertab
-	url = git://github.com/ervandew/supertab.git
 [submodule ".vim/bundle/tcomment_vim"]
 	path = .vim/pack/mmottl/start/tcomment_vim
 	url = git://github.com/tomtom/tcomment_vim.git
 [submodule ".vim/bundle/vim-airline"]
 	path = .vim/pack/mmottl/start/vim-airline
 	url = git://github.com/vim-airline/vim-airline.git
-[submodule ".vim/bundle/vim-colors-solarized"]
-	path = .vim/pack/mmottl/start/vim-colors-solarized
-	url = git://github.com/altercation/vim-colors-solarized.git
 [submodule ".vim/bundle/vim-choosewin"]
 	path = .vim/pack/mmottl/start/vim-choosewin
 	url = git://github.com/t9md/vim-choosewin.git
@@ -97,3 +91,21 @@
 [submodule ".vim/pack/mmottl/start/vim-highlightedyank"]
 	path = .vim/pack/mmottl/start/vim-highlightedyank
 	url = git@github.com:machakann/vim-highlightedyank.git
+[submodule ".vim/pack/mmottl/start/vim-signature"]
+	path = .vim/pack/mmottl/start/vim-signature
+	url = git@github.com:kshenoy/vim-signature.git
+[submodule ".vim/pack/mmottl/start/nerdtree-visual-selection"]
+	path = .vim/pack/mmottl/start/nerdtree-visual-selection
+	url = git@github.com:PhilRunninger/nerdtree-visual-selection.git
+[submodule ".vim/pack/mmottl/start/ultisnips"]
+	path = .vim/pack/mmottl/start/ultisnips
+	url = git@github.com:SirVer/ultisnips.git
+[submodule ".vim/pack/mmottl/start/vim-snippets"]
+	path = .vim/pack/mmottl/start/vim-snippets
+	url = git@github.com:honza/vim-snippets.git
+[submodule ".vim/pack/mmottl/start/editorconfig-vim"]
+	path = .vim/pack/mmottl/start/editorconfig-vim
+	url = git@github.com:editorconfig/editorconfig-vim.git
+[submodule ".vim/pack/mmottl/start/vim-lsp"]
+	path = .vim/pack/mmottl/start/vim-lsp
+	url = git@github.com:prabirshrestha/vim-lsp.git
