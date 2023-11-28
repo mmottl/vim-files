@@ -1,9 +1,6 @@
 [submodule ".vim/bundle/ale"]
 	path = .vim/pack/mmottl/start/ale
 	url = git://github.com/dense-analysis/ale
-[submodule ".vim/bundle/fzf"]
-	path = .vim/pack/mmottl/start/fzf
-	url = git://github.com/junegunn/fzf
 [submodule ".vim/bundle/fzf.vim"]
 	path = .vim/pack/mmottl/start/fzf.vim
 	url = git://github.com/junegunn/fzf.vim
@@ -109,3 +106,9 @@
 [submodule ".vim/pack/mmottl/start/vim-lsp"]
 	path = .vim/pack/mmottl/start/vim-lsp
 	url = git@github.com:prabirshrestha/vim-lsp.git
+[submodule ".vim/pack/mmottl/start/fzf.vim"]
+	path = .vim/pack/mmottl/start/fzf.vim
+	url = git@github.com:junegunn/fzf.vim.git
+[submodule ".vim/pack/mmottl/start/fzf"]
+	path = .vim/pack/mmottl/start/fzf
+	url = git@github.com:junegunn/fzf.git
