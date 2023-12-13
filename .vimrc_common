@@ -194,6 +194,7 @@ set grepformat=%f:%l:%c:%m,%f:%l:%m
 autocmd QuickFixCmdPost *grep* cwindow
 
 " TODO: study
+" TODO: integrate with clangd
 " YouCompleteMe
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
@@ -203,6 +204,7 @@ nmap <leader>D <plug>(YCMHover)
 " SuperTab
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
+" TODO: study
 " UltiSnips
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
@@ -347,6 +349,7 @@ let g:ale_java_checkstyle_config = "$HOME/.checkstyle/google_checks.xml"
 let b:ale_sh_bashate_options = '-i E003 --max-line-length 80'
 
 " TODO: add Ansible
+" TODO: test clang-tidy / clangtidy, clangd
 " Linter registration
 let g:ale_linters = {
 \   'c': ['cc', 'gcc', 'clang', 'clang-tidy'],
@@ -368,6 +371,7 @@ let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 let g:ale_sh_shfmt_options = "-i 2 -ci"
 
 " TODO: add Ansible
+" TODO: test clang-format, clang-tidy / clangtidy, clangd
 " Fixers
 let g:ale_fixers = {
 \   'bash': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
