@@ -1,5 +1,5 @@
-" Maintainer:   Markus Mottl  <markus.mottl@gmail.com>
-" URL:          https://bitbucket.org/mmottl/vim-files
+" Maintainer:   Markus Mottl <markus.mottl@gmail.com>
+" URL:          https://github.com/mmottl/vim-files
 
 " I want Vim, not Vi
 set nocompatible
@@ -10,7 +10,7 @@ set autoindent
 " Automatically write buffer before special actions
 set autowrite
 
-" Add a linemarker at 80
+" Add a linemarker at 80 by default
 augroup BgHighlight
   autocmd!
   autocmd BufWinEnter,WinEnter * set colorcolumn=80
@@ -35,7 +35,8 @@ set hidden
 " Command line history
 set history=1000
 
-" Highlight matches
+" Incremental search, and highlight matches
+set incsearch
 set hlsearch
 
 " Set options for autocompletion
@@ -47,7 +48,7 @@ set laststatus=2
 " When we do wrap visibly (by calling set wrap), break in reasonable places
 set linebreak
 
-" Set statusline
+" Set statusline if Airline not used
 set statusline=%F%m%r%h%w\ %y\ [pos=%l,%c%V]\ [len=%L\ (%p%%)]
 
 " Don't display macro steps
@@ -75,6 +76,9 @@ set sidescrolloff=3
 " Not too deep, not too shallow
 set shiftwidth=2
 
+" Tabs are 2 characters
+set tabstop=2
+
 " Show size of visual selection
 set showcmd
 
@@ -85,10 +89,7 @@ set showmatch
 set smarttab
 
 " Want better buffer handling in quickfix mode
-set switchbuf=useopen,usetab,split
-
-" Tabs are 2 characters
-set tabstop=2
+set switchbuf=useopen,usetab,newtab
 
 " Don't wrap words
 set textwidth=0
@@ -119,58 +120,38 @@ map!  <BS>
 map  [3~ <Del>
 map! [3~ <Del>
 
-" File types
+" Turn on syntax highlighting and indentation
 :syntax on
 :filetype plugin indent on
-
-" Set autoclose pairs for autoclose plugin
-let g:AutoClosePairs = {'(': ')', '{': '}', '[': ']', '"': '"'}
 
 " Better syntax highlighting for shell scripts.
 " Syntax highlight shell scripts as per POSIX,
 " not the original Bourne shell, which very few use
 let g:is_posix = 1
 
-" Colors for color xterms
-if has("terminfo")
-  set t_Co=8
-  set t_Sf=[3%p1%dm
-  set t_Sb=[4%p1%dm
-  set <S-Up>=O2A
-  set <S-Down>=O2B
-  set <S-Left>=O2D
-  set <S-Right>=O2C
-else
-  set t_Co=8
-  set t_Sf=[3%dm
-  set t_Sb=[4%dm
+" Color preferences and functions
+if (has("termguicolors"))
+  set termguicolors
 endif
 
-" Use my color preferences
+" Set colorscheme
 set background=dark
-colorscheme markus
+colorscheme default
 
 " Ex-mode is pretty dumb, remap Q to reformat the current paragraph
 nnoremap Q gqip
 
 " Function key settings
-map <F5> :lnext<CR>
-map <F6> :lprev<CR>
 
-" Have <F2> toggle paste
+" Toggle easy pasting of text without formatting
 set pastetoggle=<F2>
 
-" Have <F3> toggle spelling mode
-nmap <F3> :setlocal invspell spelllang=en_us<CR>
-
 " , is a more convenient leader than \
-let maplocalleader = ",,"
 let mapleader = ","
+let maplocalleader = ",,"
 
-" Underline the current line with - in normal mode
+" Underline the current line with - or = in normal mode
 nnoremap <leader>u yyp<c-v>$r-
-
-" Underline the current line with = in normal mode
 nnoremap <leader>U yyp<c-v>$r=
 
 " Remove GUI-nonsense
@@ -181,11 +162,11 @@ set guioptions-=R
 set guioptions-=l
 set guioptions-=L
 
-" Always show the menu, insert longest match
-set completeopt=menu,longest
+" Completion options
+set completeopt=menu,menuone,preview,noselect,noinsert
 
 " Ignore irrelevant suffixes for filename completion
-set wildignore+=*.a,*.bak,*~,*.swp,*.o,*.info,*.aux,*.dvi,*.bbl,*.blg,*.brf,*.cb,*.ind,*.idx,*.ilg,*.inx,*.out,*.toc,*.cmi,*.cmo,*.cma,*.cmx,*.cmp,*.cmxa,*.cmxs,*.omc,*.annot,*.exe,*.native,*.byte,*.bc,*.sums,*.spit,*.spot,*.clib
+set wildignore+=*.a,*.bak,*~,*.swp,*.o,*.info,*.aux,*.dvi,*.bbl,*.blg,*.brf,*.cb,*.ind,*.idx,*.ilg,*.inx,*.out,*.toc,*.cmi,*.cmo,*.cma,*.cmx,*.cmxa,*.cmxs,*.cmt,*.cmti,*.omc,*.exe,*.native,*.byte,*.bc
 
 " Change directories automatically
 augroup LocalDirectoryChange
@@ -198,74 +179,42 @@ augroup END
 " (happens when dropping a file on gvim).
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 
-" Our shell code looks like a scheme programmer made up all the names
+" Keyword syntax for shell scripts
 autocmd FileType sh set iskeyword=~,@,48-57,_,192-255,-
+
+" Load matchit for % matching
+runtime! macros/matchit.vim
 
 " Set location for NetrW bookmarks and history
 let g:netrw_home=$HOME
 
-" ripgrep
+" Use ripgrep for vimgrep
 set grepprg=rg\ --smart-case\ --vimgrep
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 autocmd QuickFixCmdPost *grep* cwindow
 
-set ofu=syntaxcomplete#Complete
+" TODO: study
+" YouCompleteMe
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:ycm_auto_hover=''
+nmap <leader>D <plug>(YCMHover)
 
+" SuperTab
+let g:SuperTabDefaultCompletionType = '<C-n>'
 
-" air-line
+" UltiSnips
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" Airline
 let g:airline_powerline_fonts = 1
-
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-" unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
-
-" airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-
-
-" Load matchit
-runtime! macros/matchit.vim
-
-" MRU-functionality
-nnoremap <leader>m :MRU<CR>
-let MRU_Max_Entries = 1000
-
-" FuF-functionality
-nnoremap <leader>ff :FufFile<CR>
-nnoremap <leader>fd :FufDir<CR>
-nnoremap <leader>fb :FufBuffer<CR>
-nnoremap <leader>fC :FufCoverageFile<CR>
-nnoremap <leader>fl :FufLine<CR>
-nnoremap <leader>fj :FufJumpList<CR>
-nnoremap <leader>fc :FufChangeList<CR>
 
 " NERDTree
 nnoremap <leader>n :NERDTreeFocus<CR>
 let g:NERDTreeGitStatusUseNerdFonts = 1
 let g:NERDTreeGitStatusShowClean = 1
-
-" Make
-nnoremap <leader>M :make<CR>
 
 " Turn off match highlighting
 nnoremap <leader>h :nohlsearch<CR>
@@ -274,72 +223,45 @@ nnoremap <leader>h :nohlsearch<CR>
 nnoremap <leader>w :w<CR>
 
 " Choosewin functionality
-nmap  -  <Plug>(choosewin)
+nmap -  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 
 " VimTex
 let g:tex_flavor = "latex"
 
-
 " OCaml
-
 let no_ocaml_comments = 1
 let no_ocaml_conceal = 1
-" let ocaml_highlight_operators = 1
+let ocaml_highlight_operators = 1
 autocmd FileType ocaml set makeprg=dune\ build
 
+" TODO: check with Merlin documentation
 function FT_ocaml()
-	" Merlin
-	nmap <LocalLeader>*  <Plug>(MerlinSearchOccurrencesForward)
-	nmap <LocalLeader>#  <Plug>(MerlinSearchOccurrencesBackward)
-	nmap <LocalLeader>d :MerlinDocument<CR>
-	nmap <LocalLeader>gd :MerlinILocate<CR>
-	nmap <LocalLeader>m :MerlinDestruct<CR>
-	nmap <LocalLeader>o :MerlinOutline<CR>
-	nmap <LocalLeader>r  <Plug>(MerlinRename)
-	nmap <LocalLeader>R  <Plug>(MerlinRenameAppend)
-	nmap <LocalLeader>T :MerlinYankLatestType<CR>
-
-	" Load topkg in Merlin when editing pkg/pkg.ml
-	if expand("%:p") =~# "pkg\/pkg\.ml$"
-		call merlin#Use("topkg")
-	endif
-
-	call SuperTabSetDefaultCompletionType("<c-x><c-o>")
+  " Merlin
+  nmap <LocalLeader>*  <Plug>(MerlinSearchOccurrencesForward)
+  nmap <LocalLeader>#  <Plug>(MerlinSearchOccurrencesBackward)
+  nmap <LocalLeader>d :MerlinDocument<CR>
+  nmap <LocalLeader>gd :MerlinILocate<CR>
+  nmap <LocalLeader>m :MerlinDestruct<CR>
+  nmap <LocalLeader>o :MerlinOutline<CR>
+  nmap <LocalLeader>r  <Plug>(MerlinRename)
+  nmap <LocalLeader>R  <Plug>(MerlinRenameAppend)
+  nmap <LocalLeader>T :MerlinYankLatestType<CR>
 endfunction
 
 au FileType ocaml call FT_ocaml()
 
-
 " Rust
-
-" function FT_rust()
-"   nnoremap <buffer> <LocalLeader>b :Cargo build<CR>
-"   nnoremap <buffer> <LocalLeader>r :Cargo run<CR>
-"   nnoremap <buffer> <LocalLeader>h :Cargo check<CR>
-"   nnoremap <buffer> <LocalLeader>a :Cargo test<CR>
-"   nnoremap <buffer> <LocalLeader>f :Cargo test -- <C-R>%:t:r<CR>
-"   nnoremap <buffer> <LocalLeader>l :Cargo clippy<CR>
-"   nnoremap <buffer> <LocalLeader>m :Cargo fmt<CR>
-"   nnoremap <buffer> <LocalLeader>u :Cargo update<CR>
-"   nnoremap <buffer> <LocalLeader>d :Cargo doc --open<CR>
-"   nnoremap <buffer> <LocalLeader>s :Cargo search<SPACE>
-"   nnoremap <buffer> <LocalLeader>n :Cargo new<SPACE>
-"   nnoremap <buffer> <LocalLeader>c :Cargo clean<CR>
-" endfunction
-"
-" au FileType rust call FT_rust()
-
 let g:rustfmt_autosave = 1
 
+augroup RustSpecific
+  autocmd!
+  autocmd BufWinEnter,WinEnter * if &filetype == 'rust' | setlocal colorcolumn=100 | endif
+  autocmd BufWinLeave,WinLeave * if &filetype == 'rust' | setlocal colorcolumn=0 | endif
+augroup END
 
 " Java
-
-let g:ale_java_checkstyle_config = "$HOME/.checkstyle/checkstyle.xml"
-let g:ale_java_google_java_format_options = '--aosp --indentation 4'
-
 augroup JavaSpecific
-  autocmd!
   autocmd!
   autocmd BufWinEnter,WinEnter * if &filetype == 'java' | setlocal colorcolumn=120 | endif
   autocmd BufWinLeave,WinLeave * if &filetype == 'java' | setlocal colorcolumn=0 | endif
@@ -348,46 +270,148 @@ augroup JavaSpecific
   autocmd FileType java setlocal expandtab
 augroup END
 
+" Markdown
+augroup MarkdownSpecific
+  autocmd!
+  autocmd FileType markdown setlocal shiftwidth=2
+  autocmd FileType markdown setlocal tabstop=2
+  autocmd FileType markdown setlocal expandtab
+augroup END
+
+" TODO: Check with FZF.vim GitHub page
+" TODO: Maybe ,,fb for current buffer
+" FZF
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>fl :Lines<CR>
+
+" FZF-Mru
+nnoremap <leader>fm :FZFMru<CR>
 
 " ALE
-
 let g:ale_verbose = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
+let g:ale_completion_enabled = 1  " As-you-type autocomplete
 
+let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+let g:ale_set_balloons = 1
 highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=234
 highlight ALEWarningSign cterm=bold ctermfg=11 ctermbg=234
 highlight ALEError cterm=NONE ctermfg=0 ctermbg=1
 highlight ALEWarning cterm=NONE ctermfg=0 ctermbg=13
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
-let g:ale_show_balloons = 1
-let g:ale_c_gcc_options = '-std=c11 -Wall'
+
+" TODO: check consistency
+" Consider:
+" let g:ale_floating_preview = 1
+" " Example key bindings
+" nmap <leader>ag <plug>(ale_go_to_definition)
+" nmap <leader>at <plug>(ale_go_to_type_definition)
+" nmap <leader>ah <plug>(ale_hover)
+" nmap <leader>ad <plug>(ale_documentation)
+" nmap <leader>ap <plug>(ale_detail)
+" nmap <leader>af <plug>(ale_fix)
+" nmap <leader>al <plug>(ale_lint)
+" nmap <leader>ar <plug>(ale_find_references)
+" imap <c-c> <plug>(ale_complete)
+" "Move between linting errors
+" nmap ]r <plug>(ale_next_wrap)
+" nmap [r <plug>(ale_previous_wrap)
+
+nmap <silent> <C-i> <Plug>(ale_detail)
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <silent> <C-i> <Plug>(ale_detail)
 
-" ALE bindings for Rust
-autocmd FileType rust nmap <buffer> <LocalLeader>t :ALEHover<CR>
+" TODO: check consistency
+nmap <leader>ah <plug>(ale_hover)
+nmap <leader>ad <plug>(ale_documentation)
+nmap <leader>ap <plug>(ale_detail)
 
-" ALE Linters
+" C linter options
+let g:ale_c_gcc_options = '-std=c11 -Wall'
+
+" CPP linter options
+let cpp_opts = '-std=c++20 -Wall -Wextra'
+let g:ale_cpp_cc_options    = cpp_opts
+let g:ale_cpp_gcc_options   = cpp_opts
+let g:ale_cpp_clang_options = cpp_opts
+
+" Java linter options
+let g:ale_java_checkstyle_config = "$HOME/.checkstyle/google_checks.xml"
+
+" Shell linters
+" Ignore level 4 indent, set maximum line length
+let b:ale_sh_bashate_options = '-i E003 --max-line-length 80'
+
+" TODO: add Ansible
+" Linter registration
 let g:ale_linters = {
+\   'c': ['cc', 'gcc', 'clang', 'clang-tidy'],
+\   'cpp': ['cc', 'gcc', 'clang', 'clang-tidy'],
+\   'java': ['checkstyle'],
 \   'ocaml': ['merlin'],
 \   'rust': ['analyzer', 'clippy'],
 \}
 
+" TODO: test clippy
+let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
+
+" Implicitly enabled
+" \   'sh': ['bashate', 'cspell', 'language_server', 'shell', 'shellcheck']
+
 " ALE Fixers
+
+" sh/bash fixer options (consistent with Google Shell Style Guide)
+let g:ale_sh_shfmt_options = "-i 2 -ci"
+
+" TODO: add Ansible
+" Fixers
 let g:ale_fixers = {
+\   'bash': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
+\   'c': ['clang-format', 'trim_whitespace', 'remove_trailing_lines'],
+\   'cpp': ['clang-format', 'trim_whitespace', 'remove_trailing_lines'],
+\   'java': ['google_java_format', 'trim_whitespace', 'remove_trailing_lines'],
 \   'ocaml': ['ocamlformat', 'trim_whitespace', 'remove_trailing_lines'],
 \   'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'],
-\   'java': ['google_java_format', 'trim_whitespace', 'remove_trailing_lines'],
+\   'sh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
+\   'zsh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \}
 
-" As-you-type autocomplete
-set completeopt=menu,menuone,preview,noselect,noinsert
-let g:ale_completion_enabled = 1
+" TODO: test hunk handling
+" Git Gutter
+set updatetime=250
+let g:gitgutter_max_signs = 500
+let g:gitgutter_map_keys = 0
+let g:gitgutter_override_sign_column_highlight = 0
+highlight clear SignColumn
+highlight GitGutterAdd ctermfg=10
+highlight GitGutterChange ctermfg=11
+highlight GitGutterDelete ctermfg=1
+highlight GitGutterChangeDelete ctermfg=12
 
+" TODO: check out
+" Vim Test
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ts :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tv :TestVisit<CR>
+
+" Use Rainbow for coloring nested parentheses
+let g:rainbow_active = 0
+au FileType sexplib :RainbowToggle
+
+" Change cursor shape in Tmux
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
 " Slime
 let g:slime_no_mappings = 1
@@ -396,25 +420,3 @@ let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
 xmap <c-c><c-s> <Plug>SlimeRegionSend
 nmap <c-c><c-s> <Plug>SlimeParagraphSend
 nmap <c-c>v     <Plug>SlimeConfig
-
-" Change cursor shape in Tmux
-if exists('$TMUX')
-	let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
-
-
-" Vim Test
-nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>T :TestFile<CR>
-nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>l :TestLast<CR>
-nmap <silent> <leader>g :TestVisit<CR>
-
-
-" Rainbow
-let g:rainbow_active = 0
-au FileType sexplib :RainbowToggle
