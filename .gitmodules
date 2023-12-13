@@ -67,18 +67,12 @@
 [submodule ".vim/pack/mmottl/start/vim-slime"]
 	path = .vim/pack/mmottl/start/vim-slime
 	url = git@github.com:jpalardy/vim-slime.git
-[submodule ".vim/pack/mmottl/start/mru"]
-	path = .vim/pack/mmottl/start/mru
-	url = git@github.com:yegappan/mru.git
 [submodule ".vim/pack/mmottl/start/nerdtree-git-plugin"]
 	path = .vim/pack/mmottl/start/nerdtree-git-plugin
 	url = git@github.com:Xuyuanp/nerdtree-git-plugin.git
 [submodule ".vim/pack/mmottl/start/YouCompleteMe"]
 	path = .vim/pack/mmottl/start/YouCompleteMe
 	url = git@github.com:ycm-core/YouCompleteMe.git
-[submodule ".vim/pack/mmottl/start/auto-pairs"]
-	path = .vim/pack/mmottl/start/auto-pairs
-	url = git@github.com:jiangmiao/auto-pairs.git
 [submodule ".vim/pack/mmottl/start/vim-devicons"]
 	path = .vim/pack/mmottl/start/vim-devicons
 	url = git@github.com:ryanoasis/vim-devicons
@@ -112,3 +106,9 @@
 [submodule ".vim/pack/mmottl/start/fzf"]
 	path = .vim/pack/mmottl/start/fzf
 	url = git@github.com:junegunn/fzf.git
+[submodule ".vim/pack/mmottl/start/supertab"]
+	path = .vim/pack/mmottl/start/supertab
+	url = git@github.com:ervandew/supertab.git
+[submodule ".vim/pack/mmottl/start/fzf-mru.vim"]
+	path = .vim/pack/mmottl/start/fzf-mru.vim
+	url = git@github.com:pbogut/fzf-mru.vim.git
