@@ -143,9 +143,6 @@ nnoremap Q gqip
 
 " Function key settings
 
-" Toggle easy pasting of text without formatting
-set pastetoggle=<F2>
-
 " , is a more convenient leader than \
 let mapleader = ","
 let maplocalleader = ",,"
@@ -219,13 +216,13 @@ let g:NERDTreeGitStatusUseNerdFonts = 1
 let g:NERDTreeGitStatusShowClean = 1
 
 " Turn off match highlighting
-nnoremap <leader>h :nohlsearch<CR>
+nnoremap <leader>H :nohlsearch<CR>
 
 " Save quickly
 nnoremap <leader>w :w<CR>
 
 " Choosewin functionality
-nmap -  <Plug>(choosewin)
+nmap - <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
 
 " VimTex
@@ -265,10 +262,10 @@ augroup END
 " Java
 augroup JavaSpecific
   autocmd!
-  autocmd BufWinEnter,WinEnter * if &filetype == 'java' | setlocal colorcolumn=120 | endif
+  autocmd BufWinEnter,WinEnter * if &filetype == 'java' | setlocal colorcolumn=100 | endif
   autocmd BufWinLeave,WinLeave * if &filetype == 'java' | setlocal colorcolumn=0 | endif
-  autocmd FileType java setlocal shiftwidth=4
-  autocmd FileType java setlocal tabstop=4
+  autocmd FileType java setlocal shiftwidth=2
+  autocmd FileType java setlocal tabstop=2
   autocmd FileType java setlocal expandtab
 augroup END
 
@@ -279,16 +276,6 @@ augroup MarkdownSpecific
   autocmd FileType markdown setlocal tabstop=2
   autocmd FileType markdown setlocal expandtab
 augroup END
-
-" TODO: Check with FZF.vim GitHub page
-" TODO: Maybe ,,fb for current buffer
-" FZF
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fb :Buffers<CR>
-nnoremap <leader>fl :Lines<CR>
-
-" FZF-Mru
-nnoremap <leader>fm :FZFMru<CR>
 
 " ALE
 let g:ale_verbose = 1
@@ -346,7 +333,7 @@ let g:ale_java_checkstyle_config = "$HOME/.checkstyle/google_checks.xml"
 
 " Shell linters
 " Ignore level 4 indent, set maximum line length
-let b:ale_sh_bashate_options = '-i E003 --max-line-length 80'
+let g:ale_sh_bashate_options = '-i E003 --max-line-length 80'
 
 " TODO: add Ansible
 " TODO: test clang-tidy / clangtidy, clangd
