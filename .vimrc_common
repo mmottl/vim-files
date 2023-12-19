@@ -375,7 +375,6 @@ let g:ale_fixers = {
 " Git Gutter
 set updatetime=250
 let g:gitgutter_max_signs = 500
-let g:gitgutter_map_keys = 0
 let g:gitgutter_override_sign_column_highlight = 0
 highlight clear SignColumn
 highlight GitGutterAdd ctermfg=10
