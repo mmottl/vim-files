@@ -21,7 +21,7 @@ augroup END
 set expandtab
 
 " Set formatting of text and comments
-set formatoptions=tn1cqrowa
+set formatoptions=tn1cqro
 
 " My default format program
 set formatprg=fmt\ -w\ 80\ -u
@@ -211,15 +211,15 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:airline_powerline_fonts = 1
 
 " NERDTree
-nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <silent> <leader>n :NERDTreeFocus<CR>
 let g:NERDTreeGitStatusUseNerdFonts = 1
 let g:NERDTreeGitStatusShowClean = 1
 
 " Turn off match highlighting
-nnoremap <leader>H :nohlsearch<CR>
+nnoremap <silent> <leader>H :nohlsearch<CR>
 
 " Save quickly
-nnoremap <leader>w :w<CR>
+nnoremap <silent> <leader>w :w<CR>
 
 " Choosewin functionality
 nmap - <Plug>(choosewin)
@@ -344,6 +344,7 @@ let g:ale_linters = {
 \   'java': ['checkstyle'],
 \   'ocaml': ['merlin'],
 \   'rust': ['analyzer', 'clippy'],
+\   'yaml': ['actionlint', 'circleci', 'yamlls', 'yamllint'],
 \}
 
 " TODO: test clippy
@@ -368,6 +369,7 @@ let g:ale_fixers = {
 \   'ocaml': ['ocamlformat', 'trim_whitespace', 'remove_trailing_lines'],
 \   'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \   'sh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
+\   'yaml': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
 \   'zsh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \}
 
@@ -394,14 +396,9 @@ nmap <silent> <leader>tv :TestVisit<CR>
 let g:rainbow_active = 0
 au FileType sexplib :RainbowToggle
 
-" Change cursor shape in Tmux
-if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
+" Different cursor shape in insert and normal mode
+let &t_SI .= "\e[6 q"
+let &t_EI .= "\e[2 q"
 
 " Slime
 let g:slime_no_mappings = 1
@@ -410,3 +407,82 @@ let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
 xmap <c-c><c-s> <Plug>SlimeRegionSend
 nmap <c-c><c-s> <Plug>SlimeParagraphSend
 nmap <c-c>v     <Plug>SlimeConfig
+
+" FZF
+" See `man fzf-tmux` for available options
+if exists('$TMUX')
+  let g:fzf_layout = { 'tmux': '-p90%,90%' }
+else
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
+endif
+
+let g:fzf_command_prefix = 'FZF'
+let g:fzf_buffers_jump = 1
+let g:fzf_preview_window = ['right,66%', 'ctrl-/']
+
+" File path completion in Insert mode using FZF
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-buffer-line)
+
+nnoremap <silent> <leader>ff :FZFFiles<CR>
+nnoremap <silent> <leader>fF :FZFFiles!<CR>
+nnoremap <silent> <leader>fh :FZFHistory<CR>
+nnoremap <silent> <leader>f: :FZFHistory:<CR>
+cnoremap <silent> <C-p> :FZFHistory:<CR>
+nnoremap <silent> <leader>f/ :FZFHistory/<CR>
+
+" nnoremap <silent> <leader>fg :FZFGFiles<CR>
+function! s:setup_fzf_git_files()
+  let opts = {
+  \ 'source': 'ls --color `git ls-files`',
+  \ 'options': '--preview "bat -n --color=always --line-range :500 {}" --preview-window right:66%',
+  \ }
+  call fzf#run(fzf#wrap(opts))
+endfunction
+nnoremap <silent> <leader>fg :call <SID>setup_fzf_git_files()<CR>
+
+nnoremap <silent> <leader>fG :FZFGFiles?<CR>
+nnoremap <silent> <leader>fr :FZFRg<CR>
+nnoremap <silent> <leader>fR :FZFRG<CR>
+nnoremap <silent> <leader>fb :FZFBuffers<CR>
+nnoremap <silent> <leader>fl :FZFBLines<CR>
+nnoremap <silent> <leader>fL :FZFLines<CR>
+nnoremap <silent> <leader>fc :FZFChanges<CR>
+nnoremap <silent> <leader>fj :FZFJumps<CR>
+nnoremap <silent> <leader>fw :FZFWindows<CR>
+nnoremap <silent> <leader>fs :FZFSnippets<CR>
+nnoremap <silent> <leader>fk :FZFBCommits<CR>
+nnoremap <silent> <leader>fK :FZFCommits<CR>
+nnoremap <silent> <leader>fC :FZFCommands<CR>
+nnoremap <silent> <leader>fM :FZFMaps<CR>
+nnoremap <silent> <leader>fH :FZFHelptags<CR>
+nnoremap <silent> <leader>ft :FZFFiletypes<CR>
+
+" Use tree tool for directory previews
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>,
+  \ {'options': [
+  \ '--layout=reverse', '--info=inline',
+  \ '--preview-window', 'right:66%', '--preview',
+  \ '[[ -d {} ]] && tree -C {} | head -200 ||
+  \ ~/.vim/pack/mmottl/start/fzf.vim/bin/preview.sh {}']}, <bang>0)
+
+" FZFMru
+command! -bang -nargs=? FZFMru call fzf_mru#actions#mru(<q-args>, {
+  \ 'window': {
+  \   'width': 0.9,
+  \   'height': 0.9
+  \ },
+  \ 'options': [
+  \   '--preview', 'bat -n --color=always --line-range :500 {}',
+  \   '--preview-window', 'right:66%',
+  \   '--bind', 'ctrl-_:toggle-preview'
+  \ ]
+\ })
+
+nnoremap <leader>fm :FZFMru<CR>
+
+" EditorConfig
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
