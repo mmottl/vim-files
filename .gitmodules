@@ -118,3 +118,6 @@
 [submodule ".vim/pack/mmottl/start/neural"]
 	path = .vim/pack/mmottl/start/neural
 	url = git@github.com:dense-analysis/neural.git
+[submodule ".vim/pack/mmottl/start/YouCompleteMe"]
+	path = .vim/pack/mmottl/start/YouCompleteMe
+	url = git@github.com:ycm-core/YouCompleteMe.git
