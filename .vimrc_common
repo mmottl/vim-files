@@ -148,8 +148,8 @@ let mapleader = ","
 let maplocalleader = ",,"
 
 " Underline the current line with - or = in normal mode
-nnoremap <leader>u yyp<c-v>$r-
-nnoremap <leader>U yyp<c-v>$r=
+nnoremap <leader>u yyp<C-v>$r-
+nnoremap <leader>U yyp<C-v>$r=
 
 " Remove GUI-nonsense
 set guioptions-=T
@@ -168,7 +168,7 @@ set wildignore+=*.a,*.bak,*~,*.swp,*.o,*.info,*.aux,*.dvi,*.bbl,*.blg,*.brf,*.cb
 " Change directories automatically
 augroup LocalDirectoryChange
   autocmd!
-  autocmd BufEnter * lcd %:p:h
+  autocmd BufEnter * if expand('%') != '' && filereadable(expand('%')) | lcd %:p:h | endif
 augroup END
 
 " When editing a file, always jump to the last known cursor position.
@@ -190,23 +190,6 @@ set grepprg=rg\ --smart-case\ --vimgrep
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 autocmd QuickFixCmdPost *grep* cwindow
 
-" TODO: study
-" TODO: integrate with clangd
-" YouCompleteMe
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:ycm_auto_hover=''
-nmap <leader>D <plug>(YCMHover)
-
-" SuperTab
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" TODO: study
-" UltiSnips
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
 " Airline
 let g:airline_powerline_fonts = 1
 
@@ -215,8 +198,8 @@ nnoremap <silent> <leader>n :NERDTreeFocus<CR>
 let g:NERDTreeGitStatusUseNerdFonts = 1
 let g:NERDTreeGitStatusShowClean = 1
 
-" Turn off match highlighting
-nnoremap <silent> <leader>H :nohlsearch<CR>
+" Turn off match highlighting and clear Codeium prediction
+nnoremap <silent> <leader>H :nohlsearch<CR>:call codeium#Clear()<CR>
 
 " Save quickly
 nnoremap <silent> <leader>w :w<CR>
@@ -228,23 +211,23 @@ let g:choosewin_overlay_enable = 1
 " VimTex
 let g:tex_flavor = "latex"
 
-" OCaml
-let no_ocaml_comments = 1
-let no_ocaml_conceal = 1
-let ocaml_highlight_operators = 1
-autocmd FileType ocaml set makeprg=dune\ build
+" Make
+nnoremap <silent> <leader>m :make<CR>
 
-" TODO: check with Merlin documentation
+" OCaml
 function FT_ocaml()
+  let no_ocaml_comments = 1
+  let ocaml_highlight_operators = 1
+  set makeprg=dune\ build
+
   " Merlin
-  nmap <LocalLeader>*  <Plug>(MerlinSearchOccurrencesForward)
-  nmap <LocalLeader>#  <Plug>(MerlinSearchOccurrencesBackward)
+  call SuperTabSetDefaultCompletionType("<c-x><c-o>")
+  nmap <LocalLeader>* <Plug>(MerlinSearchOccurrencesForward)
+  nmap <LocalLeader># <Plug>(MerlinSearchOccurrencesBackward)
   nmap <LocalLeader>d :MerlinDocument<CR>
-  nmap <LocalLeader>gd :MerlinILocate<CR>
   nmap <LocalLeader>m :MerlinDestruct<CR>
-  nmap <LocalLeader>o :MerlinOutline<CR>
-  nmap <LocalLeader>r  <Plug>(MerlinRename)
-  nmap <LocalLeader>R  <Plug>(MerlinRenameAppend)
+  nmap <LocalLeader>r <Plug>(MerlinRename)
+  nmap <LocalLeader>R <Plug>(MerlinRenameAppend)
   nmap <LocalLeader>T :MerlinYankLatestType<CR>
 endfunction
 
@@ -264,60 +247,52 @@ augroup JavaSpecific
   autocmd!
   autocmd BufWinEnter,WinEnter * if &filetype == 'java' | setlocal colorcolumn=100 | endif
   autocmd BufWinLeave,WinLeave * if &filetype == 'java' | setlocal colorcolumn=0 | endif
-  autocmd FileType java setlocal shiftwidth=2
-  autocmd FileType java setlocal tabstop=2
-  autocmd FileType java setlocal expandtab
+  autocmd FileType java setlocal shiftwidth=2 tabstop=2 expandtab
 augroup END
 
 " Markdown
 augroup MarkdownSpecific
   autocmd!
-  autocmd FileType markdown setlocal shiftwidth=2
-  autocmd FileType markdown setlocal tabstop=2
-  autocmd FileType markdown setlocal expandtab
+  autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 expandtab
 augroup END
 
 " ALE
-let g:ale_verbose = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_save = 1
+" On save settings
 let g:ale_fix_on_save = 1
-let g:ale_completion_enabled = 1  " As-you-type autocomplete
+let g:ale_lint_on_save = 1
 
+" Floating window
+let g:ale_floating_preview = 1
 let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
+
+" Sign column
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
-let g:ale_set_balloons = 1
+
+" Highlighting 
 highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=234
 highlight ALEWarningSign cterm=bold ctermfg=11 ctermbg=234
 highlight ALEError cterm=NONE ctermfg=0 ctermbg=1
 highlight ALEWarning cterm=NONE ctermfg=0 ctermbg=13
 
-" TODO: check consistency
-" Consider:
-" let g:ale_floating_preview = 1
-" " Example key bindings
-" nmap <leader>ag <plug>(ale_go_to_definition)
-" nmap <leader>at <plug>(ale_go_to_type_definition)
-" nmap <leader>ah <plug>(ale_hover)
-" nmap <leader>ad <plug>(ale_documentation)
-" nmap <leader>ap <plug>(ale_detail)
-" nmap <leader>af <plug>(ale_fix)
-" nmap <leader>al <plug>(ale_lint)
-" nmap <leader>ar <plug>(ale_find_references)
-" imap <c-c> <plug>(ale_complete)
-" "Move between linting errors
-" nmap ]r <plug>(ale_next_wrap)
-" nmap [r <plug>(ale_previous_wrap)
-
-nmap <silent> <C-i> <Plug>(ale_detail)
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-" TODO: check consistency
-nmap <leader>ah <plug>(ale_hover)
+" ALE shortcuts
+" imap <C-Space> <plug>(ale_complete)
 nmap <leader>ad <plug>(ale_documentation)
+nmap <leader>af <plug>(ale_fix)
+nmap <leader>ag <plug>(ale_go_to_definition)
+nmap <leader>ah <plug>(ale_hover)
+nmap <leader>al <plug>(ale_lint)
 nmap <leader>ap <plug>(ale_detail)
+nmap <leader>ar <plug>(ale_find_references)
+nmap <leader>at <plug>(ale_go_to_type_definition)
+
+" Move between errors
+nmap [a <plug>(ale_previous_wrap)
+nmap ]a <plug>(ale_next_wrap)
+nmap ]A <plug>(ale_last)
+nmap [A <plug>(ale_first)
+nmap <C-k> <plug>(ale_previous_wrap)
+nmap <C-j> <plug>(ale_next_wrap)
 
 " C linter options
 let g:ale_c_gcc_options = '-std=c11 -Wall'
@@ -373,18 +348,14 @@ let g:ale_fixers = {
 \   'zsh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \}
 
-" TODO: test hunk handling
 " Git Gutter
-set updatetime=250
-let g:gitgutter_max_signs = 500
-let g:gitgutter_override_sign_column_highlight = 0
+set updatetime=100
 highlight clear SignColumn
 highlight GitGutterAdd ctermfg=10
 highlight GitGutterChange ctermfg=11
 highlight GitGutterDelete ctermfg=1
 highlight GitGutterChangeDelete ctermfg=12
 
-" TODO: check out
 " Vim Test
 nmap <silent> <leader>tn :TestNearest<CR>
 nmap <silent> <leader>tf :TestFile<CR>
@@ -404,9 +375,9 @@ let &t_EI .= "\e[2 q"
 let g:slime_no_mappings = 1
 let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
-xmap <c-c><c-s> <Plug>SlimeRegionSend
-nmap <c-c><c-s> <Plug>SlimeParagraphSend
-nmap <c-c>v     <Plug>SlimeConfig
+xmap <C-c><C-s> <Plug>SlimeRegionSend
+nmap <C-c><C-s> <Plug>SlimeParagraphSend
+nmap <C-c>v     <Plug>SlimeConfig
 
 " FZF
 " See `man fzf-tmux` for available options
@@ -421,9 +392,14 @@ let g:fzf_buffers_jump = 1
 let g:fzf_preview_window = ['right,66%', 'ctrl-/']
 
 " File path completion in Insert mode using FZF
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-l> <plug>(fzf-complete-buffer-line)
+imap <C-x><C-k> <plug>(fzf-complete-word)
+imap <C-x><C-f> <plug>(fzf-complete-path)
+imap <C-x><C-l> <plug>(fzf-complete-buffer-line)
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 
 nnoremap <silent> <leader>ff :FZFFiles<CR>
 nnoremap <silent> <leader>fF :FZFFiles!<CR>
@@ -485,4 +461,26 @@ nnoremap <leader>fm :FZFMru<CR>
 
 " EditorConfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
+" SuperTab
+let g:SuperTabDefaultCompletionType = 'context'
+
+" YouCompleteMe
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:ycm_key_list_stop_completion = ['<C-y>', '<CR>']
+let g:ycm_auto_hover=''
+nmap <silent> <leader>yd <plug>(YCMHover)
+
+" UltiSnips Configuration
+let g:UltiSnipsListSnippets = '<C-s>'
+
+" Codeium
+let g:codeium_no_map_tab = v:true
+map  <C-q> <Cmd>call codeium#Clear()<CR>
+imap <C-q> <Cmd>call codeium#Clear()<CR>
+imap <C-b> <Cmd>call codeium#CycleCompletions(-1)<CR>
+imap <C-f> <Cmd>call codeium#CycleCompletions(1)<CR>
+imap <script><silent><nowait><expr> <C-h> codeium#Accept()
+let g:airline#extensions#codeium#enabled = 1
 
