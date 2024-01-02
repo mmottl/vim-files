@@ -1,6 +1,5 @@
-" Model alternatives:
-" gpt-3.5-turbo, gpt-4-1106-preview, gpt-4
-let s:ai_model = "gpt-4-1106-preview"
+let s:chat_ai_model = "gpt-4-1106-preview"
+let s:instruct_ai_model = "gpt-3.5-turbo-instruct"
 
 " This prompt instructs model to work with syntax highlighting
 let s:initial_chat_prompt =<< trim END
@@ -13,7 +12,7 @@ END
 " Temperature 0.2 is fairly conservative for coding
 let g:vim_ai_chat = {
 \  "options": {
-\    "model": s:ai_model,
+\    "model": s:chat_ai_model,
 \    "temperature": 0.2,
 \    "initial_prompt": s:initial_chat_prompt,
 \  },
@@ -21,14 +20,14 @@ let g:vim_ai_chat = {
 
 let g:vim_ai_complete = {
 \  "options": {
-\    "model": s:ai_model,
+\    "model": s:instruct_ai_model,
 \    "temperature": 0.2,
 \  },
 \}
 
 let g:vim_ai_edit = {
 \  "options": {
-\    "model": s:ai_model,
+\    "model": s:instruct_ai_model,
 \    "temperature": 0.2,
 \  },
 \}
@@ -133,7 +132,7 @@ endfunction
 nnoremap <leader>df :call AIFixFn()<CR>
 
 " Visual mode mapping to fix selected text
-xnoremap <leader>df :<C-u>call AIFixFn()<CR>
+xnoremap <leader>df :call AIFixFn()<CR>
 
 " Explain or summarize the selected text or code
 function! AIExplainSelection()
@@ -155,39 +154,38 @@ function! AIExplainSelection()
   execute ai_command
 endfunction
 " Visual mode mapping to explain the selected text or code
-xnoremap <leader>dx :<C-u>call AIExplainSelection()<CR>
+xnoremap <leader>dx :call AIExplainSelection()<CR>
 
 " Custom command suggesting git commit message, takes no arguments
 function! AIPromptCommitMessageFn()
   let l:diff = system('git diff --staged')
-  let l:prompt = "Generate a short commit message from the diff below:\n"
-  let l:prompt .= l:diff
+  let l:prompt = "Generate a short commit message from this diff:\n" . l:diff
   let l:range = 0
   let l:config = {
-  \  "engine": "chat",
   \  "options": {
-  \    "model": s:ai_model,
-  \    "initial_prompt": ">>> system\nYou are a code assistant.",
-  \    "temperature": 1,
+  \    "model": s:instruct_ai_model,
+  \    "initial_prompt": ">>> system\nYou are a code assistant",
+  \    "temperature": 0.2,
   \  },
   \}
   call vim_ai#AIRun(l:range, l:config, l:prompt)
 endfunction
 command! AIPromptCommitMessage call AIPromptCommitMessageFn()
-nnoremap <leader>dk :<C-u>call AIPromptCommitMessage()<CR>
+nnoremap <leader>dk :<C-u>call AIPromptCommitMessageFn()<CR>
 
 " Custom command that provides a code review for selected code block
 function! AIPromptCodeReviewFn(range) range
   let l:prompt = "Vim filetype is " . &filetype . ", review the code below"
   let l:config = {
   \  "options": {
-  \    "model": s:ai_model,
+  \    "model": s:chat_ai_model,
   \    "initial_prompt": ">>> system\nYou are a code review expert.",
   \  },
   \}
   '<,'>call vim_ai#AIChatRun(a:range, l:config, l:prompt)
 endfunction
 command! -range AIPromptCodeReview <line1>,<line2>call AIPromptCodeReviewFn(<range>)
+xnoremap <leader>dR :call AIPromptCodeReviewFn()<CR>
 
 " Custom command for adding filetype to the instruction
 function! AISyntaxFn(range, ...) range
@@ -201,5 +199,5 @@ function! AISyntaxFn(range, ...) range
     call vim_ai#AIRun(a:range, {}, l:instruction)
   endif
 endfunction
-
 command! -range -nargs=? AISyntax <line1>,<line2> call AISyntaxFn(<range>, <f-args>)
+nnoremap <leader>dS :AISyntax 
