@@ -17,6 +17,9 @@ augroup BgHighlight
   autocmd BufWinLeave,WinLeave * set colorcolumn=0
 augroup END
 
+" Make clipboard work on Macs
+set clipboard=unnamed
+
 " Tabs are evil
 set expandtab
 
@@ -35,12 +38,12 @@ set hidden
 " Command line history
 set history=1000
 
-" Incremental search, and highlight matches
-set incsearch
+" Highlight matches, and incremental search
 set hlsearch
+set incsearch
 
-" Set options for autocompletion
-set noinfercase
+" Don't display macro steps
+set lazyredraw
 
 " Always want statusline
 set laststatus=2
@@ -48,20 +51,17 @@ set laststatus=2
 " When we do wrap visibly (by calling set wrap), break in reasonable places
 set linebreak
 
-" Set statusline if Airline not used
-set statusline=%F%m%r%h%w\ %y\ [pos=%l,%c%V]\ [len=%L\ (%p%%)]
+" Want mouse support
+set mouse=a
 
-" Don't display macro steps
-set lazyredraw
+" Set options for autocompletion
+set noinfercase
 
 " Don't move cursor to first line when scrolling
 set nostartofline
 
-" Want mouse support
-set mouse=a
-
-" Make clipboard work on Macs
-set clipboard=unnamed
+" Set statusline if Airline not used
+set statusline=%F%m%r%h%w\ %y\ [pos=%l,%c%V]\ [len=%L\ (%p%%)]
 
 " Turn on persistent undo
 set undofile
@@ -75,8 +75,6 @@ set sidescrolloff=3
 
 " Not too deep, not too shallow
 set shiftwidth=2
-
-" Tabs are 2 characters
 set tabstop=2
 
 " Show size of visual selection
@@ -138,10 +136,12 @@ endif
 set background=dark
 colorscheme default
 
+" Different cursor shape in insert and normal mode
+let &t_SI .= "\e[6 q"
+let &t_EI .= "\e[2 q"
+
 " Ex-mode is pretty dumb, remap Q to reformat the current paragraph
 nnoremap Q gqip
-
-" Function key settings
 
 " , is a more convenient leader than \
 let mapleader = ","
@@ -185,352 +185,34 @@ runtime! macros/matchit.vim
 " Set location for NetrW bookmarks and history
 let g:netrw_home=$HOME
 
-" Use ripgrep for vimgrep
-set grepprg=rg\ --smart-case\ --vimgrep
-set grepformat=%f:%l:%c:%m,%f:%l:%m
-autocmd QuickFixCmdPost *grep* cwindow
-
-" Airline
-let g:airline_powerline_fonts = 1
-
-" NERDTree
-nnoremap <silent> <leader>n :NERDTreeFocus<CR>
-let g:NERDTreeGitStatusUseNerdFonts = 1
-let g:NERDTreeGitStatusShowClean = 1
-
 " Turn off match highlighting and clear Codeium prediction
 nnoremap <silent> <leader>H :nohlsearch<CR>:call codeium#Clear()<CR>
 
 " Save quickly
 nnoremap <silent> <leader>w :w<CR>
 
-" Choosewin functionality
-nmap - <Plug>(choosewin)
-let g:choosewin_overlay_enable = 1
-
-" VimTex
-let g:tex_flavor = "latex"
-
 " Make
 nnoremap <silent> <leader>m :make<CR>
 
-" OCaml
-function FT_ocaml()
-  let no_ocaml_comments = 1
-  let ocaml_highlight_operators = 1
-  set makeprg=dune\ build
-
-  " Merlin
-  call SuperTabSetDefaultCompletionType("<c-x><c-o>")
-  nmap <LocalLeader>* <Plug>(MerlinSearchOccurrencesForward)
-  nmap <LocalLeader># <Plug>(MerlinSearchOccurrencesBackward)
-  nmap <LocalLeader>d :MerlinDocument<CR>
-  nmap <LocalLeader>m :MerlinDestruct<CR>
-  nmap <LocalLeader>r <Plug>(MerlinRename)
-  nmap <LocalLeader>R <Plug>(MerlinRenameAppend)
-  nmap <LocalLeader>T :MerlinYankLatestType<CR>
-endfunction
-
-au FileType ocaml call FT_ocaml()
-
-" Rust
-let g:rustfmt_autosave = 1
-
-augroup RustSpecific
-  autocmd!
-  autocmd BufWinEnter,WinEnter * if &filetype == 'rust' | setlocal colorcolumn=100 | endif
-  autocmd BufWinLeave,WinLeave * if &filetype == 'rust' | setlocal colorcolumn=0 | endif
-augroup END
-
-" Java
-augroup JavaSpecific
-  autocmd!
-  autocmd BufWinEnter,WinEnter * if &filetype == 'java' | setlocal colorcolumn=100 | endif
-  autocmd BufWinLeave,WinLeave * if &filetype == 'java' | setlocal colorcolumn=0 | endif
-  autocmd FileType java setlocal shiftwidth=2 tabstop=2 expandtab
-augroup END
-
-" Markdown
-augroup MarkdownSpecific
-  autocmd!
-  autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 expandtab
-augroup END
-
-" ALE
-" On save settings
-let g:ale_fix_on_save = 1
-let g:ale_lint_on_save = 1
-
-" Floating window
-let g:ale_floating_preview = 1
-let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
-
-" Sign column
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
-
-" Highlighting 
-highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=234
-highlight ALEWarningSign cterm=bold ctermfg=11 ctermbg=234
-highlight ALEError cterm=NONE ctermfg=0 ctermbg=1
-highlight ALEWarning cterm=NONE ctermfg=0 ctermbg=13
-
-" ALE shortcuts
-" imap <C-Space> <plug>(ale_complete)
-nmap <leader>ad <plug>(ale_documentation)
-nmap <leader>af <plug>(ale_fix)
-nmap <leader>ag <plug>(ale_go_to_definition)
-nmap <leader>ah <plug>(ale_hover)
-nmap <leader>al <plug>(ale_lint)
-nmap <leader>ap <plug>(ale_detail)
-nmap <leader>ar <plug>(ale_find_references)
-nmap <leader>at <plug>(ale_go_to_type_definition)
-
-" Move between errors
-nmap [a <plug>(ale_previous_wrap)
-nmap ]a <plug>(ale_next_wrap)
-nmap ]A <plug>(ale_last)
-nmap [A <plug>(ale_first)
-nmap <C-k> <plug>(ale_previous_wrap)
-nmap <C-j> <plug>(ale_next_wrap)
-
-" Common include path
-let c_include_path = getenv('C_INCLUDE_PATH')
-let base_includes = '-I' . c_include_path . ' '
-
-" Common C/C++ options
-let common_opts = '-Wall -Wextra -pedantic -Wno-keyword-macro '
-
-" C linter options
-let c_opts = base_includes . common_opts . '-std=c11'
-let g:ale_c_cc_options    = c_opts
-let g:ale_c_clang_options = c_opts
-let g:ale_c_gcc_options   = c_opts
-
-" C++ linter options
-let cpp_opts = base_includes . common_opts . '-std=c++20'
-let g:ale_cpp_cc_options    = cpp_opts
-let g:ale_cpp_gcc_options   = cpp_opts
-let g:ale_cpp_clang_options = cpp_opts
-
-" Java linter options
-let g:ale_java_checkstyle_config = "$HOME/.checkstyle/google_checks.xml"
-
-" Shell linters
-" Ignore level 4 indent, set maximum line length
-let g:ale_sh_bashate_options = '-i E003 --max-line-length 80'
-
-" TODO: add Ansible
-" TODO: test clang-tidy / clangtidy, clangd
-" Linter registration
-let g:ale_linters = {
-\   'c': ['cc', 'gcc', 'clang', 'clang-tidy'],
-\   'cpp': ['cc', 'gcc', 'clang', 'clang-tidy'],
-\   'java': ['checkstyle'],
-\   'ocaml': ['merlin'],
-\   'rust': ['analyzer', 'clippy'],
-\   'yaml': ['actionlint', 'circleci', 'yamlls', 'yamllint'],
-\}
-
-" TODO: test clippy
-let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
-
-" Implicitly enabled
-" \   'sh': ['bashate', 'cspell', 'language_server', 'shell', 'shellcheck']
-
-" ALE Fixers
-
-" sh/bash fixer options (consistent with Google Shell Style Guide)
-let g:ale_sh_shfmt_options = "-i 2 -ci"
-
-" TODO: add Ansible
-" TODO: test clang-format, clang-tidy / clangtidy, clangd
-" Fixers
-let g:ale_fixers = {
-\   'bash': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
-\   'c': ['clang-format', 'trim_whitespace', 'remove_trailing_lines'],
-\   'cpp': ['clang-format', 'trim_whitespace', 'remove_trailing_lines'],
-\   'java': ['google_java_format', 'trim_whitespace', 'remove_trailing_lines'],
-\   'ocaml': ['ocamlformat', 'trim_whitespace', 'remove_trailing_lines'],
-\   'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'],
-\   'sh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
-\   'yaml': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
-\   'zsh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
-\}
-
-" Git Gutter
-set updatetime=100
-highlight clear SignColumn
-highlight GitGutterAdd ctermfg=10
-highlight GitGutterChange ctermfg=11
-highlight GitGutterDelete ctermfg=1
-highlight GitGutterChangeDelete ctermfg=12
-
-" Vim Test
-nmap <silent> <leader>tn :TestNearest<CR>
-nmap <silent> <leader>tf :TestFile<CR>
-nmap <silent> <leader>ts :TestSuite<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>tv :TestVisit<CR>
-
-" Use Rainbow for coloring nested parentheses
-let g:rainbow_active = 0
-au FileType sexplib :RainbowToggle
-
-" Different cursor shape in insert and normal mode
-let &t_SI .= "\e[6 q"
-let &t_EI .= "\e[2 q"
-
-" Slime
-let g:slime_no_mappings = 1
-let g:slime_target = "tmux"
-let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
-xmap <C-c><C-s> <Plug>SlimeRegionSend
-nmap <C-c><C-s> <Plug>SlimeParagraphSend
-nmap <C-c>v     <Plug>SlimeConfig
-
-" FZF
-" See `man fzf-tmux` for available options
-if exists('$TMUX')
-  let g:fzf_layout = { 'tmux': '-p90%,90%' }
-else
-  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
-endif
-
-let g:fzf_command_prefix = 'FZF'
-let g:fzf_buffers_jump = 1
-let g:fzf_preview_window = ['right,66%', 'ctrl-/']
-
-" File path completion in Insert mode using FZF
-imap <C-x><C-k> <plug>(fzf-complete-word)
-imap <C-x><C-f> <plug>(fzf-complete-path)
-imap <C-x><C-l> <plug>(fzf-complete-buffer-line)
-
-" Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-
-nnoremap <silent> <leader>ff :FZFFiles<CR>
-nnoremap <silent> <leader>fF :FZFFiles!<CR>
-nnoremap <silent> <leader>fh :FZFHistory<CR>
-nnoremap <silent> <leader>f: :FZFHistory:<CR>
-cnoremap <silent> <C-p> :FZFHistory:<CR>
-nnoremap <silent> <leader>f/ :FZFHistory/<CR>
-
-" nnoremap <silent> <leader>fg :FZFGFiles<CR>
-function! s:setup_fzf_git_files()
-  let opts = {
-  \ 'source': 'ls --color `git ls-files`',
-  \ 'options': '--preview "bat -n --color=always --line-range :500 {}" --preview-window right:66%',
-  \ }
-  call fzf#run(fzf#wrap(opts))
-endfunction
-nnoremap <silent> <leader>fg :call <SID>setup_fzf_git_files()<CR>
-
-nnoremap <silent> <leader>fG :FZFGFiles?<CR>
-nnoremap <silent> <leader>fr :FZFRg<CR>
-nnoremap <silent> <leader>fR :FZFRG<CR>
-nnoremap <silent> <leader>fb :FZFBuffers<CR>
-nnoremap <silent> <leader>fl :FZFBLines<CR>
-nnoremap <silent> <leader>fL :FZFLines<CR>
-nnoremap <silent> <leader>fc :FZFChanges<CR>
-nnoremap <silent> <leader>fj :FZFJumps<CR>
-nnoremap <silent> <leader>fw :FZFWindows<CR>
-nnoremap <silent> <leader>fs :FZFSnippets<CR>
-nnoremap <silent> <leader>fk :FZFBCommits<CR>
-nnoremap <silent> <leader>fK :FZFCommits<CR>
-nnoremap <silent> <leader>fC :FZFCommands<CR>
-nnoremap <silent> <leader>fM :FZFMaps<CR>
-nnoremap <silent> <leader>fH :FZFHelptags<CR>
-nnoremap <silent> <leader>ft :FZFFiletypes<CR>
-
-" Use tree tool for directory previews
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>,
-  \ {'options': [
-  \ '--layout=reverse', '--info=inline',
-  \ '--preview-window', 'right:66%', '--preview',
-  \ '[[ -d {} ]] && tree -C {} | head -200 ||
-  \ ~/.vim/pack/mmottl/start/fzf.vim/bin/preview.sh {}']}, <bang>0)
-
-" FZFMru
-command! -bang -nargs=? FZFMru call fzf_mru#actions#mru(<q-args>, {
-  \ 'window': {
-  \   'width': 0.9,
-  \   'height': 0.9
-  \ },
-  \ 'options': [
-  \   '--preview', 'bat -n --color=always --line-range :500 {}',
-  \   '--preview-window', 'right:66%',
-  \   '--bind', 'ctrl-_:toggle-preview'
-  \ ]
-\ })
-
-nnoremap <leader>fm :FZFMru<CR>
-
-" EditorConfig
-let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
-
-" SuperTab
-let g:SuperTabDefaultCompletionType = 'context'
-
-" YouCompleteMe
-if executable('brew')
-  " Use Homebrew's clangd
-  let g:ycm_clangd_binary_path = trim(system('brew --prefix llvm')).'/bin/clangd'
-endif
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:ycm_key_list_stop_completion = ['<C-y>', '<CR>']
-let g:ycm_auto_hover = ''
-let g:ycm_show_detailed_diag_in_popup = 1
-let g:ycm_enable_semantic_highlighting = 1
-let g:ycm_enable_inlay_hints = 1
-let g:ycm_clear_inlay_hints_in_insert_mode = 1
-let g:ycm_goto_buffer_command='split-or-existing-window'
-let g:ycm_clangd_args = ['--clang-tidy']
-
-" For :YcmShowDetailedDiagnostic
-let g:ycm_key_detailed_diagnostics = '<leader>yd'
-
-nnoremap <silent> <leader>yD <plug>(YCMHover)
-nnoremap <silent> <leader>yH <Plug>(YCMToggleInlayHints)
-nnoremap <leader>yfd <Plug>(YCMFindSymbolInDocument)
-nnoremap <leader>yfs <Plug>(YCMFindSymbol)
-nnoremap <leader>yfw <Plug>(YCMFindSymbolInWorkspace)
-
-nnoremap <leader>yc  :YcmCompleter ClearCompilationFlagCache<CR>
-nnoremap <leader>yF  :YcmCompleter Format<CR>
-nnoremap <leader>ygg :YcmCompleter GoTo<CR>
-nnoremap <leader>ygG :YcmCompleter GoToImprecise<CR>
-nnoremap <leader>ygI :YcmCompleter GoToInclude<CR>
-nnoremap <leader>ygi :YcmCompleter GoToImplementation<CR>
-nnoremap <leader>ygc :YcmCompleter GoToCallers<CR>
-nnoremap <leader>ygC :YcmCompleter GoToCallees<CR>
-nnoremap <leader>ygd :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>ygD :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>yga :YcmCompleter GoToAlternativeFile<CR>
-nnoremap <leader>ygr :YcmCompleter GoToReferences<CR>
-nnoremap <leader>ygt :YcmCompleter GoToType<CR>
-nnoremap <leader>ygT :YcmCompleter GoToTypeImprecise<CR>
-nnoremap <leader>ygo :YcmCompleter GoToDocumentOutline<CR>
-nnoremap <leader>yh  :YcmCompleter GetDoc<CR>
-nnoremap <leader>yo  :YcmCompleter OrganizeImports<CR>
-nnoremap <leader>yp  :YcmCompleter GetParent<CR>
-nnoremap <leader>yt  :YcmCompleter GetType<CR>
-nnoremap <leader>yx  :YcmCompleter FixIt<CR>
-nnoremap <leader>yy  :YcmRestartServer<CR>
-
-" UltiSnips Configuration
-let g:UltiSnipsListSnippets = '<C-s>'
-
-" Codeium
-let g:codeium_no_map_tab = v:true
-map  <C-q> <Cmd>call codeium#Clear()<CR>
-imap <C-q> <Cmd>call codeium#Clear()<CR>
-imap <C-b> <Cmd>call codeium#CycleCompletions(-1)<CR>
-imap <C-f> <Cmd>call codeium#CycleCompletions(1)<CR>
-imap <script><silent><nowait><expr> <C-h> codeium#Accept()
-let g:airline#extensions#codeium#enabled = 1
-
+" Source specialized vimrc files
+source $HOME/.vim/config/airline.vim
+source $HOME/.vim/config/ale.vim
+source $HOME/.vim/config/choosewin.vim
+source $HOME/.vim/config/codeium.vim
+source $HOME/.vim/config/editorconfig.vim
+source $HOME/.vim/config/fzf.vim
+source $HOME/.vim/config/git-gutter.vim
+source $HOME/.vim/config/java.vim
+source $HOME/.vim/config/markdown.vim
+source $HOME/.vim/config/nerdtree.vim
+source $HOME/.vim/config/ocaml.vim
+source $HOME/.vim/config/rainbow.vim
+source $HOME/.vim/config/ripgrep.vim
+source $HOME/.vim/config/rust.vim
+source $HOME/.vim/config/slime.vim
+source $HOME/.vim/config/supertab.vim
+source $HOME/.vim/config/ultisnips.vim
+source $HOME/.vim/config/vim-ai.vim
+source $HOME/.vim/config/vim-test.vim
+source $HOME/.vim/config/vimtex.vim
+source $HOME/.vim/config/YouCompleteMe.vim
