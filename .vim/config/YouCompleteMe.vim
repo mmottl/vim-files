@@ -1,3 +1,5 @@
+let g:ycm_global_ycm_extra_conf = '~/.vim/config/ycm_extra_conf.py'
+
 if executable('brew')
   " Use Homebrew's clangd
   let g:ycm_clangd_binary_path = trim(system('brew --prefix llvm')).'/bin/clangd'
