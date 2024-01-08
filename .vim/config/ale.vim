@@ -82,7 +82,7 @@ let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 " ALE Fixers
 
 " sh/bash fixer options (consistent with Google Shell Style Guide)
-let g:ale_sh_shfmt_options = "-i 2 -ci"
+let g:ale_sh_shfmt_options = "-s -i 2 -ci -bn"
 
 " TODO: add Ansible
 " TODO: test clang-format, clang-tidy / clangtidy, clangd
