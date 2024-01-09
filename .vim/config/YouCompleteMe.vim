@@ -12,6 +12,7 @@ let g:ycm_show_detailed_diag_in_popup = 1
 let g:ycm_enable_semantic_highlighting = 1
 let g:ycm_enable_inlay_hints = 1
 let g:ycm_clear_inlay_hints_in_insert_mode = 1
+let g:ycm_always_populate_location_list = 1
 let g:ycm_goto_buffer_command='split-or-existing-window'
 let g:ycm_clangd_args = ['--clang-tidy']
 
@@ -45,3 +46,4 @@ nnoremap <leader>yp  :YcmCompleter GetParent<CR>
 nnoremap <leader>yt  :YcmCompleter GetType<CR>
 nnoremap <leader>yx  :YcmCompleter FixIt<CR>
 nnoremap <leader>yy  :YcmRestartServer<CR>
+nnoremap <leader>yY  :YcmDiags<CR>

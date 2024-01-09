@@ -36,6 +36,16 @@ function! s:setup_fzf_git_files()
 endfunction
 nnoremap <silent> <leader>fg :call <SID>setup_fzf_git_files()<CR>
 
+" Set up spell checking via FZF
+function! FzfSpellSink(word)
+  exe 'normal! "_ciw'.a:word
+endfunction
+function! FzfSpell()
+  let suggestions = spellsuggest(expand("<cword>"))
+  return fzf#run({'source': suggestions, 'sink': function("FzfSpellSink"), 'down': 10 })
+endfunction
+nnoremap z= :call FzfSpell()<CR>
+
 nnoremap <silent> <leader>fG :FZFGFiles?<CR>
 nnoremap <silent> <leader>fr :FZFRg<CR>
 nnoremap <silent> <leader>fR :FZFRG<CR>

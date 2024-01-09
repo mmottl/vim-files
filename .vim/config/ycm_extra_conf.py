@@ -21,7 +21,7 @@ def Settings(**kwargs):
             flags.extend(['-x', 'c++', '-std=c++20'])  # Adjust C++ standard as needed
         else:
             # C specific flags
-            flags.extend(['-x', 'c', '-std=c11'])  # Adjust C standard as needed
+            flags.extend(['-x', 'c', '-std=c17'])  # Adjust C standard as needed
 
         # Add the include paths for both C and C++
         for path in include_paths:
