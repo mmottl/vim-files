@@ -99,7 +99,6 @@ let g:ale_linters = {
 " sh/bash fixer options (consistent with Google Shell Style Guide)
 let g:ale_sh_shfmt_options = "-s -i 2 -ci -bn"
 
-" TODO: check linter list
 " Fixers
 " NOTES:
 " - 'ansible' covered by 'yaml'
