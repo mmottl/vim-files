@@ -36,7 +36,7 @@ set cpo+=J
 set hidden
 
 " Command line history
-set history=1000
+set history=10000
 
 " Highlight matches, and incremental search
 set hlsearch
