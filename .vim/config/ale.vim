@@ -39,9 +39,6 @@ nmap <C-j> <plug>(ale_next_wrap)
 
 " ALE Linters
 
-" Only enable specific linters
-let g:ale_linters_explicit = 1
-
 " Common C/C++ include path
 let c_include_path = getenv('C_INCLUDE_PATH')
 if c_include_path != ''
@@ -74,6 +71,12 @@ let g:ale_sh_bashate_options = '-i E003 --max-line-length 80'
 " Rust linter options
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 
+" Only enable specific linters
+" let g:ale_linters_explicit = 1
+
+let g:ale_linters_ignore = {
+\}
+
 " Linter registration
 " NOTES:
 " - 'cspell' may be too intrusive
@@ -84,12 +87,14 @@ let g:ale_linters = {
 \   'go': ['gofmt', 'golangci-lint', 'revive', 'staticcheck'],
 \   'java': ['javalsp', 'checkstyle', 'pmd'],
 \   'json': ['jsonlint', 'spectral'],
-\   'markdown': ['markdownlint', 'proselint', 'vale', 'write_good'],
+\   'markdown': ['markdownlint', 'proselint', 'vale', 'writegood'],
 \   'ocaml': ['merlin'],
+\   'proto': ['buf_lint', 'protolint'],
 \   'python': ['ruff', 'flake8', 'pylint', 'pyright', 'bandit'],
 \   'rust': ['analyzer', 'cargo'],
 \   'sh': ['bashate', 'language_server', 'shell', 'shellcheck'],
 \   'sql': ['sqlfluff'],
+\   'xml': ['xmllint'],
 \   'yaml': ['yamllint', 'yaml-language-server',
 \            'actionlint', 'circleci', 'spectral'],
 \}
@@ -112,11 +117,14 @@ let g:ale_fixers = {
 \   'json': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
 \   'markdown': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
 \   'ocaml': ['ocamlformat', 'trim_whitespace', 'remove_trailing_lines'],
+\   'proto': ['buf-format', 'protolint',
+\             'trim_whitespace', 'remove_trailing_lines'],
 \   'python': ['ruff_format', 'trim_whitespace', 'remove_trailing_lines'],
 \   'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \   'sh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \   'sql': ['sqlfluff', 'trim_whitespace', 'remove_trailing_lines'],
 \   'vim': ['trim_whitespace', 'remove_trailing_lines'],
 \   'yaml': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
+\   'xml': ['xmllint', 'trim_whitespace', 'remove_trailing_lines'],
 \   'zsh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \}
