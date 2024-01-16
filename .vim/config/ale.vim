@@ -128,3 +128,24 @@ let g:ale_fixers = {
 \   'xml': ['xmllint', 'trim_whitespace', 'remove_trailing_lines'],
 \   'zsh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \}
+
+" Helper functions and bindings
+
+" Copy the ALE warning message for the current line to the clipboard
+function! CopyAleWarningToClipboard()
+  " Start redirecting to a variable
+  redir => warning_message
+  " Echo the ALE warning message for the current line
+  call ale#cursor#EchoCursorWarning()
+  " End the redirection
+  redir END
+  " Trim whitespace and newlines from the beginning and end of the message
+  let warning_message = substitute(warning_message, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+  " Ensure the message ends with a newline character
+  let warning_message .= "\n"
+  " Copy the message with the newline to the clipboard register
+  let @+ = warning_message
+endfunction
+
+" Key binding to call the function using <Leader>w
+nnoremap <Leader>ac :call CopyAleWarningToClipboard()<CR>
