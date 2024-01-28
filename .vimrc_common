@@ -51,8 +51,9 @@ set laststatus=2
 " When we do wrap visibly (by calling set wrap), break in reasonable places
 set linebreak
 
-" Want mouse support
+" Want good mouse support
 set mouse=a
+set ttymouse=sgr
 
 " Set options for autocompletion
 set noinfercase
@@ -195,6 +196,8 @@ nnoremap <silent> <leader>w :w<CR>
 nnoremap <silent> <leader>m :make<CR>
 
 " Source specialized vimrc files
+source $HOME/.vim/config/aichat.vim
+source $HOME/.vim/config/bazel.vim
 source $HOME/.vim/config/airline.vim
 source $HOME/.vim/config/ale.vim
 source $HOME/.vim/config/choosewin.vim
