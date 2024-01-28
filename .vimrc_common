@@ -97,7 +97,7 @@ set textwidth=0
 set title
 
 " Remember some stuff after quiting vim: marks, registers, searches, buffer list
-set viminfo='20,<50,s10,h,%
+set viminfo='50,<1000,s100,h,%
 
 " No beeps - don't want to annoy neighbors
 set visualbell
