@@ -68,7 +68,7 @@ function! s:open_selected_lsd_file(root, sinklist)
   let selected_file = file_parts[-1]
 
   " Check if root is provided or not (zero)
-  if a:root[0] == 0
+  if a:root[0] == '0'
     execute cmd . ' ' . fnameescape(selected_file)
   else
     " Open file using chosen command with the root directory prepended
