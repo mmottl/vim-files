@@ -110,6 +110,7 @@ let g:ale_sh_shfmt_options = "-s -i 2 -ci -bn"
 " - 'dprint' and 'biome' may eclipse 'prettier' in the future
 let g:ale_fixers = {
 \   'bash': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
+\   'bzl': ['buildifier', 'trim_whitespace', 'remove_trailing_lines'],
 \   'c': ['clang-format', 'trim_whitespace', 'remove_trailing_lines'],
 \   'cpp': ['clang-format', 'trim_whitespace', 'remove_trailing_lines'],
 \   'go': ['gofmt', 'trim_whitespace', 'remove_trailing_lines'],
