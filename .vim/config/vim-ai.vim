@@ -1,4 +1,4 @@
-let s:chat_ai_model = "gpt-4-1106-preview"
+let s:chat_ai_model = "gpt-4-turbo-preview"
 let s:instruct_ai_model = "gpt-3.5-turbo-instruct"
 
 " This prompt instructs model to work with syntax highlighting
@@ -93,12 +93,12 @@ augroup end
 nnoremap <leader>dr :AIRedo
 
 " Complete text on current line or in visual selection with optional instruction
-nnoremap <leader>da :AI 
-xnoremap <leader>da :AI 
+nnoremap <leader>da :AI
+xnoremap <leader>da :AI
 
 " Edit text on current line or in visual selection with optional instruction
-nnoremap <leader>de :AIEdit 
-xnoremap <leader>de :AIEdit 
+nnoremap <leader>de :AIEdit
+xnoremap <leader>de :AIEdit
 
 " New chat (below), in tab, or on the side (right)
 nnoremap <leader>dn :AINewChat below<CR>
@@ -106,8 +106,8 @@ nnoremap <leader>dt :AINewChat tab<CR>
 nnoremap <leader>ds :AINewChat right<CR>
 
 " Start or continue chat with optional selection and optional instruction
-nnoremap <leader>dc :AIChat 
-xnoremap <leader>dc :AIChat 
+nnoremap <leader>dc :AIChat
+xnoremap <leader>dc :AIChat
 nnoremap <leader>dd :AIChat<CR>
 
 " Fix line or selection for both general text and code with filetype context
@@ -200,4 +200,4 @@ function! AISyntaxFn(range, ...) range
   endif
 endfunction
 command! -range -nargs=? AISyntax <line1>,<line2> call AISyntaxFn(<range>, <f-args>)
-nnoremap <leader>dS :AISyntax 
+nnoremap <leader>dS :AISyntax
