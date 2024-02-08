@@ -131,6 +131,14 @@ function! s:setup_fzf_git_files()
 endfunction
 nnoremap <silent> <leader>fx :call <SID>setup_fzf_git_files()<CR>
 
+" Augment ripgrep FZF integration with delta
+command! -bang -nargs=* FZFRg
+  \ call fzf#vim#grep(
+  \   "rg_delta -- ".fzf#shellescape(<q-args>), fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=* FZFRG
+  \ call fzf#vim#grep2(
+  \   "rg_delta -- ", <q-args>, fzf#vim#with_preview(), <bang>0)
+
 " FZF MRU
 
 " Helper function to replace home directory with tilde, preserving icons
