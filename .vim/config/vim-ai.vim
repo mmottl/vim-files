@@ -6,6 +6,7 @@ let s:initial_chat_prompt =<< trim END
 
 You are a general assistant. When attaching code blocks, add their syntax type
 after ``` to enable highlighting. Keep your responses concise and to the point.
+Try to keep all text within 80 characters.
 END
 
 " Temperature 0.2 is fairly conservative for coding
