@@ -1,4 +1,5 @@
-let s:ai_model = "gpt-4-turbo-preview"
+let s:chat_ai_model = "gpt-4-turbo-preview"
+let s:instruct_ai_model = "gpt-3.5-turbo-instruct"
 
 " This prompt instructs model to work with syntax highlighting
 let s:initial_chat_prompt =<< trim END
@@ -12,7 +13,7 @@ END
 " Temperature 0.2 is fairly conservative for coding
 let g:vim_ai_chat = {
 \  "options": {
-\    "model": s:ai_model,
+\    "model": s:chat_ai_model,
 \    "temperature": 0.2,
 \    "initial_prompt": s:initial_chat_prompt,
 \  },
@@ -20,16 +21,14 @@ let g:vim_ai_chat = {
 
 let g:vim_ai_complete = {
 \  "options": {
-\    "model": s:ai_model,
-\    "endpoint_url": "https://api.openai.com/v1/chat/completions",
+\    "model": s:instruct_ai_model,
 \    "temperature": 0.2,
 \  },
 \}
 
 let g:vim_ai_edit = {
 \  "options": {
-\    "model": s:ai_model,
-\    "endpoint_url": "https://api.openai.com/v1/chat/completions",
+\    "model": s:instruct_ai_model,
 \    "temperature": 0.2,
 \  },
 \}
