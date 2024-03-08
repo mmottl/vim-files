@@ -62,7 +62,14 @@ let g:ale_cpp_gcc_options = cpp_opts
 let g:ale_cpp_clang_options = cpp_opts
 
 " Java linter options
-let g:ale_java_checkstyle_config = "google_checks.xml"
+let g:ale_java_checkstyle_config = 'google_checks.xml'
+
+" Python linter options
+let g:ale_python_pyright_config = {
+  \ 'pyright': {
+  \   'typeCheckingMode': 'basic',
+  \ },
+  \}
 
 " Shell linter options
 " Ignore level 4 indent, set maximum line length
@@ -95,11 +102,16 @@ let g:ale_linters = {
 \   'sh': ['bashate', 'language_server', 'shell', 'shellcheck'],
 \   'sql': ['sqlfluff'],
 \   'xml': ['xmllint'],
+"\   'yaml': ['yamllint', 'yaml-language-server',
+"\            'actionlint', 'circleci', 'spectral'],
 \   'yaml': ['yamllint', 'yaml-language-server',
-\            'actionlint', 'circleci', 'spectral'],
+\            'circleci', 'spectral'],
 \}
 
 " ALE Fixers
+
+" Python format options
+let g:ale_python_ruff_format_options = "--line-length 79"
 
 " sh/bash fixer options (consistent with Google Shell Style Guide)
 let g:ale_sh_shfmt_options = "-s -i 2 -ci -bn"
