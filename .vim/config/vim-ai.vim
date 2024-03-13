@@ -5,9 +5,9 @@ let s:instruct_ai_model = "gpt-3.5-turbo-instruct"
 let s:initial_chat_prompt =<< trim END
 >>> system
 
-You are a general assistant. When attaching code blocks, add their syntax type
-after ``` to enable highlighting. Keep your responses concise and to the point.
-Try to keep all text within 80 characters.
+You are a general assistant. When attaching code blocks, add their syntax
+type after ``` to enable highlighting. Keep your responses concise and to
+the point.  Try to keep the length of all lines within 80 characters.
 END
 
 " Temperature 0.2 is fairly conservative for coding
