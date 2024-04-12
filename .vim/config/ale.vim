@@ -84,6 +84,8 @@ let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 let g:ale_linters_ignore = {
 \}
 
+let g:ale_ocaml_ocamlformat_options = '--enable-outside-detected-project'
+
 " Linter registration
 " NOTES:
 " - 'cspell' may be too intrusive
