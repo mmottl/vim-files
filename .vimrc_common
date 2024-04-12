@@ -219,3 +219,8 @@ source $HOME/.vim/config/vim-ai.vim
 source $HOME/.vim/config/vim-test.vim
 source $HOME/.vim/config/vimtex.vim
 source $HOME/.vim/config/YouCompleteMe.vim
+
+" Load local settings
+if filereadable(expand("~/.vimrc_local"))
+  source ~/.vimrc_local
+endif
