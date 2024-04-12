@@ -109,9 +109,6 @@
 [submodule ".vim/pack/mmottl/start/fzf-mru.vim"]
 	path = .vim/pack/mmottl/start/fzf-mru.vim
 	url = git@github.com:pbogut/fzf-mru.vim.git
-[submodule ".vim/pack/mmottl/start/codeium.vim"]
-	path = .vim/pack/mmottl/start/codeium.vim
-	url = git@github.com:Exafunction/codeium.vim.git
 [submodule ".vim/pack/mmottl/start/vim-ai"]
 	path = .vim/pack/mmottl/start/vim-ai
 	url = git@github.com:madox2/vim-ai.git
