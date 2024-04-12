@@ -1,4 +1,4 @@
-let s:chat_ai_model = "gpt-4-turbo-preview"
+let s:chat_ai_model = "gpt-4-turbo-2024-04-09"
 let s:instruct_ai_model = "gpt-3.5-turbo-instruct"
 
 " This prompt instructs model to work with syntax highlighting
@@ -116,8 +116,8 @@ function! AIFixFn()
   " Get the current filetype
   let curr_ft = &filetype
   " Design the fix command to include filetype information for context
-  let fix_cmd  = 'AIEdit You are improving a text that may contain '
-  let fix_cmd .= 'both general text and ' . curr_ft . ' code. '
+  let fix_cmd  = 'AIEdit You are fixing or improving a snippet that may '
+  let fix_cmd .= 'contain general text and ' . curr_ft . ' code. '
 
   " Check if there's a visual selection
   if mode() =~# '\v\v|V|\^V'
@@ -133,7 +133,7 @@ endfunction
 nnoremap <leader>df :call AIFixFn()<CR>
 
 " Visual mode mapping to fix selected text
-xnoremap <leader>df :call AIFixFn()<CR>
+xnoremap <leader>df :<C-u>call AIFixFn()<CR>
 
 " Explain or summarize the selected text or code
 function! AIExplainSelection()
@@ -185,8 +185,8 @@ function! AIPromptCodeReviewFn(range) range
   \}
   '<,'>call vim_ai#AIChatRun(a:range, l:config, l:prompt)
 endfunction
-command! -range AIPromptCodeReview <line1>,<line2>call AIPromptCodeReviewFn(<range>)
-xnoremap <leader>dR :call AIPromptCodeReviewFn()<CR>
+command! -range AIPromptCodeReview <line1>,<line2> call AIPromptCodeReviewFn(<range>)
+xnoremap <leader>dR :AIPromptCodeReview<CR>
 
 " Custom command for adding filetype to the instruction
 function! AISyntaxFn(range, ...) range
@@ -202,3 +202,4 @@ function! AISyntaxFn(range, ...) range
 endfunction
 command! -range -nargs=? AISyntax <line1>,<line2> call AISyntaxFn(<range>, <f-args>)
 nnoremap <leader>dS :AISyntax
+xnoremap <leader>dS :AISyntax
