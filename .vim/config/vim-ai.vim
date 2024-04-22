@@ -1,4 +1,4 @@
-let s:chat_ai_model = "gpt-4-turbo-2024-04-09"
+let s:chat_ai_model = "gpt-4-turbo"
 let s:instruct_ai_model = "gpt-3.5-turbo-instruct"
 
 " This prompt instructs model to work with syntax highlighting
