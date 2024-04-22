@@ -15,6 +15,7 @@ let g:ycm_clear_inlay_hints_in_insert_mode = 1
 let g:ycm_always_populate_location_list = 1
 let g:ycm_goto_buffer_command='split-or-existing-window'
 let g:ycm_clangd_args = ['--clang-tidy']
+let g:ycm_autoclose_preview_window_after_completion=1
 
 " For :YcmShowDetailedDiagnostic
 let g:ycm_key_detailed_diagnostics = '<leader>yd'
