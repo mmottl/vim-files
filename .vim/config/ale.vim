@@ -119,6 +119,9 @@ let g:ale_python_ruff_format_options = "--line-length 79"
 " sh/bash fixer options (consistent with Google Shell Style Guide)
 let g:ale_sh_shfmt_options = "-s -i 2 -ci -bn"
 
+" Rust format options
+let g:ale_rust_rustfmt_options="+nightly-2024-03-28"
+
 " Fixers
 " NOTES:
 " - 'ansible' covered by 'yaml'
