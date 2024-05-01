@@ -1,6 +1,7 @@
 " On save settings
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 'normal'
 
 " Floating window
 let g:ale_floating_preview = 1
@@ -78,6 +79,9 @@ let g:ale_sh_bashate_options = '-i E003 --max-line-length 80'
 
 " Rust linter options
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
+let g:ale_rust_cargo_use_clippy = 1
+let g:ale_rust_cargo_clippy_options =
+  \ '--release --tests --all-features --all-targets -- -D warnings'
 
 " Only enable specific linters
 " let g:ale_linters_explicit = 1
