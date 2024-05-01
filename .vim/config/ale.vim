@@ -83,6 +83,16 @@ let g:ale_rust_cargo_use_clippy = 1
 let g:ale_rust_cargo_clippy_options =
   \ '--release --tests --all-features --all-targets -- -D warnings'
 
+" TODO: currently not working
+" YAML linter options
+ let g:ale_yaml_ls_config = {
+ \   'yaml': {
+ \     'customTags': [
+ \       '!vault scalar'
+ \     ],
+ \   },
+ \ }
+
 " Only enable specific linters
 " let g:ale_linters_explicit = 1
 
