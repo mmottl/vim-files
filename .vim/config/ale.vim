@@ -50,6 +50,7 @@ endif
 
 " Common C/C++ options
 let common_opts = '-Wall -Wextra -pedantic -Wno-keyword-macro ' . base_includes
+let g:ale_c_cppcheck_options="--check-level=exhaustive"
 
 " C linter options
 let c_opts = common_opts . '-std=c17'
