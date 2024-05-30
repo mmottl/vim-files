@@ -1,4 +1,4 @@
-let s:chat_ai_model = "gpt-4-turbo"
+let s:chat_ai_model = "gpt-4o"
 let s:instruct_ai_model = "gpt-3.5-turbo-instruct"
 
 " This prompt instructs model to work with syntax highlighting
@@ -203,3 +203,34 @@ endfunction
 command! -range -nargs=? AISyntax <line1>,<line2> call AISyntaxFn(<range>, <f-args>)
 nnoremap <leader>dS :AISyntax
 xnoremap <leader>dS :AISyntax
+
+" Helper functions and bindings for moving code blocks between to/from AI chats
+
+function! CopyCodeBlock()
+  let l:start = search('```', 'bnW')
+  let l:end = search('```', 'nW')
+  if l:start > 0 && l:end > 0 && l:start < l:end
+    execute l:start + 1 . ',' . (l:end - 1) . 'y'
+  else
+    echo "No code block found!"
+  endif
+endfunction
+
+nnoremap <leader>d` :call CopyCodeBlock()<CR>
+
+function! YankWithCodeBlock()
+  let l:filetype = &filetype
+  if l:filetype == ''
+    let l:filetype = 'text'
+  endif
+  normal! gv"zy
+  let l:code = getreg('z')
+  let l:formatted_code = '```' . l:filetype . "\n" . l:code . "```\n"
+  call setreg('*', l:formatted_code)
+  normal! ""
+endfunction
+
+xnoremap <leader>dy :<C-u>call YankWithCodeBlock()<CR>
+xnoremap <leader>dn :<C-u>call YankWithCodeBlock()<CR>:AINewChat below<CR>k:put *<CR>jo
+xnoremap <leader>dt :<C-u>call YankWithCodeBlock()<CR>:AINewChat tab<CR>k:put *<CR>jo
+xnoremap <leader>ds :<C-u>call YankWithCodeBlock()<CR>:AINewChat right<CR>k:put *<CR>jo
