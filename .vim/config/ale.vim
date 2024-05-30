@@ -82,7 +82,7 @@ let g:ale_sh_bashate_options = '-i E003 --max-line-length 80'
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 let g:ale_rust_cargo_use_clippy = 1
 let g:ale_rust_cargo_clippy_options =
-  \ '--release --tests --all-features --all-targets -- -D warnings'
+  \ '--tests --all-features --all-targets -- -D warnings'
 
 " TODO: currently not working
 " YAML linter options
@@ -135,7 +135,7 @@ let g:ale_python_ruff_format_options = "--line-length 79"
 let g:ale_sh_shfmt_options = "-s -i 2 -ci -bn"
 
 " Rust format options
-let g:ale_rust_rustfmt_options="+nightly-2024-03-28"
+let g:ale_rust_rustfmt_options="+nightly-2024-03-28 --edition 2021"
 
 " Fixers
 " NOTES:
