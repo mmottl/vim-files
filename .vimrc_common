@@ -113,7 +113,7 @@ map  [3~ <Del>
 map! [3~ <Del>
 
 " Turn on syntax highlighting and indentation
-:syntax on
+:syntax enable
 :filetype plugin indent on
 
 " Better syntax highlighting for shell scripts.
