@@ -121,3 +121,6 @@
 [submodule ".vim/pack/mmottl/start/codeium.vim"]
 	path = .vim/pack/mmottl/start/codeium.vim
 	url = git@github.com:Exafunction/codeium.vim.git
+[submodule ".vim/pack/mmottl/start/vim-toml"]
+	path = .vim/pack/mmottl/start/vim-toml
+	url = git@github.com:cespare/vim-toml.git
