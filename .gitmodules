@@ -49,9 +49,6 @@
 [submodule ".vim/pack/mmottl/start/rust.vim"]
 	path = .vim/pack/mmottl/start/rust.vim
 	url = git://github.com/rust-lang/rust.vim
-[submodule ".vim/pack/mmottl/start/vim-cargo"]
-	path = .vim/pack/mmottl/start/vim-cargo
-	url = git://github.com/timonv/vim-cargo
 [submodule ".vim/pack/mmottl/start/vim-test"]
 	path = .vim/pack/mmottl/start/vim-test
 	url = git://github.com/vim-test/vim-test
