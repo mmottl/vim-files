@@ -48,5 +48,5 @@ nnoremap <leader>yo  :YcmCompleter OrganizeImports<CR>
 nnoremap <leader>yp  :YcmCompleter GetParent<CR>
 nnoremap <leader>yt  :YcmCompleter GetType<CR>
 nnoremap <leader>yx  :YcmCompleter FixIt<CR>
-nnoremap <leader>yy  :YcmRestartServer<CR>
-nnoremap <leader>yY  :YcmDiags<CR>
+nnoremap <leader>yy  :YcmDiags<CR>
+nnoremap <leader>yY  :YcmRestartServer<CR>

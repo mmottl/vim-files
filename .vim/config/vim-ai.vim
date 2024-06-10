@@ -6,8 +6,9 @@ let s:initial_chat_prompt =<< trim END
 >>> system
 
 You are a general assistant. When attaching code blocks, add their syntax
-type after ``` to enable highlighting. Keep your responses concise and to
-the point.  Try to keep the length of all lines within 80 characters.
+type after ``` to enable highlighting for Vim. Keep your responses concise
+and to the point. Try to avoid copying input already provided by the user
+in your answers. Try to keep the length of all lines within 80 characters.
 END
 
 " Temperature 0.2 is fairly conservative for coding

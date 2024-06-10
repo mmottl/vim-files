@@ -157,6 +157,7 @@ let g:ale_fixers = {
 \   'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \   'sh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \   'sql': ['sqlfluff', 'trim_whitespace', 'remove_trailing_lines'],
+\   'toml': ['trim_whitespace', 'remove_trailing_lines'],
 \   'vim': ['trim_whitespace', 'remove_trailing_lines'],
 \   'yaml': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
 \   'xml': ['xmllint', 'trim_whitespace', 'remove_trailing_lines'],
