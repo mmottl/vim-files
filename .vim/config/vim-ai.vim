@@ -1,5 +1,4 @@
-let s:chat_ai_model = "gpt-4o"
-let s:instruct_ai_model = "gpt-3.5-turbo-instruct"
+let s:ai_model = "gpt-4o"
 
 " This prompt instructs model to work with syntax highlighting
 let s:initial_chat_prompt =<< trim END
@@ -14,25 +13,41 @@ END
 " Temperature 0.2 is fairly conservative for coding
 let g:vim_ai_chat = {
 \  "options": {
-\    "model": s:chat_ai_model,
+\    "model": s:ai_model,
 \    "temperature": 0.2,
 \    "initial_prompt": s:initial_chat_prompt,
 \  },
 \}
 
-let g:vim_ai_complete = {
-\  "options": {
-\    "model": s:instruct_ai_model,
-\    "temperature": 0.2,
-\  },
-\}
+let initial_completion_prompt =<< trim END
+>>> system
 
-let g:vim_ai_edit = {
-\  "options": {
-\    "model": s:instruct_ai_model,
-\    "temperature": 0.2,
-\  },
-\}
+You are going to play the role of a completion engine with the following
+parameters:
+Task: Provide compact code/text completion, generation, transformation, or
+explanation.
+Topic: general programming and text editing.
+Style: Plain result without code block delimiters or commentary, unless
+commentary is necessary.
+Audience: Users of text editors and programmers that need to transform/generate
+text.
+END
+
+let chat_engine_config = {
+      \  "engine": "chat",
+      \  "options": {
+      \    "model": "gpt-4o",
+      \    "endpoint_url": "https://api.openai.com/v1/chat/completions",
+      \    "max_tokens": 0,
+      \    "temperature": 0.1,
+      \    "request_timeout": 20,
+      \    "selection_boundary": "",
+      \    "initial_prompt": initial_completion_prompt,
+      \  },
+      \}
+
+let g:vim_ai_complete = chat_engine_config
+let g:vim_ai_edit = chat_engine_config
 
 " Jump to AI chat sections
 function! s:AIChatSetupJump2Section()
@@ -119,6 +134,8 @@ function! AIFixFn()
   " Design the fix command to include filetype information for context
   let fix_cmd  = 'AIEdit You are fixing or improving a snippet that may '
   let fix_cmd .= 'contain general text and ' . curr_ft . ' code. '
+  let fix_cmd .= 'Keep the syntax consistent with the filetype and avoid code'
+  let fix_cmd .= 'block delimiters and comments unless necessary.'
 
   " Check if there's a visual selection
   if mode() =~# '\v\v|V|\^V'
@@ -164,8 +181,9 @@ function! AIPromptCommitMessageFn()
   let l:prompt = "Generate a short commit message from this diff:\n" . l:diff
   let l:range = 0
   let l:config = {
+  \  "engine": "chat",
   \  "options": {
-  \    "model": s:instruct_ai_model,
+  \    "model": s:ai_model,
   \    "initial_prompt": ">>> system\nYou are a code assistant",
   \    "temperature": 0.2,
   \  },
@@ -180,7 +198,7 @@ function! AIPromptCodeReviewFn(range) range
   let l:prompt = "Vim filetype is " . &filetype . ", review the code below"
   let l:config = {
   \  "options": {
-  \    "model": s:chat_ai_model,
+  \    "model": s:ai_model,
   \    "initial_prompt": ">>> system\nYou are a code review expert.",
   \  },
   \}
