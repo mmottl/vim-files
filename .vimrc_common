@@ -189,26 +189,36 @@ nnoremap <silent> <leader>w :w<CR>
 nnoremap <silent> <leader>m :make<CR>
 
 " Source specialized vimrc files
-source $HOME/.vim/config/aichat.vim
-source $HOME/.vim/config/airline.vim
-source $HOME/.vim/config/ale.vim
-source $HOME/.vim/config/choosewin.vim
-source $HOME/.vim/config/codeium.vim
-source $HOME/.vim/config/editorconfig.vim
-source $HOME/.vim/config/fzf.vim
-source $HOME/.vim/config/git-gutter.vim
-source $HOME/.vim/config/markdown.vim
-source $HOME/.vim/config/nerdtree.vim
-source $HOME/.vim/config/ocaml.vim
-source $HOME/.vim/config/rainbow.vim
-source $HOME/.vim/config/ripgrep.vim
-source $HOME/.vim/config/slime.vim
-source $HOME/.vim/config/supertab.vim
-source $HOME/.vim/config/ultisnips.vim
-source $HOME/.vim/config/vim-ai.vim
-source $HOME/.vim/config/vim-test.vim
-source $HOME/.vim/config/vimtex.vim
-source $HOME/.vim/config/YouCompleteMe.vim
+
+let configs = [
+  \ 'aichat',
+  \ 'airline',
+  \ 'ale',
+  \ 'choosewin',
+  \ 'codeium',
+  \ 'editorconfig',
+  \ 'fzf',
+  \ 'git-gutter',
+  \ 'markdown',
+  \ 'nerdtree',
+  \ 'ocaml',
+  \ 'rainbow',
+  \ 'ripgrep',
+  \ 'slime',
+  \ 'supertab',
+  \ 'ultisnips',
+  \ 'vim-ai',
+  \ 'vim-test',
+  \ 'vimtex',
+  \ 'YouCompleteMe'
+  \ ]
+
+for config in configs
+  let config_path = expand("$HOME/.vim/config/" . config . ".vim")
+  if filereadable(config_path)
+    execute 'source' config_path
+  endif
+endfor
 
 " Load local settings
 if filereadable(expand("~/.vimrc_local"))
