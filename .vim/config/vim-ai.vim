@@ -1,4 +1,6 @@
-let s:ai_model = "gpt-4o"
+"""""""""""""
+"  Prompts  "
+"""""""""""""
 
 " This prompt instructs model to work with syntax highlighting
 let s:initial_chat_prompt =<< trim END
@@ -9,15 +11,6 @@ type after ``` to enable highlighting for Vim. Keep your responses concise
 and to the point. Try to avoid copying input already provided by the user
 in your answers. Try to keep the length of all lines within 80 characters.
 END
-
-" Temperature 0.2 is fairly conservative for coding
-let g:vim_ai_chat = {
-\  "options": {
-\    "model": s:ai_model,
-\    "temperature": 0.2,
-\    "initial_prompt": s:initial_chat_prompt,
-\  },
-\}
 
 let initial_completion_prompt =<< trim END
 >>> system
@@ -33,10 +26,26 @@ Audience: Users of text editors and programmers that need to transform/generate
 text.
 END
 
+""""""""""""
+"  OpenAI  "
+""""""""""""
+
+let g:vim_ai_token_file_path = '~/.config/openai.token'
+let s:ai_model = "gpt-4o"
+
+" Temperature 0.2 is fairly conservative for coding
+let g:vim_ai_chat = {
+\  "options": {
+\    "model": s:ai_model,
+\    "temperature": 0.2,
+\    "initial_prompt": s:initial_chat_prompt,
+\  },
+\}
+
 let chat_engine_config = {
       \  "engine": "chat",
       \  "options": {
-      \    "model": "gpt-4o",
+      \    "model": s:ai_model,
       \    "endpoint_url": "https://api.openai.com/v1/chat/completions",
       \    "max_tokens": 0,
       \    "temperature": 0.1,
@@ -45,6 +54,40 @@ let chat_engine_config = {
       \    "initial_prompt": initial_completion_prompt,
       \  },
       \}
+
+"""""""""""""""""""""""""""
+"  Anthropic via One API  "
+"""""""""""""""""""""""""""
+
+" let g:vim_ai_token_file_path = '~/.config/one-api.token'
+" let s:ai_model = "claude-3-sonnet-20240229"
+"
+" " Temperature 0.2 is fairly conservative for coding
+" let g:vim_ai_chat = {
+" \  'options': {
+" \    'endpoint_url': 'http://localhost:3000/v1/chat/completions',
+" \    "model": s:ai_model,
+" \    "temperature": 0.2,
+" \    "initial_prompt": s:initial_chat_prompt,
+" \  },
+" \}
+"
+" let chat_engine_config = {
+"       \  "engine": "chat",
+"       \  "options": {
+"       \    "model": s:ai_model,
+"       \    'endpoint_url': 'http://localhost:3000/v1/chat/completions',
+"       \    "max_tokens": 0,
+"       \    "temperature": 0.1,
+"       \    "request_timeout": 20,
+"       \    "selection_boundary": "",
+"       \    "initial_prompt": initial_completion_prompt,
+"       \  },
+"       \}
+
+"""""""""""""""""""""""""""
+"  General Configuration  "
+"""""""""""""""""""""""""""
 
 let g:vim_ai_complete = chat_engine_config
 let g:vim_ai_edit = chat_engine_config
