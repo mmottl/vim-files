@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Ripgrep with suitable arguments
+rg_cmd() {
+  rg --line-number --column --no-heading --smart-case --sort=path \
+    --color=always "$@"
+}
+
+# Double ripgrep and delta with suitable arguments
+paste \
+  <(rg_cmd "$@" | sed -e 's/^\([^:]*:[^:]*:[^:]*:\).*/\1/') \
+  <(rg_cmd --json "$@" | delta --grep-output-type classic | cut -d: -f4-)

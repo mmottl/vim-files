@@ -1,0 +1,229 @@
+" Maintainer:   Markus Mottl <markus.mottl@gmail.com>
+" URL:          https://github.com/mmottl/vim-files
+
+" I want Vim, not Vi
+set nocompatible
+
+" Don't want to type indentation
+set autoindent
+
+" Automatically write buffer before special actions
+set autowrite
+
+" Make clipboard work on Macs
+set clipboard=unnamed
+
+" Tabs are evil
+set expandtab
+
+" Set formatting of text and comments
+set formatoptions=tn1cqro
+
+" My default format program
+set formatprg=fmt\ -w\ 80\ -u
+
+" My sentences are separated by two spaces
+set cpo+=J
+
+" Only hide invisible buffers (keeps their editing state)
+set hidden
+
+" Command line history
+set history=10000
+
+" Highlight matches, and incremental search
+set hlsearch
+set incsearch
+
+" Don't display macro steps
+set lazyredraw
+
+" Always want statusline
+set laststatus=2
+
+" When we do wrap visibly (by calling set wrap), break in reasonable places
+set linebreak
+
+" Want good mouse support
+set mouse=a
+set ttymouse=sgr
+
+" Set options for autocompletion
+set noinfercase
+
+" Don't move cursor to first line when scrolling
+set nostartofline
+
+" Set statusline if Airline not used
+set statusline=%F%m%r%h%w\ %y\ [pos=%l,%c%V]\ [len=%L\ (%p%%)]
+
+" Turn on persistent undo
+set undofile
+set undodir=~/.vim-undodir
+set undolevels=1000
+set undoreload=10000
+
+" Maintain some more context around the cursor
+set scrolloff=3
+set sidescrolloff=3
+
+" Not too deep, not too shallow
+set shiftwidth=2
+set tabstop=2
+
+" Show size of visual selection
+set showcmd
+
+" Show matching braces
+set showmatch
+
+" We want fancy tab handling
+set smarttab
+
+" Want better buffer handling in quickfix mode
+set switchbuf=useopen,usetab,newtab
+
+" Don't wrap words
+set textwidth=0
+
+" Set the terminal title
+set title
+
+" Remember some stuff after quiting vim: marks, registers, searches, buffer list
+set viminfo='50,<1000,s100,h,%
+
+" No beeps - don't want to annoy neighbors
+set visualbell
+
+" Expand the command line using tab
+set wildmenu
+set wildmode=list:longest,full
+
+" Use UTF-8 for files
+if &modifiable
+  set fileencoding=utf-8
+endif
+
+" Backspacing + deleting and wrapping of lines
+set backspace=start,eol,indent whichwrap=b,s,l,h,<,>,[,]
+map <BS> dh
+map  <BS>
+map!  <BS>
+map  [3~ <Del>
+map! [3~ <Del>
+
+" Turn on syntax highlighting and indentation
+:syntax enable
+:filetype plugin indent on
+
+" Better syntax highlighting for shell scripts.
+" Syntax highlight shell scripts as per POSIX,
+" not the original Bourne shell, which very few use
+let g:is_posix = 1
+
+" Color preferences and functions
+if (has("termguicolors"))
+  set termguicolors
+
+  let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+  let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+endif
+
+" Set colorscheme
+set background=dark
+colorscheme default
+
+" Different cursor shape in insert and normal mode
+let &t_SI .= "\e[6 q"
+let &t_EI .= "\e[2 q"
+
+" Ex-mode is pretty dumb, remap Q to reformat the current paragraph
+nnoremap Q gqip
+
+" , is a more convenient leader than \
+let mapleader = ","
+let maplocalleader = ",,"
+
+" Underline the current line with - or = in normal mode
+nnoremap <leader>u yyp<C-v>$r-
+nnoremap <leader>U yyp<C-v>$r=
+
+" Remove GUI-nonsense
+set guioptions-=T
+set guioptions-=m
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L
+
+" Completion options
+set completeopt=menu,menuone,preview,noselect,noinsert
+
+" Ignore irrelevant suffixes for filename completion
+set wildignore+=*.a,*.bak,*~,*.swp,*.o,*.info,*.aux,*.dvi,*.bbl,*.blg,*.brf,*.cb,*.ind,*.idx,*.ilg,*.inx,*.out,*.toc,*.cmi,*.cmo,*.cma,*.cmx,*.cmxa,*.cmxs,*.cmt,*.cmti,*.omc,*.exe,*.native,*.byte,*.bc
+
+" Change directories automatically
+augroup LocalDirectoryChange
+  autocmd!
+  autocmd BufEnter * if expand('%') != '' && filereadable(expand('%')) | lcd %:p:h | endif
+augroup END
+
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+
+" Keyword syntax for shell scripts
+autocmd FileType sh set iskeyword=~,@,48-57,_,192-255,-
+
+" Load matchit for % matching
+runtime! macros/matchit.vim
+
+" Set location for NetrW bookmarks and history
+let g:netrw_home=$HOME
+
+" Turn off match highlighting and clear Codeium prediction
+nnoremap <silent> <leader>H :nohlsearch<CR>:call codeium#Clear()<CR>
+
+" Save quickly
+nnoremap <silent> <leader>w :w<CR>
+
+" Make
+nnoremap <silent> <leader>m :make<CR>
+
+" Source specialized vimrc files
+
+let configs = [
+  \ 'aichat',
+  \ 'airline',
+  \ 'ale',
+  \ 'choosewin',
+  \ 'codeium',
+  \ 'editorconfig',
+  \ 'fzf',
+  \ 'git-gutter',
+  \ 'markdown',
+  \ 'nerdtree',
+  \ 'ocaml',
+  \ 'rainbow',
+  \ 'ripgrep',
+  \ 'slime',
+  \ 'supertab',
+  \ 'ultisnips',
+  \ 'vim-ai',
+  \ 'vim-test',
+  \ 'vimtex',
+  \ 'YouCompleteMe'
+  \ ]
+
+for config in configs
+  let config_path = expand("$HOME/.vim/config/" . config . ".vim")
+  if filereadable(config_path)
+    execute 'source' config_path
+  endif
+endfor
+
+" Load local settings
+if filereadable(expand("~/.vimrc_local"))
+  source ~/.vimrc_local
+endif

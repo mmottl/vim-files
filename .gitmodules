@@ -1,0 +1,120 @@
+[submodule ".vim/pack/mmottl/start/YouCompleteMe"]
+	path = .vim/pack/mmottl/start/YouCompleteMe
+	url = git@github.com:ycm-core/YouCompleteMe.git
+[submodule ".vim/pack/mmottl/start/ale"]
+	path = .vim/pack/mmottl/start/ale
+	url = git@github.com:dense-analysis/ale.git
+[submodule ".vim/pack/mmottl/start/ansible-vim"]
+	path = .vim/pack/mmottl/start/ansible-vim
+	url = git@github.com:pearofducks/ansible-vim.git
+[submodule ".vim/pack/mmottl/start/codeium.vim"]
+	path = .vim/pack/mmottl/start/codeium.vim
+	url = git@github.com:Exafunction/codeium.vim.git
+[submodule ".vim/pack/mmottl/start/editorconfig-vim"]
+	path = .vim/pack/mmottl/start/editorconfig-vim
+	url = git@github.com:editorconfig/editorconfig-vim.git
+[submodule ".vim/pack/mmottl/start/fzf"]
+	path = .vim/pack/mmottl/start/fzf
+	url = git@github.com:junegunn/fzf.git
+[submodule ".vim/pack/mmottl/start/fzf-mru.vim"]
+	path = .vim/pack/mmottl/start/fzf-mru.vim
+	url = git@github.com:pbogut/fzf-mru.vim.git
+[submodule ".vim/pack/mmottl/start/fzf.vim"]
+	path = .vim/pack/mmottl/start/fzf.vim
+	url = git@github.com:junegunn/fzf.vim.git
+[submodule ".vim/pack/mmottl/start/linediff.vim"]
+	path = .vim/pack/mmottl/start/linediff.vim
+	url = git@github.com:AndrewRadev/linediff.vim.git
+[submodule ".vim/pack/mmottl/start/nerdtree"]
+	path = .vim/pack/mmottl/start/nerdtree
+	url = git@github.com:preservim/nerdtree.git
+[submodule ".vim/pack/mmottl/start/nerdtree-git-plugin"]
+	path = .vim/pack/mmottl/start/nerdtree-git-plugin
+	url = git@github.com:Xuyuanp/nerdtree-git-plugin.git
+[submodule ".vim/pack/mmottl/start/nerdtree-visual-selection"]
+	path = .vim/pack/mmottl/start/nerdtree-visual-selection
+	url = git@github.com:PhilRunninger/nerdtree-visual-selection.git
+[submodule ".vim/pack/mmottl/start/neural"]
+	path = .vim/pack/mmottl/start/neural
+	url = git@github.com:dense-analysis/neural.git
+[submodule ".vim/pack/mmottl/start/rainbow"]
+	path = .vim/pack/mmottl/start/rainbow
+	url = git@github.com:luochen1990/rainbow.git
+[submodule ".vim/pack/mmottl/start/rust.vim"]
+	path = .vim/pack/mmottl/start/rust.vim
+	url = git@github.com:rust-lang/rust.vim.git
+[submodule ".vim/pack/mmottl/start/supertab"]
+	path = .vim/pack/mmottl/start/supertab
+	url = git@github.com:ervandew/supertab.git
+[submodule ".vim/pack/mmottl/start/tcomment_vim"]
+	path = .vim/pack/mmottl/start/tcomment_vim
+	url = git@github.com:tomtom/tcomment_vim.git
+[submodule ".vim/pack/mmottl/start/ultisnips"]
+	path = .vim/pack/mmottl/start/ultisnips
+	url = git@github.com:SirVer/ultisnips.git
+[submodule ".vim/pack/mmottl/start/vim-ai"]
+	path = .vim/pack/mmottl/start/vim-ai
+	url = git@github.com:madox2/vim-ai.git
+[submodule ".vim/pack/mmottl/start/vim-airline"]
+	path = .vim/pack/mmottl/start/vim-airline
+	url = git@github.com:vim-airline/vim-airline.git
+[submodule ".vim/pack/mmottl/start/vim-choosewin"]
+	path = .vim/pack/mmottl/start/vim-choosewin
+	url = git@github.com:t9md/vim-choosewin.git
+[submodule ".vim/pack/mmottl/start/vim-devicons"]
+	path = .vim/pack/mmottl/start/vim-devicons
+	url = git@github.com:ryanoasis/vim-devicons.git
+[submodule ".vim/pack/mmottl/start/vim-easymotion"]
+	path = .vim/pack/mmottl/start/vim-easymotion
+	url = git@github.com:easymotion/vim-easymotion.git
+[submodule ".vim/pack/mmottl/start/vim-fugitive"]
+	path = .vim/pack/mmottl/start/vim-fugitive
+	url = git@github.com:tpope/vim-fugitive.git
+[submodule ".vim/pack/mmottl/start/vim-gitgutter"]
+	path = .vim/pack/mmottl/start/vim-gitgutter
+	url = git@github.com:airblade/vim-gitgutter.git
+[submodule ".vim/pack/mmottl/start/vim-gradle"]
+	path = .vim/pack/mmottl/start/vim-gradle
+	url = git@github.com:hdiniz/vim-gradle.git
+[submodule ".vim/pack/mmottl/start/vim-ocaml"]
+	path = .vim/pack/mmottl/start/vim-ocaml
+	url = git@github.com:ocaml/vim-ocaml.git
+[submodule ".vim/pack/mmottl/start/vim-highlightedyank"]
+	path = .vim/pack/mmottl/start/vim-highlightedyank
+	url = git@github.com:machakann/vim-highlightedyank.git
+[submodule ".vim/pack/mmottl/start/vim-lsp"]
+	path = .vim/pack/mmottl/start/vim-lsp
+	url = git@github.com:prabirshrestha/vim-lsp.git
+[submodule ".vim/pack/mmottl/start/vim-obsession"]
+	path = .vim/pack/mmottl/start/vim-obsession
+	url = git@github.com:tpope/vim-obsession.git
+[submodule ".vim/pack/mmottl/start/vim-repeat"]
+	path = .vim/pack/mmottl/start/vim-repeat
+	url = git@github.com:tpope/vim-repeat.git
+[submodule ".vim/pack/mmottl/start/vim-signature"]
+	path = .vim/pack/mmottl/start/vim-signature
+	url = git@github.com:kshenoy/vim-signature.git
+[submodule ".vim/pack/mmottl/start/vim-slime"]
+	path = .vim/pack/mmottl/start/vim-slime
+	url = git@github.com:jpalardy/vim-slime.git
+[submodule ".vim/pack/mmottl/start/vim-snippets"]
+	path = .vim/pack/mmottl/start/vim-snippets
+	url = git@github.com:honza/vim-snippets.git
+[submodule ".vim/pack/mmottl/start/vim-surround"]
+	path = .vim/pack/mmottl/start/vim-surround
+	url = git@github.com:tpope/vim-surround.git
+[submodule ".vim/pack/mmottl/start/vim-test"]
+	path = .vim/pack/mmottl/start/vim-test
+	url = git@github.com:vim-test/vim-test.git
+[submodule ".vim/pack/mmottl/start/vim-toml"]
+	path = .vim/pack/mmottl/start/vim-toml
+	url = git@github.com:cespare/vim-toml.git
+[submodule ".vim/pack/mmottl/start/vim-unimpaired"]
+	path = .vim/pack/mmottl/start/vim-unimpaired
+	url = git@github.com:tpope/vim-unimpaired.git
+[submodule ".vim/pack/mmottl/start/vimtex"]
+	path = .vim/pack/mmottl/start/vimtex
+	url = git@github.com:lervag/vimtex.git
+[submodule ".vim/pack/mmottl/start/vimux"]
+	path = .vim/pack/mmottl/start/vimux
+	url = git@github.com:preservim/vimux.git
