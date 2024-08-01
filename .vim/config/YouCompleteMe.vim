@@ -19,6 +19,26 @@ let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_error_symbol = '✘'
 let g:ycm_warning_symbol = '⚠'
 
+let MY_YCM_HIGHLIGHT_GROUP = {
+      \ 'attributeBracket': 'Delimiter',
+      \ 'boolean': 'Boolean',
+      \ 'builtinAttribute': 'PreProc',
+      \ 'builtinType': 'Type',
+      \ 'const': 'Constant',
+      \ 'decorator': 'Function',
+      \ 'formatSpecifier': 'Special',
+      \ 'generic': 'Type',
+      \ 'lifetime': 'Identifier',
+      \ 'selfKeyword': 'Keyword',
+      \ 'selfTypeKeyword': 'Type',
+      \ 'typeAlias': 'Type',
+      \ }
+
+for tokenType in keys(MY_YCM_HIGHLIGHT_GROUP)
+  call prop_type_add('YCM_HL_' . tokenType,
+                    \ { 'highlight': MY_YCM_HIGHLIGHT_GROUP[tokenType] })
+endfor
+
 " For :YcmShowDetailedDiagnostic
 let g:ycm_key_detailed_diagnostics = '<leader>yd'
 
