@@ -57,6 +57,8 @@ let c_opts = common_opts . '-std=c17'
 let g:ale_c_cc_options = c_opts
 let g:ale_c_clang_options = c_opts
 let g:ale_c_gcc_options = c_opts
+" For using compile_commands.json
+" let g:ale_c_parse_compile_commands = 1
 
 " C++ linter options
 let cpp_opts = common_opts . '-std=c++20'
