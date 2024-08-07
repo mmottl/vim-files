@@ -193,31 +193,9 @@ nnoremap <silent> <leader>m :make<CR>
 
 " Source specialized vimrc files
 
-let configs = [
-  \ 'aichat',
-  \ 'airline',
-  \ 'ale',
-  \ 'choosewin',
-  \ 'codeium',
-  \ 'editorconfig',
-  \ 'fzf',
-  \ 'git-gutter',
-  \ 'markdown',
-  \ 'nerdtree',
-  \ 'ocaml',
-  \ 'rainbow',
-  \ 'ripgrep',
-  \ 'slime',
-  \ 'supertab',
-  \ 'ultisnips',
-  \ 'vim-ai',
-  \ 'vim-test',
-  \ 'vimtex',
-  \ 'YouCompleteMe'
-  \ ]
+let config_files = glob("$HOME/.vim/config/*.vim", 0, 1)
 
-for config in configs
-  let config_path = expand("$HOME/.vim/config/" . config . ".vim")
+for config_path in config_files
   if filereadable(config_path)
     execute 'source' config_path
   endif
