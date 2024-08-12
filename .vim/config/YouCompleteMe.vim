@@ -45,7 +45,6 @@ let g:ycm_key_detailed_diagnostics = '<leader>yd'
 nnoremap <silent> <leader>yD <plug>(YCMHover)
 nnoremap <silent> <leader>yH <Plug>(YCMToggleInlayHints)
 nnoremap <leader>yfd <Plug>(YCMFindSymbolInDocument)
-nnoremap <leader>yfs <Plug>(YCMFindSymbol)
 nnoremap <leader>yfw <Plug>(YCMFindSymbolInWorkspace)
 
 nnoremap <leader>yc  :YcmCompleter ClearCompilationFlagCache<CR>
