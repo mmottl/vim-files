@@ -148,6 +148,7 @@ let g:ale_fixers = {
 \   'bzl': ['buildifier', 'trim_whitespace', 'remove_trailing_lines'],
 \   'c': ['clang-format', 'trim_whitespace', 'remove_trailing_lines'],
 \   'cpp': ['clang-format', 'trim_whitespace', 'remove_trailing_lines'],
+\   'dune': ['dune', 'trim_whitespace', 'remove_trailing_lines'],
 \   'go': ['gofmt', 'trim_whitespace', 'remove_trailing_lines'],
 \   'java': ['google_java_format', 'trim_whitespace', 'remove_trailing_lines'],
 \   'json': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
