@@ -85,6 +85,7 @@ let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 let g:ale_rust_cargo_use_clippy = 1
 let g:ale_rust_cargo_clippy_options =
   \ '--tests --all-features --all-targets -- -D warnings'
+let g:ale_rust_cargo_check_all_targets=1
 
 " TODO: currently not working
 " YAML linter options
