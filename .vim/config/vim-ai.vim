@@ -153,12 +153,12 @@ augroup end
 nnoremap <leader>dr :AIRedo
 
 " Complete text on current line or in visual selection with optional instruction
-nnoremap <leader>da :AI
-xnoremap <leader>da :AI
+nnoremap <leader>da :AI<Space>
+xnoremap <leader>da :AI<Space>
 
 " Edit text on current line or in visual selection with optional instruction
-nnoremap <leader>de :AIEdit
-xnoremap <leader>de :AIEdit
+nnoremap <leader>de :AIEdit<Space>
+xnoremap <leader>de :AIEdit<Space>
 
 " New chat (below), in tab, or on the side (right)
 nnoremap <leader>dn :AINewChat below<CR>
@@ -166,8 +166,8 @@ nnoremap <leader>dt :AINewChat tab<CR>
 nnoremap <leader>ds :AINewChat right<CR>
 
 " Start or continue chat with optional selection and optional instruction
-nnoremap <leader>dc :AIChat
-xnoremap <leader>dc :AIChat
+nnoremap <leader>dc :AIChat<Space>
+xnoremap <leader>dc :AIChat<Space>
 nnoremap <leader>dd :AIChat<CR>
 
 " Fix line or selection for both general text and code with filetype context
