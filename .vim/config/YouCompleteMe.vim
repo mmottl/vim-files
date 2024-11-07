@@ -4,6 +4,7 @@ if executable('brew')
   " Use Homebrew's clangd
   let g:ycm_clangd_binary_path = trim(system('brew --prefix llvm')).'/bin/clangd'
 endif
+
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:ycm_key_list_stop_completion = ['<C-y>', '<CR>']
@@ -19,6 +20,17 @@ let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_error_symbol = '✘'
 let g:ycm_warning_symbol = '⚠'
 
+function! SetRustToolchainRoot()
+  let l:toolchain_info = system('rustup show active-toolchain')
+  if v:shell_error == 0
+    let l:toolchain = matchstr(l:toolchain_info, '^\S\+')
+    let g:ycm_rust_toolchain_root = expand('~/.rustup/toolchains/' . l:toolchain)
+  else
+    echo "Error: Failed to determine active toolchain"
+  endif
+endfunction
+call SetRustToolchainRoot()
+
 let MY_YCM_HIGHLIGHT_GROUP = {
       \ 'attributeBracket': 'Delimiter',
       \ 'boolean': 'Boolean',
@@ -32,6 +44,7 @@ let MY_YCM_HIGHLIGHT_GROUP = {
       \ 'selfKeyword': 'Keyword',
       \ 'selfTypeKeyword': 'Type',
       \ 'typeAlias': 'Type',
+      \ 'static': 'Keyword',
       \ }
 
 for tokenType in keys(MY_YCM_HIGHLIGHT_GROUP)
