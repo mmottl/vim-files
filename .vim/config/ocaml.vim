@@ -12,6 +12,7 @@ function! s:FT_ocaml()
   nmap <LocalLeader>r <Plug>(MerlinRename)
   nmap <LocalLeader>R <Plug>(MerlinRenameAppend)
   nmap <LocalLeader>T :MerlinYankLatestType<CR>
+  nmap <LocalLeader>gt :MerlinLocateType<CR>
 endfunction
 
 au FileType ocaml call s:FT_ocaml()
