@@ -118,3 +118,6 @@
 [submodule ".vim/pack/mmottl/start/vimux"]
 	path = .vim/pack/mmottl/start/vimux
 	url = git@github.com:preservim/vimux.git
+[submodule ".vim/pack/mmottl/start/QFEnter"]
+	path = .vim/pack/mmottl/start/QFEnter
+	url = git@github.com:yssl/QFEnter
