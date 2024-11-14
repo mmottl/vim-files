@@ -1,6 +1,3 @@
-[submodule ".vim/pack/mmottl/start/YouCompleteMe"]
-	path = .vim/pack/mmottl/start/YouCompleteMe
-	url = git@github.com:ycm-core/YouCompleteMe.git
 [submodule ".vim/pack/mmottl/start/ale"]
 	path = .vim/pack/mmottl/start/ale
 	url = git@github.com:dense-analysis/ale.git
@@ -10,9 +7,6 @@
 [submodule ".vim/pack/mmottl/start/codeium.vim"]
 	path = .vim/pack/mmottl/start/codeium.vim
 	url = git@github.com:Exafunction/codeium.vim.git
-[submodule ".vim/pack/mmottl/start/editorconfig-vim"]
-	path = .vim/pack/mmottl/start/editorconfig-vim
-	url = git@github.com:editorconfig/editorconfig-vim.git
 [submodule ".vim/pack/mmottl/start/fzf"]
 	path = .vim/pack/mmottl/start/fzf
 	url = git@github.com:junegunn/fzf.git
@@ -121,3 +115,9 @@
 [submodule ".vim/pack/mmottl/start/QFEnter"]
 	path = .vim/pack/mmottl/start/QFEnter
 	url = git@github.com:yssl/QFEnter
+[submodule ".vim/pack/mmottl/start/YouCompleteMe"]
+	path = .vim/pack/mmottl/start/YouCompleteMe
+	url = git@github.com:ycm-core/YouCompleteMe.git
+[submodule ".vim/pack/mmottl/start/editorconfig-vim"]
+	path = .vim/pack/mmottl/start/editorconfig-vim
+	url = git@github.com:editorconfig/editorconfig-vim.git
