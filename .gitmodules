@@ -121,3 +121,6 @@
 [submodule ".vim/pack/mmottl/start/editorconfig-vim"]
 	path = .vim/pack/mmottl/start/editorconfig-vim
 	url = git@github.com:editorconfig/editorconfig-vim.git
+[submodule ".vim/pack/mmottl/start/vim-dispatch"]
+	path = .vim/pack/mmottl/start/vim-dispatch
+	url = git@github.com:tpope/vim-dispatch.git
