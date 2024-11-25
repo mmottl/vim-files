@@ -139,6 +139,30 @@ let g:ale_sh_shfmt_options = "-s -i 2 -ci -bn"
 " Rust format options
 let g:ale_rust_rustfmt_options="+nightly-2024-03-28 --edition 2021"
 
+" Dune formatting options
+function! s:SetAleOCamlDuneOptions()
+  let l:git_root = trim(system('git rev-parse --show-toplevel 2>/dev/null'))
+  if v:shell_error
+    return
+  endif
+  let l:search_dir = getcwd()
+  while l:search_dir !=# fnamemodify(l:git_root, ':h')
+    let l:dune_project_path = l:search_dir . '/dune-project'
+    if filereadable(l:dune_project_path)
+      let l:first_line = readfile(l:dune_project_path, '', 1)[0]
+      if l:first_line =~# '^ *(lang dune '
+        let l:version = matchstr(l:first_line, '\d\+\.\d\+')
+        if !empty(l:version)
+          let g:ale_ocaml_dune_options = '--dune-version ' . l:version
+          return
+        endif
+      endif
+    endif
+    let l:search_dir = fnamemodify(l:search_dir, ':h')
+  endwhile
+endfunction
+call s:SetAleOCamlDuneOptions()
+
 " Fixers
 " NOTES:
 " - 'ansible' covered by 'yaml'
