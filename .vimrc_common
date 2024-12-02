@@ -57,12 +57,6 @@ set nostartofline
 " Set statusline if Airline not used
 set statusline=%F%m%r%h%w\ %y\ [pos=%l,%c%V]\ [len=%L\ (%p%%)]
 
-" Turn on persistent undo
-set undofile
-set undodir=~/.vim-undodir
-set undolevels=1000
-set undoreload=10000
-
 " Maintain some more context around the cursor
 set scrolloff=3
 set sidescrolloff=3
@@ -144,10 +138,6 @@ nnoremap Q gqip
 let mapleader = ","
 let maplocalleader = ",,"
 
-" Underline the current line with - or = in normal mode
-nnoremap <leader>u yyp<C-v>$r-
-nnoremap <leader>U yyp<C-v>$r=
-
 " Remove GUI-nonsense
 set guioptions-=T
 set guioptions-=m
@@ -190,6 +180,16 @@ nnoremap <silent> <leader>w :w<CR>
 
 " Make
 nnoremap <silent> <leader>m :make<CR>
+
+" Turn on persistent undo
+set undofile
+set undodir=~/.vim-undodir
+set undolevels=1000
+set undoreload=10000
+nnoremap <leader>u :UndotreeToggle<CR>
+
+" Tagbar
+nmap <leader>T :TagbarToggle<CR>
 
 " Source specialized vimrc files
 

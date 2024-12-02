@@ -30,6 +30,7 @@ nnoremap <silent> <leader>fG :FZFGFiles?<CR>
 nnoremap <silent> <leader>fr :FZFRg<CR>
 nnoremap <silent> <leader>fR :FZFRG<CR>
 nnoremap <silent> <leader>fb :FZFBuffers<CR>
+nnoremap <silent> <leader>fB :FZFBTags<CR>
 nnoremap <silent> <leader>fl :FZFBLines<CR>
 nnoremap <silent> <leader>fL :FZFLines<CR>
 nnoremap <silent> <leader>fc :FZFChanges<CR>
@@ -42,6 +43,7 @@ nnoremap <silent> <leader>fC :FZFCommands<CR>
 nnoremap <silent> <leader>fM :FZFMaps<CR>
 nnoremap <silent> <leader>fH :FZFHelptags<CR>
 nnoremap <silent> <leader>ft :FZFFiletypes<CR>
+nnoremap <silent> <leader>fT :FZFTags<CR>
 
 " Function to open selected files with root prefix while stripping lsd icon
 function! s:open_selected_lsd_file(root, sinklist)

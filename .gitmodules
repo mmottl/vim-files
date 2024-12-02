@@ -124,3 +124,12 @@
 [submodule ".vim/pack/mmottl/start/vim-dispatch"]
 	path = .vim/pack/mmottl/start/vim-dispatch
 	url = git@github.com:tpope/vim-dispatch.git
+[submodule ".vim/pack/mmottl/start/undotree"]
+	path = .vim/pack/mmottl/start/undotree
+	url = git@github.com:mbbill/undotree.git
+[submodule ".vim/pack/mmottl/start/vim-gutentags"]
+	path = .vim/pack/mmottl/start/vim-gutentags
+	url = git@github.com:ludovicchabant/vim-gutentags.git
+[submodule ".vim/pack/mmottl/start/tagbar"]
+	path = .vim/pack/mmottl/start/tagbar
+	url = git@github.com:preservim/tagbar.git
