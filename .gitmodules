@@ -133,3 +133,6 @@
 [submodule ".vim/pack/mmottl/start/tagbar"]
 	path = .vim/pack/mmottl/start/tagbar
 	url = git@github.com:preservim/tagbar.git
+[submodule ".vim/pack/mmottl/start/vim-matchup"]
+	path = .vim/pack/mmottl/start/vim-matchup
+	url = git@github.com:andymass/vim-matchup.git
