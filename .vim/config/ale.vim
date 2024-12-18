@@ -166,7 +166,6 @@ call s:SetAleOCamlDuneOptions()
 " Fixers
 " NOTES:
 " - 'ansible' covered by 'yaml'
-" - 'dprint' and 'biome' may eclipse 'prettier' in the future
 let g:ale_fixers = {
 \   'bash': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \   'bzl': ['buildifier', 'trim_whitespace', 'remove_trailing_lines'],
@@ -175,8 +174,8 @@ let g:ale_fixers = {
 \   'dune': ['dune', 'trim_whitespace', 'remove_trailing_lines'],
 \   'go': ['gofmt', 'trim_whitespace', 'remove_trailing_lines'],
 \   'java': ['google_java_format', 'trim_whitespace', 'remove_trailing_lines'],
-\   'json': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
-\   'markdown': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
+\   'json': ['dprint', 'trim_whitespace', 'remove_trailing_lines'],
+\   'markdown': ['dprint', 'trim_whitespace', 'remove_trailing_lines'],
 \   'ocaml': ['ocamlformat', 'trim_whitespace', 'remove_trailing_lines'],
 \   'proto': ['buf-format', 'protolint',
 \             'trim_whitespace', 'remove_trailing_lines'],
@@ -184,9 +183,9 @@ let g:ale_fixers = {
 \   'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \   'sh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \   'sql': ['sqlfluff', 'trim_whitespace', 'remove_trailing_lines'],
-\   'toml': ['trim_whitespace', 'remove_trailing_lines'],
+\   'toml': ['dprint', 'trim_whitespace', 'remove_trailing_lines'],
 \   'vim': ['trim_whitespace', 'remove_trailing_lines'],
-\   'yaml': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
+\   'yaml': ['dprint', 'trim_whitespace', 'remove_trailing_lines'],
 \   'xml': ['xmllint', 'trim_whitespace', 'remove_trailing_lines'],
 \   'zsh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \}
