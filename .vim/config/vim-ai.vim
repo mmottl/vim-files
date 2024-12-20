@@ -161,9 +161,9 @@ nnoremap <leader>de :AIEdit<Space>
 xnoremap <leader>de :AIEdit<Space>
 
 " New chat (below), in tab, or on the side (right)
-nnoremap <leader>dn :AINewChat below<CR>
-nnoremap <leader>dt :AINewChat tab<CR>
-nnoremap <leader>ds :AINewChat right<CR>
+nnoremap <leader>dn :AIChat /below<CR>
+nnoremap <leader>dt :AIChat /tab<CR>
+nnoremap <leader>ds :AIChat /right<CR>
 
 " Start or continue chat with optional selection and optional instruction
 nnoremap <leader>dc :AIChat<Space>
@@ -293,6 +293,6 @@ function! YankWithCodeBlock()
 endfunction
 
 xnoremap <leader>dy :<C-u>call YankWithCodeBlock()<CR>
-xnoremap <leader>dn :<C-u>call YankWithCodeBlock()<CR>:AINewChat below<CR>k:put *<CR>jo
-xnoremap <leader>dt :<C-u>call YankWithCodeBlock()<CR>:AINewChat tab<CR>k:put *<CR>jo
-xnoremap <leader>ds :<C-u>call YankWithCodeBlock()<CR>:AINewChat right<CR>k:put *<CR>jo
+xnoremap <leader>dn :<C-u>call YankWithCodeBlock()<CR>:AIChat /below<CR>k:put *<CR>jo
+xnoremap <leader>dt :<C-u>call YankWithCodeBlock()<CR>:AIChat /tab<CR>k:put *<CR>jo
+xnoremap <leader>ds :<C-u>call YankWithCodeBlock()<CR>:AIChat /right<CR>k:put *<CR>jo

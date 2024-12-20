@@ -96,6 +96,9 @@ let g:ale_yaml_ls_config = {
 \   },
 \ }
 
+" Markdown linter options
+let g:ale_markdown_markdownlint_executable = 'markdownlint-cli2'
+
 " Only enable specific linters
 " let g:ale_linters_explicit = 1
 
@@ -185,7 +188,7 @@ let g:ale_fixers = {
 \   'sql': ['sqlfluff', 'trim_whitespace', 'remove_trailing_lines'],
 \   'toml': ['dprint', 'trim_whitespace', 'remove_trailing_lines'],
 \   'vim': ['trim_whitespace', 'remove_trailing_lines'],
-\   'yaml': ['dprint', 'trim_whitespace', 'remove_trailing_lines'],
+\   'yaml': ['yamlfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \   'xml': ['xmllint', 'trim_whitespace', 'remove_trailing_lines'],
 \   'zsh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \}
