@@ -12,7 +12,7 @@ and to the point. Try to avoid copying input already provided by the user
 in your answers. Try to keep the length of all lines within 80 characters.
 END
 
-let initial_completion_prompt =<< trim END
+let s:initial_completion_prompt =<< trim END
 >>> system
 
 You are going to play the role of a completion engine with the following
@@ -26,16 +26,21 @@ Audience: Users of text editors and programmers that need to transform/generate
 text.
 END
 
-""""""""""""
-"  OpenAI  "
-""""""""""""
+"""""""""""""
+"  One API  "
+"""""""""""""
 
-let g:vim_ai_token_file_path = '~/.config/openai.token'
-let s:ai_model = "gpt-4o"
+let g:vim_ai_token_file_path = '~/.config/one-api.token'
+
+let s:ai_model = "claude-3-5-sonnet-latest"
+" let s:ai_model = "gpt-4o"
+" let s:ai_model = "gemini-2.0-flash-exp"
+" let s:ai_model = "gemini-2.0-flash-thinking-exp"
 
 " Temperature 0.2 is fairly conservative for coding
 let g:vim_ai_chat = {
-\  "options": {
+\  'options': {
+\    'endpoint_url': 'http://localhost:3000/v1/chat/completions',
 \    "model": s:ai_model,
 \    "temperature": 0.2,
 \    "initial_prompt": s:initial_chat_prompt,
@@ -46,26 +51,25 @@ let chat_engine_config = {
       \  "engine": "chat",
       \  "options": {
       \    "model": s:ai_model,
-      \    "endpoint_url": "https://api.openai.com/v1/chat/completions",
+      \    'endpoint_url': 'http://localhost:3000/v1/chat/completions',
       \    "max_tokens": 0,
       \    "temperature": 0.1,
       \    "request_timeout": 20,
       \    "selection_boundary": "",
-      \    "initial_prompt": initial_completion_prompt,
+      \    "initial_prompt": s:initial_completion_prompt,
       \  },
       \}
 
-"""""""""""""""""""""""""""
-"  Anthropic via One API  "
-"""""""""""""""""""""""""""
+""""""""""""
+"  OpenAI  "
+""""""""""""
 
-" let g:vim_ai_token_file_path = '~/.config/one-api.token'
-" let s:ai_model = "claude-3-5-sonnet-20240620"
+" let g:vim_ai_token_file_path = '~/.config/openai.token'
+" let s:ai_model = "gpt-4o"
 "
 " " Temperature 0.2 is fairly conservative for coding
 " let g:vim_ai_chat = {
-" \  'options': {
-" \    'endpoint_url': 'http://localhost:3000/v1/chat/completions',
+" \  "options": {
 " \    "model": s:ai_model,
 " \    "temperature": 0.2,
 " \    "initial_prompt": s:initial_chat_prompt,
@@ -76,12 +80,12 @@ let chat_engine_config = {
 "       \  "engine": "chat",
 "       \  "options": {
 "       \    "model": s:ai_model,
-"       \    'endpoint_url': 'http://localhost:3000/v1/chat/completions',
+"       \    "endpoint_url": "https://api.openai.com/v1/chat/completions",
 "       \    "max_tokens": 0,
 "       \    "temperature": 0.1,
 "       \    "request_timeout": 20,
 "       \    "selection_boundary": "",
-"       \    "initial_prompt": initial_completion_prompt,
+"       \    "initial_prompt": s:initial_completion_prompt,
 "       \  },
 "       \}
 
@@ -89,7 +93,7 @@ let chat_engine_config = {
 "  General Configuration  "
 """""""""""""""""""""""""""
 
-let g:vim_ai_complete = chat_engine_config
+let g:vim_ai_complete = chat_engine_config " Soon obsolete
 let g:vim_ai_edit = chat_engine_config
 
 " Jump to AI chat sections
