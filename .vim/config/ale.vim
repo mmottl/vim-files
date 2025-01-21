@@ -189,7 +189,7 @@ let g:ale_fixers = {
 \   'toml': ['dprint', 'trim_whitespace', 'remove_trailing_lines'],
 \   'vim': ['trim_whitespace', 'remove_trailing_lines'],
 \   'yaml': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
-\   'xml': ['xmllint', 'trim_whitespace', 'remove_trailing_lines'],
+"\   'xml': ['xmllint', 'trim_whitespace', 'remove_trailing_lines'],
 \   'zsh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
 \}
 
