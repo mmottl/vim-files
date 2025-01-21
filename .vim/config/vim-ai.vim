@@ -32,8 +32,8 @@ END
 
 let g:vim_ai_token_file_path = '~/.config/one-api.token'
 
-let s:ai_model = "claude-3-5-sonnet-latest"
-" let s:ai_model = "gpt-4o"
+" let s:ai_model = "claude-3-5-sonnet-latest"
+let s:ai_model = "gpt-4o"
 " let s:ai_model = "gemini-2.0-flash-exp"
 " let s:ai_model = "gemini-2.0-flash-thinking-exp"
 
